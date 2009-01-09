@@ -1,0 +1,11 @@
+# set this to your compiler's executable name (e.g. gfortran, g77)
+FC=g95
+# requested flags
+FFLAGS=-O3 -funroll-loops
+# set if you need shared library
+FPICFLAGS=-fPIC
+
+# BLAS library (only required for tests)
+BLAS=-lblas
+# LAPACK library (only required for tests)
+LAPACK=-llapack

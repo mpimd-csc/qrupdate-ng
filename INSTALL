@@ -1,0 +1,36 @@
+INSTALLATION NOTES FOR QRUPDATE
+-------------------------------
+
+The library is written in Fortran. Officially, it is Fortran 90-compliant,
+but will probably be compilable with Fortran 77 compilers supporting
+two common extensions: double complex type, end if/end do/end subroutine blocks
+and automatic arrays. The latter are only needed for the test suite.
+
+In particular, it has been tested with the following compilers:
+* gfortran 4.3
+* g95 0.91
+* Intel Fortran 10.1
+* g77 3.4 (does not compile test suite)
+* f2c (does not compile test suite)
+
+If you succeeded to compile qrupdate with a compiler not mentioned here
+(or an earlier version), please contact me so that the list can be expanded.
+
+To compile on an UNIX-compatible system, edit Makeconf to set up your
+preferred compiler & compiler flags. Defaults are provided using GNU Fortran,
+which should work straight away.
+
+Then do "make lib" to create a static library (libqrupdate.a). To create 
+a dynamic library (libqrupdate.so), do "make solib". In that case, make sure
+your compiler flags support PIC code (if needed on your system).
+
+To compile & run tests, do "make test". All tests will display their results as
+well as save them using the "tee" utility.  A test works correctly if it runs
+OK and outputs all small residuals (of order e-06 for single precision, e-14
+for double precision). Note that subsequent "make test" only redisplays the
+stored results, unless a test is changed.
+
+Installing is as simple as putting the library anywhere at will.
+
+Windows makefile is not (yet) provided, but should be easily derived from the
+UNIX one.
