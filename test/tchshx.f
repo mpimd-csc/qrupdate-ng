@@ -29,6 +29,7 @@
       write (*,*) 'zchshx test (right shift):'
       call ztest(n,i,j)
 
+      call pstats
       end program
 
       subroutine stest(n,i,j)

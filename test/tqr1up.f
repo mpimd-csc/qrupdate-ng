@@ -57,6 +57,7 @@ c
       write (*,*) 'zqr1up test (rows < columns):'
       call ztest(m,n,0)
 
+      call pstats
       end program
 
       subroutine stest(m,n,ec)

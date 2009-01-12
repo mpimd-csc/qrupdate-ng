@@ -36,6 +36,7 @@ c
       write (*,*) 'zch1up test:'
       call ztest(n)
 
+      call pstats
       end program
 
       subroutine stest(n)

@@ -47,6 +47,7 @@ c
       write (*,*) 'zqrdec test (economized factorization):'
       call ztest(m,n,j,1)
 
+      call pstats
       end program
 
       subroutine stest(m,n,j,ec)

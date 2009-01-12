@@ -208,11 +208,51 @@ c
  1002 format (1x,F6.3,SP,F6.3,'i',$)
       end subroutine
 
+      character*4 function spftol(rnrm)
+      real rnrm,slamch
+      external slamch
+      common /stats/ passed,failed
+      integer passed,failed
+      if (rnrm < 2e2*slamch('p')) then
+        spftol = 'PASS'
+        passed = passed + 1
+      else
+        spftol = 'FAIL'
+        failed = failed + 1
+      end if
+      end function
+
+      character*4 function dpftol(rnrm)
+      double precision rnrm,dlamch
+      external dlamch
+      common /stats/ passed,failed
+      integer passed,failed
+      if (rnrm < 2d2*dlamch('p')) then
+        dpftol = 'PASS'
+        passed = passed + 1
+      else
+        dpftol = 'FAIL'
+        failed = failed + 1
+      end if
+      end function
+
+      subroutine pstats
+      common /stats/ passed,failed
+      integer passed,failed
+
+      write(*,1001) 
+      write(*,1002) passed,failed
+      write(*,*)
+ 1001 format(70('-'))
+ 1002 format(1x,'total:',5x,'PASSED',1x,I3,5x,'FAILED',1x,I3)
+      end subroutine
+
       subroutine sqrchk(m,n,k,A,lda,Q,ldq,R,ldr)
       integer m,n,k,lda,ldq,ldr
       real A(lda,max(n,k)),Q(ldq,k),R(ldr,n)
       real rnrm,slange,slansy
-      external sgemm,ssyrk,slange,slansy
+      external sgemm,ssyrk,slange,slansy,spftol
+      character*4 spftol
       real wrk(m)
       integer i
 
@@ -220,7 +260,7 @@ c get residual
       call sgemm('N','N',m,n,k,-1e0,Q,ldq,R,ldr,1e0,A,lda)
 c get frobenius norm
       rnrm = slange('M',m,n,A,lda)
-      write(*,1001) rnrm
+      write(*,1001) rnrm,spftol(rnrm)
 c form Q'*Q - I
       call ssyrk('U','T',k,m,1e0,Q,ldq,0e0,A,lda)
       do i = 1,k
@@ -228,18 +268,19 @@ c form Q'*Q - I
       end do
 c get frobenius norm
       rnrm = slansy('M','U',k,A,lda,wrk)
-      write(*,1002) rnrm
+      write(*,1002) rnrm,spftol(rnrm)
       return
 
- 1001 format(6x,'residual error = ',10x,E21.12)
- 1002 format('orth. residual error = ',10x,E21.12)
+ 1001 format(6x,'residual error = ',10x,E21.12,5x,A6)
+ 1002 format('orth. residual error = ',10x,E21.12,5x,A6)
       end subroutine
 
       subroutine dqrchk(m,n,k,A,lda,Q,ldq,R,ldr)
       integer m,n,k,lda,ldq,ldr
       double precision A(lda,max(n,k)),Q(ldq,k),R(ldr,n)
       double precision rnrm,dlange,dlansy
-      external dgemm,dsyrk,dlange,dlansy
+      external dgemm,dsyrk,dlange,dlansy,dpftol
+      character*4 dpftol
       double precision wrk(m)
       integer i
 
@@ -247,7 +288,7 @@ c get residual
       call dgemm('N','N',m,n,k,-1d0,Q,ldq,R,ldr,1d0,A,lda)
 c get frobenius norm
       rnrm = dlange('M',m,n,A,lda)
-      write(*,1001) rnrm
+      write(*,1001) rnrm,dpftol(rnrm)
 c form Q'*Q - I
       call dsyrk('U','T',k,m,1d0,Q,ldq,0d0,A,lda)
       do i = 1,k
@@ -255,18 +296,19 @@ c form Q'*Q - I
       end do
 c get frobenius norm
       rnrm = dlansy('M','U',k,A,lda,wrk)
-      write(*,1002) rnrm
+      write(*,1002) rnrm,dpftol(rnrm)
       return
 
- 1001 format(6x,'residual error = ',10x,E21.12)
- 1002 format('orth. residual error = ',10x,E21.12)
+ 1001 format(6x,'residual error = ',10x,E21.12,5x,A6)
+ 1002 format('orth. residual error = ',10x,E21.12,5x,A6)
       end subroutine
 
       subroutine cqrchk(m,n,k,A,lda,Q,ldq,R,ldr)
       integer m,n,k,lda,ldq,ldr
       complex A(lda,max(n,k)),Q(ldq,k),R(ldr,n)
       real rnrm,clange,clanhe
-      external cgemm,csyrk,clange,clanhe
+      external cgemm,csyrk,clange,clanhe,spftol
+      character*4 spftol
       real wrk(m)
       integer i
 
@@ -274,7 +316,7 @@ c get residual
       call cgemm('N','N',m,n,k,-(1e0,0e0),Q,ldq,R,ldr,(1e0,0e0),A,lda)
 c get frobenius norm
       rnrm = clange('M',m,n,A,lda)
-      write(*,1001) rnrm
+      write(*,1001) rnrm,spftol(rnrm)
 c form Q'*Q - I
       call cherk('U','C',k,m,(1e0,0e0),Q,ldq,(0e0,0e0),A,lda)
       do i = 1,k
@@ -282,18 +324,19 @@ c form Q'*Q - I
       end do
 c get frobenius norm
       rnrm = clanhe('M','U',k,A,lda,wrk)
-      write(*,1002) rnrm
+      write(*,1002) rnrm,spftol(rnrm)
       return
 
- 1001 format(6x,'residual error = ',10x,E21.12)
- 1002 format('orth. residual error = ',10x,E21.12)
+ 1001 format(6x,'residual error = ',10x,E21.12,5x,A6)
+ 1002 format('orth. residual error = ',10x,E21.12,5x,A6)
       end subroutine
 
       subroutine zqrchk(m,n,k,A,lda,Q,ldq,R,ldr)
       integer m,n,k,lda,ldq,ldr
       double complex A(lda,max(n,k)),Q(ldq,k),R(ldr,n)
       double precision rnrm,zlange,zlanhe
-      external zgemm,zsyrk,zlange,zlanhe
+      external zgemm,zsyrk,zlange,zlanhe,dpftol
+      character*4 dpftol
       double precision wrk(m)
       integer i
 
@@ -301,7 +344,7 @@ c get residual
       call zgemm('N','N',m,n,k,-(1d0,0d0),Q,ldq,R,ldr,(1d0,0d0),A,lda)
 c get frobenius norm
       rnrm = zlange('M',m,n,A,lda)
-      write(*,1001) rnrm
+      write(*,1001) rnrm,dpftol(rnrm)
 c form Q'*Q - I
       call zherk('U','C',k,m,(1d0,0d0),Q,ldq,(0d0,0d0),A,lda)
       do i = 1,k
@@ -309,11 +352,11 @@ c form Q'*Q - I
       end do
 c get frobenius norm
       rnrm = zlanhe('M','U',k,A,lda,wrk)
-      write(*,1002) rnrm
+      write(*,1002) rnrm,dpftol(rnrm)
       return
 
- 1001 format(6x,'residual error = ',10x,E21.12)
- 1002 format('orth. residual error = ',10x,E21.12)
+ 1001 format(6x,'residual error = ',10x,E21.12,5x,A6)
+ 1002 format('orth. residual error = ',10x,E21.12,5x,A6)
       end subroutine
 
       subroutine schgen(n,A,lda,R,ldr)
@@ -420,7 +463,8 @@ c symmetrize A
       integer n,lda,ldr
       real A(lda,n),R(ldr,n)
       real rnrm,slansy
-      external ssyrk,slansy
+      external ssyrk,slansy,spftol
+      character*4 spftol
       real wrk(n)
       integer i,j
 
@@ -434,17 +478,18 @@ c form A - R'*R
       call ssyrk('U','T',n,n,1e0,R,ldr,-1e0,A,lda)
 c get frobenius norm
       rnrm = slansy('M','U',n,A,lda,wrk)
-      write(*,1001) rnrm
+      write(*,1001) rnrm,spftol(rnrm)
       return
 
- 1001 format(6x,'residual error = ',10x,E21.12)
+ 1001 format(6x,'residual error = ',10x,E21.12,5x,A6)
       end subroutine
 
       subroutine dchchk(n,A,lda,R,ldr)
       integer n,lda,ldr
       double precision A(lda,n),R(ldr,n)
       double precision rnrm,dlansy
-      external dsyrk,dlansy
+      external dsyrk,dlansy,dpftol
+      character*4 dpftol
       double precision wrk(n)
       integer i,j
 
@@ -458,17 +503,18 @@ c form A - R'*R
       call dsyrk('U','T',n,n,1d0,R,ldr,-1d0,A,lda)
 c get frobenius norm
       rnrm = dlansy('M','U',n,A,lda,wrk)
-      write(*,1001) rnrm
+      write(*,1001) rnrm,dpftol(rnrm)
       return
 
- 1001 format(6x,'residual error = ',10x,E21.12)
+ 1001 format(6x,'residual error = ',10x,E21.12,5x,A6)
       end subroutine
 
       subroutine cchchk(n,A,lda,R,ldr)
       integer n,lda,ldr
       complex A(lda,n),R(ldr,n)
       real rnrm,clanhe
-      external cherk,clanhe
+      external cherk,clanhe,spftol
+      character*4 spftol
       real wrk(n)
       integer i,j
 
@@ -482,17 +528,18 @@ c form A - R'*R
       call cherk('U','C',n,n,(1e0,0e0),R,ldr,(-1e0,0e0),A,lda)
 c get frobenius norm
       rnrm = clanhe('M','U',n,A,lda,wrk)
-      write(*,1001) rnrm
+      write(*,1001) rnrm,spftol(rnrm)
       return
 
- 1001 format(6x,'residual error = ',10x,E21.12)
+ 1001 format(6x,'residual error = ',10x,E21.12,5x,A6)
       end subroutine
 
       subroutine zchchk(n,A,lda,R,ldr)
       integer n,lda,ldr
       double complex A(lda,n),R(ldr,n)
       double precision rnrm,zlanhe
-      external zherk,zlanhe
+      external zherk,zlanhe,dpftol
+      character*4 dpftol
       double precision wrk(n)
       integer i,j
 
@@ -506,8 +553,8 @@ c form A - R'*R
       call zherk('U','C',n,n,(1d0,0d0),R,ldr,(-1d0,0d0),A,lda)
 c get frobenius norm
       rnrm = zlanhe('M','U',n,A,lda,wrk)
-      write(*,1001) rnrm
+      write(*,1001) rnrm,dpftol(rnrm)
       return
 
- 1001 format(6x,'residual error = ',10x,E21.12)
+ 1001 format(6x,'residual error = ',10x,E21.12,5x,A6)
       end subroutine

@@ -37,6 +37,7 @@ c
       write (*,*) 'zchinx test:'
       call ztest(n,j)
 
+      call pstats
       end program
 
       subroutine stest(n,j)

@@ -38,6 +38,7 @@ c
       write (*,*) 'zqrder test (full factorization):'
       call ztest(m,n,j)
 
+      call pstats
       end program
 
       subroutine stest(m,n,j)
