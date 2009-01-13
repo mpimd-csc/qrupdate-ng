@@ -25,11 +25,12 @@ c               A = R'*R, this subroutine updates R -> R1 so that
 c               R1'*R1 = A(jj,jj), where jj = [1:j-1,j+1:n+1].
 c               (real version)
 c arguments:
-c n (in)        the order of matrix R
-c R (io)        the original upper trapezoidal matrix R
-c ldr (in)      leading dimension of R
-c j (in)        the position of the deleted row/column
-c w (out)       a workspace vector of size n
+c n (in)        the order of matrix R.
+c R (io)        on entry, the original upper trapezoidal matrix R.
+c               on exit, the updated matrix R1.
+c ldr (in)      leading dimension of R. ldr >= n.
+c j (in)        the position of the deleted row/column.
+c w (out)       a workspace vector of size n.
 c
       integer n,ldr,j
       double precision R(ldr,*),w(*)

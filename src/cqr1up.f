@@ -33,10 +33,10 @@ c k (in)        number of columns of Q, and rows of R. Must be
 c               either k = m (full Q) or k = n < m (economical form).
 c Q (io)        on entry, the unitary m-by-k matrix Q.
 c               on exit, the updated matrix Q1.
-c ldq (in)      the leading dimension of Q.
+c ldq (in)      the leading dimension of Q. ldq >= m.
 c R (io)        on entry, the upper trapezoidal m-by-n matrix R..
 c               on exit, the updated matrix R1.
-c ldr (in)      the leading dimension of R.
+c ldr (in)      the leading dimension of R. ldr >= k.
 c u (io)        the left m-vector. On exit, if k < m, u is destroyed.
 c v (io)        the right n-vector. On exit, v is destroyed.
 c w (out)       a workspace vector of size k.

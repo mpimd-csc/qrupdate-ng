@@ -34,14 +34,13 @@ c arguments:
 c m (in)        number of rows of the matrix Q.
 c n (in)        number of columns of the matrix R.
 c k (in)        number of columns of Q1, and rows of R1. Must be
-c               either k = m (full Q) or k = n <= m (economical form,
-c               basis dimension will increase).
+c               either k = m (full Q) or k = n <= m (economical form).
 c Q (io)        on entry, the unitary m-by-k matrix Q.
 c               on exit, the updated matrix Q1.
-c ldq (in)      leading dimension of Q.
+c ldq (in)      leading dimension of Q. ldq >= m.
 c R (io)        on entry, the original matrix R.
 c               on exit, the updated matrix R1.
-c ldr (in)      leading dimension of R.
+c ldr (in)      leading dimension of R. ldr >= k.
 c i (in)        the first index determining the range (see above)
 c j (in)        the second index determining the range (see above)
 c w (o)         a workspace vector of size k.

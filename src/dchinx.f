@@ -26,11 +26,12 @@ c               R1'*R1 = A1, A1(jj,jj) = A, A(j,:) = u', A(:,j) = u,
 c               jj = [1:j-1,j+1:n+1].
 c               (real version)
 c arguments:
-c n (in)        the order of matrix R
-c R (io)        the original upper trapezoidal matrix R
-c ldr (in)      leading dimension of R
+c n (in)        the order of matrix R.
+c R (io)        on entry, the original upper trapezoidal matrix R.
+c               on exit, the updated matrix R1.
+c ldr (in)      leading dimension of R. ldr >= n+1.
 c j (in)        the position of the inserted row/column
-c u (io)        on entry, the inserted row/column
+c u (io)        on entry, the inserted row/column.
 c               on exit, u is destroyed.
 c w (out)       workspace vector of size n+1.
 c info (out)    on exit, error code:

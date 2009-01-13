@@ -28,10 +28,11 @@ c               [1:j-1,shift(j:i,+1),i+1:n] if j < i.
 c               (real version)
 c arguments:
 c n (in)        the order of matrix R
-c R (io)        the original upper trapezoidal matrix R
-c ldr (in)      leading dimension of R
-c i (in)        the first index determining the range (see above)
-c j (in)        the second index determining the range (see above)
+c R (io)        on entry, the upper triangular matrix R
+c               on exit, the updated matrix R1
+c ldr (in)      leading dimension of R. ldr >= n.
+c i (in)        the first index determining the range (see above).
+c j (in)        the second index determining the range (see above).
 c w (o)         a workspace vector of size 2*n.
 c
       integer n,ldr,i,j

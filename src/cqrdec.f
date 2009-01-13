@@ -36,8 +36,10 @@ c               either k = m (full Q) or k = n < m (economical form,
 c               basis dimension will decrease).
 c Q (io)        on entry, the unitary m-by-k matrix Q.
 c               on exit, the updated matrix Q1.
+c ldq (in)      leading dimension of Q. ldq >= m.
 c R (io)        on entry, the original matrix R.
 c               on exit, the updated matrix R1.
+c ldr (in)      leading dimension of R. ldr >= k.
 c j (in)        the position of the deleted column in R.
 c               1 <= j <= n.
 c rw (o)        a real workspace vector of size k-j.

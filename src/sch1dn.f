@@ -28,6 +28,7 @@ c arguments:
 c n (in)        the order of matrix R
 c R (io)        on entry, the upper triangular matrix R
 c               on exit, the updated matrix R1
+c ldr (in)      leading dimension of R. ldr >= n.
 c u (io)        the vector determining the rank-1 update
 c               on exit, u contains the reflector sines
 c               used to transform R to R1.

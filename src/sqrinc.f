@@ -36,13 +36,13 @@ c               either k = m (full Q) or k = n <= m (economical form,
 c               basis dimension will increase).
 c Q (io)        on entry, the orthogonal m-by-k matrix Q.
 c               on exit, the updated matrix Q1.
-c ldq (in)      leading dimension of Q.
+c ldq (in)      leading dimension of Q. ldq >= m.
 c R (io)        on entry, the original matrix R.
 c               on exit, the updated matrix R1.
-c ldr (in)      leading dimension of R.
+c ldr (in)      leading dimension of R. ldr >= min(m,n+1).
 c j (in)        the position of the new column in R1
 c x (in)        the column being inserted
-c w (out)       a workspace vector of size k+1-j.
+c w (out)       a workspace vector of size k.
 c
       integer m,n,k,ldq,ldr,j
       real Q(ldq,*),R(ldr,*),x(*),w(*)
