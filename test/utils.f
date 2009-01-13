@@ -318,7 +318,7 @@ c get frobenius norm
       rnrm = clange('M',m,n,A,lda)
       write(*,1001) rnrm,spftol(rnrm)
 c form Q'*Q - I
-      call cherk('U','C',k,m,(1e0,0e0),Q,ldq,(0e0,0e0),A,lda)
+      call cherk('U','C',k,m,1e0,Q,ldq,0e0,A,lda)
       do i = 1,k
         A(i,i) = A(i,i) - 1e0
       end do
@@ -346,7 +346,7 @@ c get frobenius norm
       rnrm = zlange('M',m,n,A,lda)
       write(*,1001) rnrm,dpftol(rnrm)
 c form Q'*Q - I
-      call zherk('U','C',k,m,(1d0,0d0),Q,ldq,(0d0,0d0),A,lda)
+      call zherk('U','C',k,m,1d0,Q,ldq,0d0,A,lda)
       do i = 1,k
         A(i,i) = A(i,i) - 1d0
       end do
@@ -414,7 +414,7 @@ c symmetrize A
       complex A(lda,n),R(ldr,n)
       external cherk,clacpy,cpotrf
       integer i,j,info
-      call cherk('U','C',n,n,(1e0,0e0),A,lda,(0e0,0e0),R,ldr)
+      call cherk('U','C',n,n,1e0,A,lda,0e0,R,ldr)
 c augment to ensure strict positivity
       do i = 1,n
         R(i,i) = R(i,i) + 1e-3
@@ -439,7 +439,7 @@ c symmetrize A
       double complex A(lda,n),R(ldr,n)
       external zherk,zlacpy,zpotrf
       integer i,j,info
-      call zherk('U','C',n,n,(1d0,0d0),A,lda,(0d0,0d0),R,ldr)
+      call zherk('U','C',n,n,1d0,A,lda,0d0,R,ldr)
 c augment to ensure strict positivity
       do i = 1,n
         R(i,i) = R(i,i) + 1d-3
@@ -525,7 +525,7 @@ c zero lower triangle of R
         end do
       end do
 c form A - R'*R
-      call cherk('U','C',n,n,(1e0,0e0),R,ldr,(-1e0,0e0),A,lda)
+      call cherk('U','C',n,n,1e0,R,ldr,-1e0,A,lda)
 c get frobenius norm
       rnrm = clanhe('M','U',n,A,lda,wrk)
       write(*,1001) rnrm,spftol(rnrm)
@@ -550,7 +550,7 @@ c zero lower triangle of R
         end do
       end do
 c form A - R'*R
-      call zherk('U','C',n,n,(1d0,0d0),R,ldr,(-1d0,0d0),A,lda)
+      call zherk('U','C',n,n,1d0,R,ldr,-1d0,A,lda)
 c get frobenius norm
       rnrm = zlanhe('M','U',n,A,lda,wrk)
       write(*,1001) rnrm,dpftol(rnrm)
