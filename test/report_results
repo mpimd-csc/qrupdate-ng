@@ -1,0 +1,17 @@
+#!/bin/sh
+OUTS=$*
+passed_total=0
+failed_total=0
+cat $OUTS
+
+# if awk exists, use it to print total statistics
+if which awk > /dev/null ; then
+	awk '/total:/ { passed += $3; failed += $5; }
+	END { printf " TOTAL:     PASSED %3d     FAILED %3d\n", passed, failed; }' $OUTS
+fi
+for out in $OUTS ; do
+	if [ ! -s $out ] ; then
+		echo " $out file empty (test crashed)!"
+	fi
+done
+

@@ -50,6 +50,7 @@ c
       write (*,*) 'zqrshc test (right shift, economized factorization):'
       call ztest(m,n,i,j,1)
 
+      call pstats
       end program
 
       subroutine stest(m,n,i,j,ec)

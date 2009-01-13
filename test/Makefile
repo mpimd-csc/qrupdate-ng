@@ -26,7 +26,7 @@ PROGS=tqr1up tqrinc tqrdec tqrshc tqrinr tqrder \
 OUTS=$(PROGS:%=%.out)
 
 tests: $(OUTS)
-	cat $(OUTS)
+	./report_results $(OUTS)
 
 $(OUTS): %.out: %
 	./$< | tee $@
