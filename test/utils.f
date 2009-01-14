@@ -307,7 +307,7 @@ c get frobenius norm
       integer m,n,k,lda,ldq,ldr
       complex A(lda,max(n,k)),Q(ldq,k),R(ldr,n)
       real rnrm,clange,clanhe
-      external cgemm,csyrk,clange,clanhe,spftol
+      external cgemm,cherk,clange,clanhe,spftol
       character*4 spftol
       real wrk(m)
       integer i
@@ -335,7 +335,7 @@ c get frobenius norm
       integer m,n,k,lda,ldq,ldr
       double complex A(lda,max(n,k)),Q(ldq,k),R(ldr,n)
       double precision rnrm,zlange,zlanhe
-      external zgemm,zsyrk,zlange,zlanhe,dpftol
+      external zgemm,zherk,zlange,zlanhe,dpftol
       character*4 dpftol
       double precision wrk(m)
       integer i
