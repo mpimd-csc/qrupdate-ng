@@ -22,10 +22,12 @@ c
       integer m,n,ldx
       real x(ldx,*)
       external slaruv
-      integer seed(4),j
+      integer seed(4),j,k
       common /xrand/ seed
       do j = 1,n
-        call slaruv(seed,m,x(1,j))
+        do k = 1,m,128
+          call slaruv(seed,min(m-k+1,128),x(k,j))
+        end do
       end do
       end subroutine
 
@@ -33,33 +35,27 @@ c
       integer m,n,ldx
       double precision x(ldx,*)
       external dlaruv
-      integer seed(4),j
+      integer seed(4),j,k
       common /xrand/ seed
       do j = 1,n
-        call dlaruv(seed,m,x(1,j))
+        do k = 1,m,128
+          call dlaruv(seed,min(m-k+1,128),x(k,j))
+        end do
       end do
       end subroutine
 
       subroutine crandg(m,n,x,ldx)
       integer m,n,ldx
       complex x(ldx,*)
-      external slaruv
-      integer seed(4),j
-      common /xrand/ seed
-      do j = 1,n
-        call slaruv(seed,2*m,x(1,j))
-      end do
+      external srandg
+      call srandg(2*m,n,x,2*ldx)
       end subroutine
 
       subroutine zrandg(m,n,x,ldx)
       integer m,n,ldx
       double complex x(ldx,*)
-      external dlaruv
-      integer seed(4),j
-      common /xrand/ seed
-      do j = 1,n
-        call dlaruv(seed,2*m,x(1,j))
-      end do
+      external srandg
+      call drandg(2*m,n,x,2*ldx)
       end subroutine
 
       block data xrandi
