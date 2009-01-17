@@ -86,7 +86,7 @@ c apply rotations to R.
 c apply rotations to Q.
       call zqrot('B',m,k,Q,ldq,rw,w(2))
 c update the first row of R.
-      call zaxcpy(n,w(1),v,1,R(1,1),m)
+      call zaxcpy(n,w(1),v,1,R(1,1),ldr)
 c retriangularize R.
       call zqhqr(k,n,R,ldr,rw,w)
 c apply rotations to Q.

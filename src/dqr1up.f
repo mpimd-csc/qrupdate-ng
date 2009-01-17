@@ -83,7 +83,7 @@ c apply rotations to R.
 c apply rotations to Q.
       call dqrot('B',m,k,Q,ldq,w(k+1),w(2))
 c update the first row of R.
-      call daxpy(n,w(1),v,1,R(1,1),m)
+      call daxpy(n,w(1),v,1,R(1,1),ldr)
 c retriangularize R.
       call dqhqr(k,n,R,ldr,w(k+1),w)
 c apply rotations to Q.
