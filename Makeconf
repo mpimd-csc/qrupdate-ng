@@ -9,3 +9,7 @@ FPICFLAGS=-fPIC
 BLAS=-lblas
 # LAPACK library (only required for tests)
 LAPACK=-llapack
+
+#Library version
+VERSION=1.0
+MAJOR=1
