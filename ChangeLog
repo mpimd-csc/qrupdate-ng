@@ -1,0 +1,4 @@
+2009-02-04  Jaroslav Hajek  <highegg@gmail.com>
+
+	* ChangeLog: Create.
+	* src/Makefile: Specify BLAS and LAPACK when creating dynamic library.

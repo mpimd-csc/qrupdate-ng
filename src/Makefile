@@ -40,7 +40,8 @@ solib: ../libqrupdate.so
 	ar -cr $@ $(OBJS)
 
 ../libqrupdate.so: $(OBJS)
-	$(FC) $(FFLAGS) -shared -o $@ -Wl,-soname=libqrupdate.so.$(MAJOR) $(OBJS) 
+	$(FC) $(FFLAGS) -shared -o $@ -Wl,-soname=libqrupdate.so.$(MAJOR) $(OBJS) \
+		$(BLAS) $(LAPACK)
 
 $(OBJS): %.o: %.f
 	$(FC) $(FFLAGS) $(FPICFLAGS) -c $<
