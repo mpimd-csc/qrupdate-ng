@@ -48,3 +48,13 @@ $(OBJS): %.o: %.f
 
 clean:
 	rm -f $(OBJS)
+
+install: install-shlib install-staticlib
+
+install-shlib: ../libqrupdate.so
+	install -D -m644 ../libqrupdate.so $(PREFIX)/lib/libqrupdate.so.$(VERSION)
+	ln -s libqrupdate.so.$(VERSION) $(PREFIX)/lib/libqrupdate.so.$(MAJOR)
+	ln -s libqrupdate.so.$(VERSION) $(PREFIX)/lib/libqrupdate.so
+
+install-staticlib: ../libqrupdate.a
+	install -D -m644 ../libqrupdate.a $(PREFIX)/lib/libqrupdate.a

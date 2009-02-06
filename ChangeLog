@@ -1,3 +1,9 @@
+2009-02-06  Jordi Gutiérrez Hermoso  <jordigh@gmail.com>
+
+	* Makeconf: Set default PREFIX.
+	* Makefile: Add install targets.
+	* src/Makefile: Likewise.
+
 2009-02-04  Jaroslav Hajek  <highegg@gmail.com>
 
 	* ChangeLog: Create.

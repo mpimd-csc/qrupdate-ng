@@ -24,12 +24,12 @@ include Makeconf
 help:
 	@echo
 	@echo "The following targets are available:"
-	@echo "   make help   - displays this help"
-	@echo "   make lib    - compiles a static library"
-	@echo "   make solib  - compiles a dynamic library"
-	@echo "   make test   - compiles and runs the testsuite"
-	@echo "   make clean  - cleans up everything"
-	@echo
+	@echo "   make help    - displays this help"
+	@echo "   make lib     - compiles a static library"
+	@echo "   make solib   - compiles a dynamic library"
+	@echo "   make test    - compiles and runs the testsuite"
+	@echo "   make clean   - cleans up everything"
+	@echo "   make install - installs everything"
 
 lib:
 	make -C src/ lib
@@ -42,3 +42,12 @@ clean:
 	rm -f libqrupdate.a libqrupdate.so
 	make -C src/ clean
 	make -C test/ clean
+
+install:
+	make -C src/ install
+
+install-shlib:
+	make -C src/ install-shlib
+
+install-staticlib:
+	make -C src/ install-staticlib

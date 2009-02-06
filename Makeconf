@@ -10,6 +10,11 @@ BLAS=-lblas
 # LAPACK library (only required for tests)
 LAPACK=-llapack
 
-#Library version
+# Library version
 VERSION=1.0
 MAJOR=1
+
+# set default prefix to /usr/local
+ifeq ($(strip $(PREFIX)),)
+  PREFIX=/usr/local
+endif
