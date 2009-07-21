@@ -52,9 +52,9 @@ clean:
 install: install-shlib install-staticlib
 
 install-shlib: ../libqrupdate.so
-	install -D -m644 ../libqrupdate.so $(PREFIX)/lib/libqrupdate.so.$(VERSION)
-	ln -s libqrupdate.so.$(VERSION) $(PREFIX)/lib/libqrupdate.so.$(MAJOR)
-	ln -s libqrupdate.so.$(VERSION) $(PREFIX)/lib/libqrupdate.so
+	install -D -m644 ../libqrupdate.so $(PREFIX)/$(LIBDIR)/libqrupdate.so.$(VERSION)
+	ln -s libqrupdate.so.$(VERSION) $(PREFIX)/$(LIBDIR)/libqrupdate.so.$(MAJOR)
+	ln -s libqrupdate.so.$(VERSION) $(PREFIX)/$(LIBDIR)/libqrupdate.so
 
 install-staticlib: ../libqrupdate.a
-	install -D -m644 ../libqrupdate.a $(PREFIX)/lib/libqrupdate.a
+	install -D -m644 ../libqrupdate.a $(PREFIX)/$(LIBDIR)/libqrupdate.a

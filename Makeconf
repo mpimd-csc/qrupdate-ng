@@ -14,6 +14,9 @@ LAPACK=-llapack
 VERSION=1.0
 MAJOR=1
 
+# The default library dir
+LIBDIR=lib
+
 # set default prefix to /usr/local
 ifeq ($(strip $(PREFIX)),)
   PREFIX=/usr/local
