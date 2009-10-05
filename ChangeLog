@@ -1,3 +1,15 @@
+2009-10-05  Jaroslav Hajek  <highegg@gmail.com>
+
+	* src/slu1up.f: New source.
+	* src/dlu1up.f: New source.
+	* src/clu1up.f: New source.
+	* src/zlu1up.f: New source.
+	* src/Makefile: Include them in build.
+	* test/utils.f (SLUGEN, DLUGEN, CLUGEN, ZLUGEN, 
+	SLUCHK, DLUCHK, CLUCHK, ZLUCHK): New subroutines.
+	* test/tlu1up.f: New source.
+	* test/Makefile: Include it.
+
 2009-02-06  Jordi Gutiérrez Hermoso  <jordigh@gmail.com>
 
 	* Makeconf: Set default PREFIX.

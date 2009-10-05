@@ -554,3 +554,221 @@ c get frobenius norm
 
  1001 format(6x,'residual error = ',10x,E21.12,5x,A6)
       end subroutine
+
+      subroutine slugen(m,n,A,lda,L,ldl,R,ldr)
+      integer m,n,lda,ldl,ldr
+      real A(lda,n),L(ldl,min(m,n)),R(ldr,n)
+      integer ipiv(min(m,n)),info,i,j
+      external sswap,slacpy,sgetrf
+      if (m >= n) then
+        call slacpy('0',m,n,A,lda,L,ldl)
+        call sgetrf(m,n,L,ldl,ipiv,info)
+        call slacpy('U',m,n,L,ldl,R,ldr)
+      else
+        call slacpy('0',m,n,A,lda,R,ldr)
+        call sgetrf(m,n,R,ldr,ipiv,info)
+        call slacpy('L',m,n,R,ldr,L,ldl)
+      end if
+      do i = 1,min(m,n)
+        do j = 1,i-1
+          L(j,i) = 0e0
+        end do
+        L(i,i) = 1e0
+      end do
+c permute the orig matrix      
+      do i = 1,min(m,n)
+        j = ipiv(i)
+        if (i /= j) then
+          call sswap(n,A(i,1),lda,A(j,1),lda)
+        end if
+      end do
+      end subroutine
+
+      subroutine dlugen(m,n,A,lda,L,ldl,R,ldr)
+      integer m,n,lda,ldl,ldr
+      double precision A(lda,n),L(ldl,min(m,n)),R(ldr,n)
+      integer ipiv(min(m,n)),info,i,j
+      external dswap,dlacpy,dgetrf
+      if (m >= n) then
+        call dlacpy('0',m,n,A,lda,L,ldl)
+        call dgetrf(m,n,L,ldl,ipiv,info)
+        call dlacpy('U',m,n,L,ldl,R,ldr)
+      else
+        call dlacpy('0',m,n,A,lda,R,ldr)
+        call dgetrf(m,n,R,ldr,ipiv,info)
+        call dlacpy('L',m,n,R,ldr,L,ldl)
+      end if
+      do i = 1,min(m,n)
+        do j = 1,i-1
+          L(j,i) = 0d0
+        end do
+        L(i,i) = 1d0
+      end do
+c permute the orig matrix      
+      do i = 1,min(m,n)
+        j = ipiv(i)
+        if (i /= j) then
+          call dswap(n,A(i,1),lda,A(j,1),lda)
+        end if
+      end do
+      end subroutine
+
+      subroutine clugen(m,n,A,lda,L,ldl,R,ldr)
+      integer m,n,lda,ldl,ldr
+      complex A(lda,n),L(ldl,min(m,n)),R(ldr,n)
+      integer ipiv(min(m,n)),info,i,j
+      external cswap,clacpy,cgetrf
+      if (m >= n) then
+        call clacpy('0',m,n,A,lda,L,ldl)
+        call cgetrf(m,n,L,ldl,ipiv,info)
+        call clacpy('U',m,n,L,ldl,R,ldr)
+      else
+        call clacpy('0',m,n,A,lda,R,ldr)
+        call cgetrf(m,n,R,ldr,ipiv,info)
+        call clacpy('L',m,n,R,ldr,L,ldl)
+      end if
+      do i = 1,min(m,n)
+        do j = 1,i-1
+          L(j,i) = 0d0
+        end do
+        L(i,i) = 1e0
+      end do
+c permute the orig matrix      
+      do i = 1,min(m,n)
+        j = ipiv(i)
+        if (i /= j) then
+          call cswap(n,A(i,1),lda,A(j,1),lda)
+        end if
+      end do
+      end subroutine
+
+      subroutine zlugen(m,n,A,lda,L,ldl,R,ldr)
+      integer m,n,lda,ldl,ldr
+      double complex A(lda,n),L(ldl,min(m,n)),R(ldr,n)
+      integer ipiv(min(m,n)),info,i,j
+      external zswap,zlacpy,zgetrf
+      if (m >= n) then
+        call zlacpy('0',m,n,A,lda,L,ldl)
+        call zgetrf(m,n,L,ldl,ipiv,info)
+        call zlacpy('U',m,n,L,ldl,R,ldr)
+      else
+        call zlacpy('0',m,n,A,lda,R,ldr)
+        call zgetrf(m,n,R,ldr,ipiv,info)
+        call zlacpy('L',m,n,R,ldr,L,ldl)
+      end if
+      do i = 1,min(m,n)
+        do j = 1,i-1
+          L(j,i) = 0d0
+        end do
+        L(i,i) = 1d0
+      end do
+c permute the orig matrix      
+      do i = 1,min(m,n)
+        j = ipiv(i)
+        if (i /= j) then
+          call zswap(n,A(i,1),lda,A(j,1),lda)
+        end if
+      end do
+      end subroutine
+
+      subroutine sluchk(m,n,A,lda,L,ldl,R,ldr)
+      integer m,n,lda,ldl,ldr
+      real A(lda,n),L(ldl,min(m,n)),R(ldr,n)
+      real rnrm,slange
+      external sgemm,slange,spftol
+      character*4 spftol
+      real wrk(1)
+      integer i,j
+
+c zero lower triangle of R
+      do j = 1,n-1
+        do i = j+1,min(m,n)
+          R(i,j) = 0e0
+        end do
+      end do
+c form A - L*R
+      call sgemm('N','N',m,n,min(m,n),1e0,L,ldl,R,ldr,-1e0,A,lda)
+c get frobenius norm
+      rnrm = slange('M',m,n,A,lda,wrk)
+      write(*,1001) rnrm,spftol(rnrm)
+      return
+
+ 1001 format(6x,'residual error = ',10x,E21.12,5x,A6)
+      end subroutine
+
+      subroutine dluchk(m,n,A,lda,L,ldl,R,ldr)
+      integer m,n,lda,ldl,ldr
+      double precision A(lda,n),L(ldl,min(m,n)),R(ldr,n)
+      double precision rnrm,dlange
+      external dgemm,dlange,dpftol
+      character*4 dpftol
+      double precision wrk(1)
+      integer i,j
+
+c zero lower triangle of R
+      do j = 1,n-1
+        do i = j+1,min(m,n)
+          R(i,j) = 0e0
+        end do
+      end do
+c form A - L*R
+      call dgemm('N','N',m,n,min(m,n),1d0,L,ldl,R,ldr,-1d0,A,lda)
+c get frobenius norm
+      rnrm = dlange('M',m,n,A,lda,wrk)
+      write(*,1001) rnrm,dpftol(rnrm)
+      return
+
+ 1001 format(6x,'residual error = ',10x,E21.12,5x,A6)
+      end subroutine
+
+      subroutine cluchk(m,n,A,lda,L,ldl,R,ldr)
+      integer m,n,lda,ldl,ldr
+      complex A(lda,n),L(ldl,min(m,n)),R(ldr,n)
+      real rnrm,clange
+      external cgemm,clange,spftol
+      character*4 spftol
+      complex wrk(1)
+      integer i,j
+
+c zero lower triangle of R
+      do j = 1,n-1
+        do i = j+1,min(m,n)
+          R(i,j) = 0e0
+        end do
+      end do
+c form A - L*R
+      call cgemm('N','N',m,n,min(m,n),(1e0,0e0),L,ldl,R,ldr,(-1e0,0e0),
+     +A,lda)
+c get frobenius norm
+      rnrm = clange('M',m,n,A,lda,wrk)
+      write(*,1001) rnrm,spftol(rnrm)
+      return
+
+ 1001 format(6x,'residual error = ',10x,E21.12,5x,A6)
+      end subroutine
+
+      subroutine zluchk(m,n,A,lda,L,ldl,R,ldr)
+      integer m,n,lda,ldl,ldr
+      double complex A(lda,n),L(ldl,min(m,n)),R(ldr,n)
+      double precision rnrm,zlange
+      external zgemm,zlange,zpftol
+      character*4 dpftol
+      double complex wrk(1)
+      integer i,j
+
+c zero lower triangle of R
+      do j = 1,n-1
+        do i = j+1,min(m,n)
+          R(i,j) = 0e0
+        end do
+      end do
+c form A - L*R
+      call zgemm('N','N',m,n,min(m,n),(1d0,0d0),L,ldl,R,ldr,(-1d0,0d0),
+     +A,lda)
+c get frobenius norm
+      rnrm = zlange('M',m,n,A,lda,wrk)
+      write(*,1001) rnrm,dpftol(rnrm)
+      return
+
+ 1001 format(6x,'residual error = ',10x,E21.12,5x,A6)
+      end subroutine
