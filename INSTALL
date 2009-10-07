@@ -12,6 +12,8 @@ In particular, it has been tested with the following compilers:
 * Intel Fortran 10.1
 * g77 3.4 (does not compile test suite)
 * f2c (does not compile test suite)
+* Lahey/Fujitsu Fortran 8.0 (SSL II for test suite)
+    -- thanks to Jan Piclum, U. Alberta, Canada
 
 If you succeeded to compile qrupdate with a compiler not mentioned here
 (or an earlier version), please contact me so that the list can be expanded.
