@@ -11,7 +11,7 @@ BLAS=-lblas
 LAPACK=-llapack
 
 # Library version
-VERSION=1.0
+VERSION=1.1
 MAJOR=1
 
 # The default library dir
