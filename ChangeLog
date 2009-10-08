@@ -1,3 +1,20 @@
+2009-10-08  Jaroslav Hajek  <highegg@gmail.com>
+
+	* src/slup1up.f: New source.
+	* src/dlup1up.f: New source.
+	* src/clup1up.f: New source.
+	* src/zlup1up.f: New source.
+	* src/Makefile: Include them.
+	* src/slu1up.f: Mention algorithm source.
+	* src/dlu1up.f: Ditto.
+	* src/clu1up.f: Ditto.
+	* src/zlu1up.f: Ditto.
+	* src/EXPORTS: Update.
+	* test/utils.f (P2IPIV, SLUPGEN, DLUPGEN, CLUPGEN, ZLUPGEN, 
+	SLUPCHK, DLUPCHK, CLUPCHK, ZLUPCHK): New subroutines.
+	* test/tlup1up.f: New source.
+	* test/Makefile: Include it.
+
 2009-10-05  Jaroslav Hajek  <highegg@gmail.com>
 
 	* src/slu1up.f: New source.

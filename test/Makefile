@@ -23,7 +23,7 @@ include ../Makeconf
 LIBS= $(BLAS) $(LAPACK)
 PROGS=tqr1up tqrinc tqrdec tqrshc tqrinr tqrder \
       tch1up tch1dn tchinx tchdex tchshx \
-      tlu1up
+      tlu1up tlup1up
 
 OUTS=$(PROGS:%=%.out)
 

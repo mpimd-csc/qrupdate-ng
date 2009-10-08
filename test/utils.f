@@ -772,3 +772,291 @@ c get frobenius norm
 
  1001 format(6x,'residual error = ',10x,E21.12,5x,A6)
       end subroutine
+
+      subroutine slupgen(m,n,A,lda,L,ldl,R,ldr,p)
+      integer m,n,lda,ldl,ldr,p(m)
+      real A(lda,n),L(ldl,min(m,n)),R(ldr,n)
+      integer ipiv(min(m,n)),info,i,j,tmp
+      external sswap,slacpy,sgetrf
+      if (m >= n) then
+        call slacpy('0',m,n,A,lda,L,ldl)
+        call sgetrf(m,n,L,ldl,ipiv,info)
+        call slacpy('U',m,n,L,ldl,R,ldr)
+      else
+        call slacpy('0',m,n,A,lda,R,ldr)
+        call sgetrf(m,n,R,ldr,ipiv,info)
+        call slacpy('L',m,n,R,ldr,L,ldl)
+      end if
+      do i = 1,min(m,n)
+        do j = 1,i-1
+          L(j,i) = 0e0
+        end do
+        L(i,i) = 1e0
+      end do
+c generate permutation
+      do i = 1,m
+        p(i) = i
+      end do
+      do i = 1,min(m,n)
+        j = ipiv(i)
+        if (i /= j) then
+          tmp = p(i)
+          p(i) = p(j)
+          p(j) = tmp
+        end if
+      end do
+c zero lower triangle of R
+      do j = 1,n-1
+        do i = j+1,min(m,n)
+          R(i,j) = 0e0
+        end do
+      end do
+      end subroutine
+
+      subroutine dlupgen(m,n,A,lda,L,ldl,R,ldr,p)
+      integer m,n,lda,ldl,ldr,p(m)
+      double precision A(lda,n),L(ldl,min(m,n)),R(ldr,n)
+      integer ipiv(min(m,n)),info,i,j,tmp
+      external dswap,dlacpy,dgetrf
+      if (m >= n) then
+        call dlacpy('0',m,n,A,lda,L,ldl)
+        call dgetrf(m,n,L,ldl,ipiv,info)
+        call dlacpy('U',m,n,L,ldl,R,ldr)
+      else
+        call dlacpy('0',m,n,A,lda,R,ldr)
+        call dgetrf(m,n,R,ldr,ipiv,info)
+        call dlacpy('L',m,n,R,ldr,L,ldl)
+      end if
+      do i = 1,min(m,n)
+        do j = 1,i-1
+          L(j,i) = 0d0
+        end do
+        L(i,i) = 1d0
+      end do
+c generate permutation
+      do i = 1,m
+        p(i) = i
+      end do
+      do i = 1,min(m,n)
+        j = ipiv(i)
+        if (i /= j) then
+          tmp = p(i)
+          p(i) = p(j)
+          p(j) = tmp
+        end if
+      end do
+c zero lower triangle of R
+      do j = 1,n-1
+        do i = j+1,min(m,n)
+          R(i,j) = 0d0
+        end do
+      end do
+      end subroutine
+
+      subroutine clupgen(m,n,A,lda,L,ldl,R,ldr,p)
+      integer m,n,lda,ldl,ldr,p(m)
+      complex A(lda,n),L(ldl,min(m,n)),R(ldr,n)
+      integer ipiv(min(m,n)),info,i,j,tmp
+      external cswap,clacpy,cgetrf
+      if (m >= n) then
+        call clacpy('0',m,n,A,lda,L,ldl)
+        call cgetrf(m,n,L,ldl,ipiv,info)
+        call clacpy('U',m,n,L,ldl,R,ldr)
+      else
+        call clacpy('0',m,n,A,lda,R,ldr)
+        call cgetrf(m,n,R,ldr,ipiv,info)
+        call clacpy('L',m,n,R,ldr,L,ldl)
+      end if
+      do i = 1,min(m,n)
+        do j = 1,i-1
+          L(j,i) = 0e0
+        end do
+        L(i,i) = 1e0
+      end do
+c generate permutation
+      do i = 1,m
+        p(i) = i
+      end do
+      do i = 1,min(m,n)
+        j = ipiv(i)
+        if (i /= j) then
+          tmp = p(i)
+          p(i) = p(j)
+          p(j) = tmp
+        end if
+      end do
+c zero lower triangle of R
+      do j = 1,n-1
+        do i = j+1,min(m,n)
+          R(i,j) = 0e0
+        end do
+      end do
+      end subroutine
+
+      subroutine zlupgen(m,n,A,lda,L,ldl,R,ldr,p)
+      integer m,n,lda,ldl,ldr,p(m)
+      double complex A(lda,n),L(ldl,min(m,n)),R(ldr,n)
+      integer ipiv(min(m,n)),info,i,j,tmp
+      external zswap,zlacpy,zgetrf
+      if (m >= n) then
+        call zlacpy('0',m,n,A,lda,L,ldl)
+        call zgetrf(m,n,L,ldl,ipiv,info)
+        call zlacpy('U',m,n,L,ldl,R,ldr)
+      else
+        call zlacpy('0',m,n,A,lda,R,ldr)
+        call zgetrf(m,n,R,ldr,ipiv,info)
+        call zlacpy('L',m,n,R,ldr,L,ldl)
+      end if
+      do i = 1,min(m,n)
+        do j = 1,i-1
+          L(j,i) = 0d0
+        end do
+        L(i,i) = 1d0
+      end do
+c generate permutation
+      do i = 1,m
+        p(i) = i
+      end do
+      do i = 1,min(m,n)
+        j = ipiv(i)
+        if (i /= j) then
+          tmp = p(i)
+          p(i) = p(j)
+          p(j) = tmp
+        end if
+      end do
+c zero lower triangle of R
+      do j = 1,n-1
+        do i = j+1,min(m,n)
+          R(i,j) = 0d0
+        end do
+      end do
+      end subroutine
+
+c converts a linear permutation into LAPACK ipiv-style form
+      subroutine p2ipiv(n,p)
+      integer n,p(n)
+      integer q(n),i,j,k
+      do i = 1,n
+        q(p(i)) = i
+      end do
+      do i = 1,n
+        j = p(i)
+        k = q(i)
+        if (j /= i) then
+          p(k) = j
+          q(j) = k
+          p(i) = j
+        end if
+      end do
+      end subroutine
+
+      subroutine slupchk(m,n,A,lda,L,ldl,R,ldr,p)
+      integer m,n,lda,ldl,ldr,p(m)
+      real A(lda,n),L(ldl,min(m,n)),R(ldr,n)
+      real rnrm,slange
+      external sswap,sgemm,slange,spftol
+      character*4 spftol
+      real wrk(1)
+      integer i,j
+
+c convert p into successive swaps      
+      call p2ipiv(m,p)
+c form A - L*R
+      do i = 1,m
+        j = p(i)
+        if (i /= j) then
+          call sswap(n,A(i,1),lda,A(j,1),lda)
+        end if
+      end do
+      call sgemm('N','N',m,n,min(m,n),1e0,L,ldl,R,ldr,-1e0,A,lda)
+c get frobenius norm
+      rnrm = slange('M',m,n,A,lda,wrk)
+      write(*,1001) rnrm,spftol(rnrm)
+      return
+
+ 1001 format(6x,'residual error = ',10x,E21.12,5x,A6)
+      end subroutine
+
+      subroutine dlupchk(m,n,A,lda,L,ldl,R,ldr,p)
+      integer m,n,lda,ldl,ldr,p(m)
+      double precision A(lda,n),L(ldl,min(m,n)),R(ldr,n)
+      double precision rnrm,dlange
+      external dswap,dgemm,dlange,dpftol
+      character*4 dpftol
+      double precision wrk(1)
+      integer i,j
+
+c convert p into successive swaps      
+      call p2ipiv(m,p)
+c form A - L*R
+      do i = 1,m
+        j = p(i)
+        if (i /= j) then
+          call dswap(n,A(i,1),lda,A(j,1),lda)
+        end if
+      end do
+      call dgemm('N','N',m,n,min(m,n),1d0,L,ldl,R,ldr,-1d0,A,lda)
+c get frobenius norm
+      rnrm = dlange('M',m,n,A,lda,wrk)
+      write(*,1001) rnrm,dpftol(rnrm)
+      return
+
+ 1001 format(6x,'residual error = ',10x,E21.12,5x,A6)
+      end subroutine
+
+      subroutine clupchk(m,n,A,lda,L,ldl,R,ldr,p)
+      integer m,n,lda,ldl,ldr,p(m)
+      complex A(lda,n),L(ldl,min(m,n)),R(ldr,n)
+      real rnrm,clange
+      external cswap,cgemm,clange,spftol
+      character*4 spftol
+      real wrk(1)
+      integer i,j
+
+c convert p into successive swaps      
+      call p2ipiv(m,p)
+c form A - L*R
+      do i = 1,m
+        j = p(i)
+        if (i /= j) then
+          call cswap(n,A(i,1),lda,A(j,1),lda)
+        end if
+      end do
+      call cgemm('N','N',m,n,min(m,n),(1e0,0e0),L,ldl,R,ldr,(-1e0,0e0),
+     +A,lda)
+c get frobenius norm
+      rnrm = clange('M',m,n,A,lda,wrk)
+      write(*,1001) rnrm,spftol(rnrm)
+      return
+
+ 1001 format(6x,'residual error = ',10x,E21.12,5x,A6)
+      end subroutine
+
+      subroutine zlupchk(m,n,A,lda,L,ldl,R,ldr,p)
+      integer m,n,lda,ldl,ldr,p(m)
+      double complex A(lda,n),L(ldl,min(m,n)),R(ldr,n)
+      double precision rnrm,zlange
+      external zswap,zgemm,zlange,dpftol
+      character*4 dpftol
+      double precision wrk(1)
+      integer i,j
+
+c convert p into successive swaps      
+      call p2ipiv(m,p)
+c form A - L*R
+      do i = 1,m
+        j = p(i)
+        if (i /= j) then
+          call zswap(n,A(i,1),lda,A(j,1),lda)
+        end if
+      end do
+      call zgemm('N','N',m,n,min(m,n),(1d0,0d0),L,ldl,R,ldr,(-1d0,0d0),
+     +A,lda)
+c get frobenius norm
+      rnrm = zlange('M',m,n,A,lda,wrk)
+      write(*,1001) rnrm,dpftol(rnrm)
+      return
+
+ 1001 format(6x,'residual error = ',10x,E21.12,5x,A6)
+      end subroutine

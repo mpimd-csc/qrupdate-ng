@@ -29,7 +29,8 @@ sgqvec.f sqhqr.f sqr1up.f sqrdec.f sqrder.f sqrinc.f sqrinr.f sqrot.f  \
 sqrqh.f sqrshc.f sqrtv1.f zaxcpy.f zch1dn.f zch1up.f zchdex.f zchinx.f \
 zchshx.f zgqvec.f zqhqr.f zqr1up.f zqrdec.f zqrder.f zqrinc.f zqrinr.f \
 zqrot.f zqrqh.f zqrshc.f zqrtv1.f \
-clu1up.f dlu1up.f slu1up.f zlu1up.f 
+clu1up.f dlu1up.f slu1up.f zlu1up.f \
+clup1up.f dlup1up.f slup1up.f zlup1up.f
 
 OBJS = $(SRC:%.f=%.o)
 

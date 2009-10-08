@@ -20,8 +20,8 @@ c <http://www.gnu.org/licenses/>.
 c
       subroutine dlu1up(m,n,L,ldl,R,ldr,u,v)
 c purpose:      updates an LU factorization after rank-1 modification
-c               i.e., given a m-by-k lower-triangular matrix L with unit
-c               diagonal and an m-by-n upper-trapezoidal matrix R,
+c               i.e., given an m-by-k lower-triangular matrix L with unit
+c               diagonal and a k-by-n upper-trapezoidal matrix R,
 c               where k = min(m,n),
 c               this subroutine updates L -> L1 and R -> R1 so that
 c               L is again lower unit triangular, R upper trapezoidal,
@@ -39,11 +39,15 @@ c ldr (in)      the leading dimension of R. ldr >= min(m,n).
 c u (io)        the left m-vector. On exit, if k < m, u is destroyed.
 c v (io)        the right n-vector. On exit, v is destroyed.
 c
-
+c REMARK:       Algorithm is due to
+c               J. Bennett: Triangular factors of modified matrices,
+c                           Numerische Mathematik, 7 (1965)
+c
       integer m,n,ldl,ldr
       double precision L(ldl,*),R(ldr,*),u(*),v(*)
       double precision ui,vi
       integer k,info,i,j
+      external xerbla
 c quick return if possible.
       k = min(m,n)
       if (k == 0) return
