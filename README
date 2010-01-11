@@ -39,5 +39,13 @@ Cholesky symmetric shift (chshx)
 	Updates the Cholesky factorization after a symmetric column/row
 	left/right circular shift.
 
+LU rank-1 update (lu1up)
+	Updates the LU factorization after a rank-1 update (A = A + u*v.'). 
+	No pivoting available. Faster than lup1up, but less stable.
+LU pivoted rank-1 update (lup1up)
+	Updates a row-pivoted LUP factorization after a rank-1 update
+	(A = A + u*v.'). Also updates the row permutation matrix. Slower
+	than lu1up, but more stable.
+
 See the INSTALL file for installation details. Consult individual routines
 for documentation.

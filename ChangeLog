@@ -1,3 +1,8 @@
+2010-01-11  Jaroslav Hajek  <highegg@gmail.com>
+
+	* Makeconf: Mark version 1.2.
+	* README: Document LU updating routines.
+
 2009-10-08  Jaroslav Hajek  <highegg@gmail.com>
 
 	* src/slup1up.f: New source.
