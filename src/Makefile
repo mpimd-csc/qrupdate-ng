@@ -36,13 +36,22 @@ OBJS = $(SRC:%.f=%.o)
 
 lib: ../libqrupdate.a
 
-solib: ../libqrupdate.so
+ifeq ($(shell uname),Darwin)
+SOEXT=.dylib
+else
+SOEXT=.so
+endif
+solib: ../libqrupdate$(SOEXT)
 
 ../libqrupdate.a: $(OBJS)
 	ar -cr $@ $(OBJS)
 
 ../libqrupdate.so: $(OBJS)
 	$(FC) $(FFLAGS) -shared -o $@ -Wl,-soname=libqrupdate.so.$(MAJOR) $(OBJS) \
+		$(BLAS) $(LAPACK)
+
+../libqrupdate.dylib: $(OBJS)
+	$(FC) $(FFLAGS) $(LDFLAGS) -dynamiclib -o $@ -install_name $(PREFIX)/$(LIBDIR)/libqrupdate.$(MAJOR).dylib $(OBJS) \
 		$(BLAS) $(LAPACK)
 
 $(OBJS): %.o: %.f
@@ -53,10 +62,17 @@ clean:
 
 install: install-shlib install-staticlib
 
-install-shlib: ../libqrupdate.so
+install-shlib: ../libqrupdate$(SOEXT) install-lib$(SOEXT)
+
+install-lib.so:
 	install -D -m644 ../libqrupdate.so $(PREFIX)/$(LIBDIR)/libqrupdate.so.$(VERSION)
 	ln -s libqrupdate.so.$(VERSION) $(PREFIX)/$(LIBDIR)/libqrupdate.so.$(MAJOR)
 	ln -s libqrupdate.so.$(VERSION) $(PREFIX)/$(LIBDIR)/libqrupdate.so
+
+install-lib.dylib:
+	install -D -m644 ../libqrupdate.dylib $(PREFIX)/$(LIBDIR)/libqrupdate.$(VERSION).dylib
+	ln -s libqrupdate.$(VERSION).dylib $(PREFIX)/$(LIBDIR)/libqrupdate.$(MAJOR).dylib
+	ln -s libqrupdate.$(VERSION).dylib $(PREFIX)/$(LIBDIR)/libqrupdate.dylib
 
 install-staticlib: ../libqrupdate.a
 	install -D -m644 ../libqrupdate.a $(PREFIX)/$(LIBDIR)/libqrupdate.a
