@@ -1,5 +1,11 @@
 2010-01-19  Fabian Groffen <grobian@gentoo.org>
 
+	* Makeconf: Define DESTDIR.
+	* src/Makefile: Prefix DESTDIR to install targets, to comply with GNU
+	Makefile standard.
+
+2010-01-19  Fabian Groffen <grobian@gentoo.org>
+
 	* src/Makefile: Define SOEXT and set it correctly for Darwin.
 	Use it in build and install rules.
 

@@ -65,14 +65,14 @@ install: install-shlib install-staticlib
 install-shlib: ../libqrupdate$(SOEXT) install-lib$(SOEXT)
 
 install-lib.so:
-	install -D -m644 ../libqrupdate.so $(PREFIX)/$(LIBDIR)/libqrupdate.so.$(VERSION)
-	ln -s libqrupdate.so.$(VERSION) $(PREFIX)/$(LIBDIR)/libqrupdate.so.$(MAJOR)
-	ln -s libqrupdate.so.$(VERSION) $(PREFIX)/$(LIBDIR)/libqrupdate.so
+	install -D -m644 ../libqrupdate.so $(DESTDIR)$(PREFIX)/$(LIBDIR)/libqrupdate.so.$(VERSION)
+	ln -s libqrupdate.so.$(VERSION) $(DESTDIR)$(PREFIX)/$(LIBDIR)/libqrupdate.so.$(MAJOR)
+	ln -s libqrupdate.so.$(VERSION) $(DESTDIR)$(PREFIX)/$(LIBDIR)/libqrupdate.so
 
 install-lib.dylib:
-	install -D -m644 ../libqrupdate.dylib $(PREFIX)/$(LIBDIR)/libqrupdate.$(VERSION).dylib
-	ln -s libqrupdate.$(VERSION).dylib $(PREFIX)/$(LIBDIR)/libqrupdate.$(MAJOR).dylib
-	ln -s libqrupdate.$(VERSION).dylib $(PREFIX)/$(LIBDIR)/libqrupdate.dylib
+	install -D -m644 ../libqrupdate.dylib $(DESTDIR)$(PREFIX)/$(LIBDIR)/libqrupdate.$(VERSION).dylib
+	ln -s libqrupdate.$(VERSION).dylib $(DESTDIR)$(PREFIX)/$(LIBDIR)/libqrupdate.$(MAJOR).dylib
+	ln -s libqrupdate.$(VERSION).dylib $(DESTDIR)$(PREFIX)/$(LIBDIR)/libqrupdate.dylib
 
 install-staticlib: ../libqrupdate.a
-	install -D -m644 ../libqrupdate.a $(PREFIX)/$(LIBDIR)/libqrupdate.a
+	install -D -m644 ../libqrupdate.a $(DESTDIR)$(PREFIX)/$(LIBDIR)/libqrupdate.a
