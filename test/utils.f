@@ -255,7 +255,7 @@ c
 c get residual
       call sgemm('N','N',m,n,k,-1e0,Q,ldq,R,ldr,1e0,A,lda)
 c get frobenius norm
-      rnrm = slange('M',m,n,A,lda)
+      rnrm = slange('M',m,n,A,lda,wrk)
       write(*,1001) rnrm,spftol(rnrm)
 c form Q'*Q - I
       call ssyrk('U','T',k,m,1e0,Q,ldq,0e0,A,lda)
@@ -283,7 +283,7 @@ c get frobenius norm
 c get residual
       call dgemm('N','N',m,n,k,-1d0,Q,ldq,R,ldr,1d0,A,lda)
 c get frobenius norm
-      rnrm = dlange('M',m,n,A,lda)
+      rnrm = dlange('M',m,n,A,lda,wrk)
       write(*,1001) rnrm,dpftol(rnrm)
 c form Q'*Q - I
       call dsyrk('U','T',k,m,1d0,Q,ldq,0d0,A,lda)
@@ -311,7 +311,7 @@ c get frobenius norm
 c get residual
       call cgemm('N','N',m,n,k,-(1e0,0e0),Q,ldq,R,ldr,(1e0,0e0),A,lda)
 c get frobenius norm
-      rnrm = clange('M',m,n,A,lda)
+      rnrm = clange('M',m,n,A,lda,wrk)
       write(*,1001) rnrm,spftol(rnrm)
 c form Q'*Q - I
       call cherk('U','C',k,m,1e0,Q,ldq,0e0,A,lda)
@@ -339,7 +339,7 @@ c get frobenius norm
 c get residual
       call zgemm('N','N',m,n,k,-(1d0,0d0),Q,ldq,R,ldr,(1d0,0d0),A,lda)
 c get frobenius norm
-      rnrm = zlange('M',m,n,A,lda)
+      rnrm = zlange('M',m,n,A,lda,wrk)
       write(*,1001) rnrm,dpftol(rnrm)
 c form Q'*Q - I
       call zherk('U','C',k,m,1d0,Q,ldq,0d0,A,lda)
@@ -727,7 +727,7 @@ c get frobenius norm
       real rnrm,clange
       external cgemm,clange,spftol
       character*4 spftol
-      complex wrk(1)
+      real wrk(1)
       integer i,j
 
 c zero lower triangle of R
@@ -751,9 +751,9 @@ c get frobenius norm
       integer m,n,lda,ldl,ldr
       double complex A(lda,n),L(ldl,min(m,n)),R(ldr,n)
       double precision rnrm,zlange
-      external zgemm,zlange,zpftol
+      external zgemm,zlange,dpftol
       character*4 dpftol
-      double complex wrk(1)
+      double precision wrk(1)
       integer i,j
 
 c zero lower triangle of R

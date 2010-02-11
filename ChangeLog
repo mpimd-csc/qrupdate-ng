@@ -1,5 +1,10 @@
 2010-02-11  Jaroslav Hajek  <highegg@gmail.com>
 
+	* test/utils.f: Correct invalid calls to xLANGE. Make dummy workspace
+	decls consistent.
+
+2010-02-11  Jaroslav Hajek  <highegg@gmail.com>
+
 	* test/Makefile: Ensure the test output file is created to prevent
 	errors from report_results.
 
