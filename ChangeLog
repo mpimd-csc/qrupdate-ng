@@ -1,5 +1,11 @@
 2010-02-11  Jaroslav Hajek  <highegg@gmail.com>
 
+	* test/utils.f: Test CHERK and ZHERK results for validity. Warn about
+	possibly buggy BLAS routines.
+	* test/report_results: Dump out the warnings at the end.
+
+2010-02-11  Jaroslav Hajek  <highegg@gmail.com>
+
 	* test/utils.f: Correct invalid calls to xLANGE. Make dummy workspace
 	decls consistent.
 

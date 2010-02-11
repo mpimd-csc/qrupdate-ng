@@ -12,6 +12,11 @@ fi
 for out in $OUTS ; do
 	if [ ! -s $out ] ; then
 		echo " $out file empty (test crashed)!"
+	else
+		if grep -q WARNING $out ; then
+			echo " $out produced warnings:"
+			grep WARNING $out
+		fi
 	fi
 done
 

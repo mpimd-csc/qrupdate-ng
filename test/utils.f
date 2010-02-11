@@ -29,6 +29,13 @@ c
           call slaruv(seed,min(m-k+1,128),x(k,j))
         end do
       end do
+      do j = 1,n
+        do k = 1,m
+          if (.not. (x(k,j) > 0e0 .and. x(k,j) < 1e0)) then
+            stop 'slaruv produced invalid number'
+          end if
+        end do
+      end do
       end subroutine
 
       subroutine drandg(m,n,x,ldx)
@@ -40,6 +47,13 @@ c
       do j = 1,n
         do k = 1,m,128
           call dlaruv(seed,min(m-k+1,128),x(k,j))
+        end do
+      end do
+      do j = 1,n
+        do k = 1,m
+          if (.not. (x(k,j) > 0d0 .and. x(k,j) < 1d0)) then
+            stop 'dlaruv produced invalid number'
+          end if
         end do
       end do
       end subroutine
@@ -61,7 +75,7 @@ c
       block data xrandi
       integer seed(4)
       common /xrand/ seed
-      data seed /4*3/
+      data seed /4*1/
       end block data
 
       subroutine sqrgen(m,n,A,lda,Q,ldq,R,ldr)
@@ -408,12 +422,20 @@ c symmetrize A
       subroutine cchgen(n,A,lda,R,ldr)
       integer n,lda,ldr
       complex A(lda,n),R(ldr,n)
-      external cherk,clacpy,cpotrf
+      external cherk,clacpy,cpotrf,cdotc
+      complex cdotc,Rii
       integer i,j,info
       call cherk('U','C',n,n,1e0,A,lda,0e0,R,ldr)
 c augment to ensure strict positivity
       do i = 1,n
-        R(i,i) = R(i,i) + 1e-3
+c CHERK is often buggy. We'll recompute the diagonal elements and
+c possibly warn about the bug.
+        Rii = cdotc (n, A(1,i), 1, A(1,i), 1)
+        if (.not. abs (Rii - R(i,i)) < 1e-5 * abs(Rii)) then
+          write (*,1001)
+          write (*,1002) R(i,i), Rii
+        endif
+        R(i,i) = Rii + 1e-3
 c zero below diagonal
         do j = i+1,n
           R(j,i) = 0e0
@@ -428,17 +450,28 @@ c symmetrize A
       end do
       call cpotrf('U',n,R,ldr,info)
       if (info /= 0) stop 'fatal:error generating positive matrix'
+ 1001 format ('WARNING: Possible bug in BLAS CHERK:')
+ 1002 format ('WARNING: CHERK computed diagonal element (',
+     +F6.3,F6.3,'), direct computation gives (',F6.3,F6.3,').')
       end subroutine
 
       subroutine zchgen(n,A,lda,R,ldr)
       integer n,lda,ldr
       double complex A(lda,n),R(ldr,n)
-      external zherk,zlacpy,zpotrf
+      external zherk,zlacpy,zpotrf,zdotc
+      double complex zdotc,Rii
       integer i,j,info
       call zherk('U','C',n,n,1d0,A,lda,0d0,R,ldr)
 c augment to ensure strict positivity
       do i = 1,n
-        R(i,i) = R(i,i) + 1d-3
+c ZHERK is often buggy. We'll recompute the diagonal elements and
+c possibly warn about the bug.
+        Rii = zdotc (n, A(1,i), 1, A(1,i), 1)
+        if (.not. abs (Rii - R(i,i)) < 1d-10 * abs(Rii)) then
+          write (*,1001)
+          write (*,1002) R(i,i), Rii 
+        endif
+        R(i,i) = Rii + 1d-3
 c zero below diagonal
         do j = i+1,n
           R(j,i) = 0d0
@@ -453,6 +486,9 @@ c symmetrize A
       end do
       call zpotrf('U',n,R,ldr,info)
       if (info /= 0) stop 'fatal:error generating positive matrix'
+ 1001 format ('WARNING: Possible bug in BLAS CHERK:')
+ 1002 format ('WARNING: ZHERK computed diagonal element (',
+     +F6.3,F6.3,'), direct computation gives (',F6.3,F6.3,').')
       end subroutine
 
       subroutine schchk(n,A,lda,R,ldr)
