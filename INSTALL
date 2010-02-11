@@ -31,8 +31,13 @@ well as save them using the "tee" utility.  A test works correctly if it runs
 OK and outputs all small residuals (of order e-06 for single precision, e-14
 for double precision). Note that subsequent "make test" only redisplays the
 stored results, unless a test is changed.
+The test suite includes some guards against buggy BLAS CHERK and ZHERK routines.
+You may get warnings from the test suite about this.
 
-Installing is as simple as putting the library anywhere at will.
+Installing is as simple as doing "make install", which will install the library
+according to modern conventions for UNIX-based platforms.
+Another option is putting the static library anywhere at will and point compilers
+to it with the -L switch.
 
 Windows makefile is not (yet) provided, but should be easily derived from the
 UNIX one.
