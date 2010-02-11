@@ -1,3 +1,8 @@
+2010-02-11  Jaroslav Hajek  <highegg@gmail.com>
+
+	* test/Makefile: Ensure the test output file is created to prevent
+	errors from report_results.
+
 2010-01-19  Fabian Groffen <grobian@gentoo.org>
 
 	* Makeconf: Define DESTDIR.

@@ -31,6 +31,7 @@ tests: $(OUTS)
 	./report_results $(OUTS)
 
 $(OUTS): %.out: %
+	echo > $@
 	./$< | tee $@
 
 $(PROGS): % : %.f utils.o ../libqrupdate.a
