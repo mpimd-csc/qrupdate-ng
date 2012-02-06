@@ -49,7 +49,7 @@ c check arguments
       info = 0
       if (m < 1) then
         info = 1
-      else if (j < 1 .or. j > n) then
+      else if (j < 1 .or. j > m) then
         info = 7
       end if
       if (info /= 0) then

@@ -1,3 +1,8 @@
+2012-02-06  Jaroslav Hajek  <highegg@gmail.com>
+
+	* src/sqrder.f, src/dqrder.f, src/cqrder.f, src/zqrder.f: Fix fast
+	return conditions for out-of-bounds row.
+
 2010-02-11  Jaroslav Hajek  <highegg@gmail.com>
 
 	* test/utils.f: Test CHERK and ZHERK results for validity. Warn about
