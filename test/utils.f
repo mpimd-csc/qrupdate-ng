@@ -250,9 +250,12 @@ c
       common /stats/ passed,failed
       integer passed,failed
 
-      write(*,1001) 
+      write(*,1001)
       write(*,1002) passed,failed
       write(*,*)
+      if (failed .ne. 0) then
+          stop 1
+      end if
  1001 format(70('-'))
  1002 format(1x,'total:',5x,'PASSED',1x,I3,5x,'FAILED',1x,I3)
       end subroutine
@@ -469,7 +472,7 @@ c possibly warn about the bug.
         Rii = zdotc (n, A(1,i), 1, A(1,i), 1)
         if (.not. abs (Rii - R(i,i)) < 1d-10 * abs(Rii)) then
           write (*,1001)
-          write (*,1002) R(i,i), Rii 
+          write (*,1002) R(i,i), Rii
         endif
         R(i,i) = Rii + 1d-3
 c zero below diagonal
@@ -611,7 +614,7 @@ c get frobenius norm
         end do
         L(i,i) = 1e0
       end do
-c permute the orig matrix      
+c permute the orig matrix
       do i = 1,min(m,n)
         j = ipiv(i)
         if (i /= j) then
@@ -640,7 +643,7 @@ c permute the orig matrix
         end do
         L(i,i) = 1d0
       end do
-c permute the orig matrix      
+c permute the orig matrix
       do i = 1,min(m,n)
         j = ipiv(i)
         if (i /= j) then
@@ -669,7 +672,7 @@ c permute the orig matrix
         end do
         L(i,i) = 1e0
       end do
-c permute the orig matrix      
+c permute the orig matrix
       do i = 1,min(m,n)
         j = ipiv(i)
         if (i /= j) then
@@ -698,7 +701,7 @@ c permute the orig matrix
         end do
         L(i,i) = 1d0
       end do
-c permute the orig matrix      
+c permute the orig matrix
       do i = 1,min(m,n)
         j = ipiv(i)
         if (i /= j) then
@@ -996,7 +999,7 @@ c converts a linear permutation into LAPACK ipiv-style form
       real wrk(1)
       integer i,j
 
-c convert p into successive swaps      
+c convert p into successive swaps
       call p2ipiv(m,p)
 c form A - L*R
       do i = 1,m
@@ -1023,7 +1026,7 @@ c get frobenius norm
       double precision wrk(1)
       integer i,j
 
-c convert p into successive swaps      
+c convert p into successive swaps
       call p2ipiv(m,p)
 c form A - L*R
       do i = 1,m
@@ -1050,7 +1053,7 @@ c get frobenius norm
       real wrk(1)
       integer i,j
 
-c convert p into successive swaps      
+c convert p into successive swaps
       call p2ipiv(m,p)
 c form A - L*R
       do i = 1,m
@@ -1078,7 +1081,7 @@ c get frobenius norm
       double precision wrk(1)
       integer i,j
 
-c convert p into successive swaps      
+c convert p into successive swaps
       call p2ipiv(m,p)
 c form A - L*R
       do i = 1,m
