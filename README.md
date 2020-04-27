@@ -1,7 +1,14 @@
-QRUPDATE: A LIBRARY FOR FAST UPDATING OF QR AND CHOLESKY DECOMPOSITIONS
------------------------------------------------------------------------
+qrupdate-ng: A Library for Fast Updating of QR and Cholesky Decompositions
+--------------------------------------------------------------------------
 
-The following operations are supported:
+* License: GPL v3
+* Version: 1.1.2
+* Authors: TODO
+
+
+## Supported Operations
+
+### QR
 
 QR rank-1 update (qr1up)
 	Updates the QR factorization after an additive rank-1 update to the
@@ -22,6 +29,8 @@ QR row insert (qrinr)
 QR row delete (qrder)
 	Updates the QR factorization after an deleting a row from the
 	original matrix. Works for full factorization only.
+
+### Cholesky
 
 Cholesky rank-1 update (ch1up)
 	Updates the Cholesky factorization after positive rank-1 update
@@ -46,6 +55,7 @@ LU pivoted rank-1 update (lup1up)
 	Updates a row-pivoted LUP factorization after a rank-1 update
 	(A = A + u*v.'). Also updates the row permutation matrix. Slower
 	than lu1up, but more stable.
+
 
 See the INSTALL file for installation details. Consult individual routines
 for documentation.
