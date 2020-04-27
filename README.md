@@ -2,7 +2,7 @@ qrupdate-ng: A Library for Fast Updating of QR and Cholesky Decompositions
 ==========================================================================
 
 * License: GPL v3
-* Version: 1.1.2
+* Version: 1.1.2+
 * Authors: TODO
 
 
@@ -44,7 +44,7 @@ qrupdate-ng: A Library for Fast Updating of QR and Cholesky Decompositions
 
 * Cholesky rank-1 update (`ch1up`)
 
- Updates the Cholesky factorization after positive rank-1 update `A = A + u*u'`.
+  Updates the Cholesky factorization after positive rank-1 update `A = A + u*u'`.
 
 * Cholesky rank-1 downdate (`ch1dn`)
 
@@ -74,12 +74,25 @@ qrupdate-ng: A Library for Fast Updating of QR and Cholesky Decompositions
   Updates a row-pivoted LUP factorization after a rank-1 update (`A = A + u*v.'`).
   Also updates the row permutation matrix. Slower than `lu1up`, but more stable.
 
+### TODO
+
+* Add CMAKE build system
+* Fix Warnings
+* Fix Code smells
+* Improve documentation
+* Profile and improve performance?
+* Add minimal "getting started" example?
+* ...
+
 ### Based on
 
 [qrupdate](https://sourceforge.net/p/qrupdate) (Version 1.1.2)
 
+### License
+
+See the [COPYING](COPYING) file.
 
 ### Installation
 
-See the INSTALL file for installation details.
+See the [INSTALL](INSTALL) file for installation details.
 Consult individual routines for documentation.
