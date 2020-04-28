@@ -78,6 +78,7 @@ c
       integer m,n,ldx
       double complex x(ldx,*)
       external drandg
+      integer l,k
       double precision, allocatable :: xr(:,:)
       allocate(xr(2*ldx,n))
       call drandg(2*m,n,xr,2*ldx)
