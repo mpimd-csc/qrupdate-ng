@@ -20,6 +20,7 @@ c <http://www.gnu.org/licenses/>.
 c
       program tch1up
       integer n
+      external stest, dtest, ctest, ztest, pstats
 
       write (*,*)
       write (*,*) 'testing Cholesky rank-1 update routines.'

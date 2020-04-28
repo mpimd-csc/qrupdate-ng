@@ -1,5 +1,7 @@
       program tchshx
       integer n,i,j
+      external stest, dtest, ctest, ztest, pstats
+
 
       write (*,*)
       write (*,*) 'testing QR column shift routines.'

@@ -20,6 +20,9 @@ c <http://www.gnu.org/licenses/>.
 c
       program tlup1up
       integer m,n
+      external stest, dtest, ctest, ztest, pstats
+
+
 
       write (*,*)
       write (*,*) 'testing pivoted LU rank-1 update routines.'
@@ -54,7 +57,7 @@ c
       subroutine stest(m,n)
       integer m,n
       real A(m,n),L(m,min(m,n)),R(min(m,n),n),u(m),v(n),w(m)
-      external srandg,slugen,sger,slup1up,sluchk
+      external srandg,slupgen,sger,slup1up,slupchk
       integer k,p(m)
 c set up random matrix & vectors
       call srandg(m,n,A,m)
@@ -74,7 +77,7 @@ c check result
       subroutine dtest(m,n)
       integer m,n
       double precision A(m,n),L(m,min(m,n)),R(min(m,n),n),u(m),v(n),w(m)
-      external drandg,dlugen,dger,dlup1up,dluchk
+      external drandg,dlupgen,dger,dlup1up,dlupchk
       integer k,p(m)
 c set up random matrix & vectors
       call drandg(m,n,A,m)
@@ -94,7 +97,7 @@ c check result
       subroutine ctest(m,n)
       integer m,n
       complex A(m,n),L(m,min(m,n)),R(min(m,n),n),u(m),v(n),w(m)
-      external crandg,clugen,cgeru,clup1up,cluchk
+      external crandg,clupgen,cgeru,clup1up,clupchk
       integer k,p(m)
 c set up random matrix & vectors
       call crandg(m,n,A,m)
@@ -114,7 +117,7 @@ c check result
       subroutine ztest(m,n)
       integer m,n
       double complex A(m,n),L(m,min(m,n)),R(min(m,n),n),u(m),v(n),w(m)
-      external zrandg,zlugen,zgeru,zlup1up,zluchk
+      external zrandg,zlupgen,zgeru,zlup1up,zlupchk
       integer k,p(m)
 c set up random matrix & vectors
       call zrandg(m,n,A,m)

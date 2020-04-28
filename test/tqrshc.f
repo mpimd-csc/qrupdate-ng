@@ -20,6 +20,8 @@ c <http://www.gnu.org/licenses/>.
 c
       program tqrshc
       integer m,n,i,j
+      external stest, dtest, ctest, ztest, pstats
+
 
       write (*,*)
       write (*,*) 'testing QR column shift routines.'

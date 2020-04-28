@@ -20,6 +20,8 @@ c <http://www.gnu.org/licenses/>.
 c
       program tchinx
       integer n,j
+      external stest, dtest, ctest, ztest, pstats
+
 
       write (*,*)
       write (*,*) 'testing Cholesky symmetric insert routines.'
@@ -43,7 +45,7 @@ c
       subroutine stest(n,j)
       integer n,j
       real A(n,n),R(n,n),u(n),wrk(n)
-      external srandg,schgen,schinx,schchk
+      external srandg,schgen,schinx,schchk,schdex
       integer info,i
 c set up random matrix & vectors
       call srandg(n,n,A,n)
@@ -68,7 +70,7 @@ c check result
       subroutine dtest(n,j)
       integer n,j
       double precision A(n,n),R(n,n),u(n),wrk(n)
-      external drandg,dchgen,dchinx,dchchk
+      external drandg,dchgen,dchinx,dchchk,dchdex
       integer info,i
 c set up random matrix & vectors
       call drandg(n,n,A,n)
@@ -94,7 +96,7 @@ c check result
       integer n,j
       complex A(n,n),R(n,n),u(n)
       real rwrk(n)
-      external crandg,cchgen,cchinx,cchchk
+      external crandg,cchgen,cchinx,cchchk,cchdex
       integer info,i
 c set up random matrix & vectors
       call crandg(n,n,A,n)
@@ -120,7 +122,7 @@ c check result
       integer n,j
       double complex A(n,n),R(n,n),u(n)
       double precision rwrk(n)
-      external zrandg,zchgen,zchinx,zchchk
+      external zrandg,zchgen,zchinx,zchchk,zchdex
       integer info,i
 c set up random matrix & vectors
       call zrandg(n,n,A,n)

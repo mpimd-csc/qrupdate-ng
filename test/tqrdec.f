@@ -20,6 +20,8 @@ c <http://www.gnu.org/licenses/>.
 c
       program tqrdec
       integer m,n,j
+      external stest, dtest, ctest, ztest, pstats
+
 
       write (*,*)
       write (*,*) 'testing QR column delete routines.'

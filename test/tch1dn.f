@@ -20,6 +20,7 @@ c <http://www.gnu.org/licenses/>.
 c
       program tch1dn
       integer n
+      external stest, dtest, ctest, ztest, pstats
 
       write (*,*)
       write (*,*) 'testing Cholesky rank-1 downdate routines.'
@@ -42,7 +43,7 @@ c
       subroutine stest(n)
       integer n
       real A(n,n),R(n,n),u(n),wrk(2*n)
-      external srandg,scopy,schgen,sch1up,schchk
+      external srandg,scopy,schgen,sch1up,schchk,sch1dn
       integer info
 c set up random matrix & vectors
       call srandg(n,n,A,n)
@@ -62,7 +63,7 @@ c check result
       subroutine dtest(n)
       integer n
       double precision A(n,n),R(n,n),u(n),wrk(2*n)
-      external drandg,dcopy,dchgen,dch1up,dchchk
+      external drandg,dcopy,dchgen,dch1up,dchchk,dch1dn
       integer info
 c set up random matrix & vectors
       call drandg(n,n,A,n)
@@ -83,7 +84,7 @@ c check result
       integer n
       complex A(n,n),R(n,n),u(n),wrk(n)
       real rwrk(n)
-      external crandg,ccopy,cchgen,cch1up,cchchk
+      external crandg,ccopy,cchgen,cch1up,cchchk,cch1dn
       integer info
 c set up random matrix & vectors
       call crandg(n,n,A,n)
@@ -104,7 +105,7 @@ c check result
       integer n
       double complex A(n,n),R(n,n),u(n),wrk(n)
       double precision rwrk(n)
-      external zrandg,zcopy,zchgen,zch1up,zchchk
+      external zrandg,zcopy,zchgen,zch1up,zchchk,zch1dn
       integer info
 c set up random matrix & vectors
       call zrandg(n,n,A,n)

@@ -20,6 +20,8 @@ c <http://www.gnu.org/licenses/>.
 c
       program tqr1up
       integer m,n
+      external stest, dtest, ctest, ztest, pstats
+
 
       write (*,*)
       write (*,*) 'testing QR rank-1 update routines.'

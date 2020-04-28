@@ -20,6 +20,8 @@ c <http://www.gnu.org/licenses/>.
 c
       program tchdex
       integer n,j
+      external stest, dtest, ctest, ztest, pstats
+
 
       write (*,*)
       write (*,*) 'testing Cholesky symmetric delete routines.'

@@ -20,6 +20,8 @@ c <http://www.gnu.org/licenses/>.
 c
       program tlu1up
       integer m,n
+      external stest, dtest, ctest, ztest, pstats
+
 
       write (*,*)
       write (*,*) 'testing LU rank-1 update routines.'

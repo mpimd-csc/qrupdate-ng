@@ -60,16 +60,33 @@ c
 
       subroutine crandg(m,n,x,ldx)
       integer m,n,ldx
+      integer k,l
       complex x(ldx,*)
       external srandg
-      call srandg(2*m,n,x,2*ldx)
+      real, allocatable :: xr(:,:)
+      allocate(xr(2*ldx,n))
+      call srandg(2*m,n,xr,2*ldx)
+      do l = 1, n
+          do k = 1, m
+            x(k,l) = cmplx(xr(2*k-1,l), xr(2*k,l))
+          end do
+      end do
+      deallocate(xr)
       end subroutine
 
       subroutine zrandg(m,n,x,ldx)
       integer m,n,ldx
       double complex x(ldx,*)
-      external srandg
-      call drandg(2*m,n,x,2*ldx)
+      external drandg
+      double precision, allocatable :: xr(:,:)
+      allocate(xr(2*ldx,n))
+      call drandg(2*m,n,xr,2*ldx)
+      do l = 1, n
+          do k = 1, m
+            x(k,l) = cmplx(xr(2*k-1,l), xr(2*k,l), kind = 8)
+          end do
+      end do
+      deallocate(xr)
       end subroutine
 
       block data xrandi
@@ -994,7 +1011,7 @@ c converts a linear permutation into LAPACK ipiv-style form
       integer m,n,lda,ldl,ldr,p(m)
       real A(lda,n),L(ldl,min(m,n)),R(ldr,n)
       real rnrm,slange
-      external sswap,sgemm,slange,spftol
+      external p2ipiv,sswap,sgemm,slange,spftol
       character*4 spftol
       real wrk(1)
       integer i,j
@@ -1021,7 +1038,7 @@ c get frobenius norm
       integer m,n,lda,ldl,ldr,p(m)
       double precision A(lda,n),L(ldl,min(m,n)),R(ldr,n)
       double precision rnrm,dlange
-      external dswap,dgemm,dlange,dpftol
+      external p2ipiv,dswap,dgemm,dlange,dpftol
       character*4 dpftol
       double precision wrk(1)
       integer i,j
@@ -1048,7 +1065,7 @@ c get frobenius norm
       integer m,n,lda,ldl,ldr,p(m)
       complex A(lda,n),L(ldl,min(m,n)),R(ldr,n)
       real rnrm,clange
-      external cswap,cgemm,clange,spftol
+      external p2ipiv,cswap,cgemm,clange,spftol
       character*4 spftol
       real wrk(1)
       integer i,j
@@ -1076,7 +1093,7 @@ c get frobenius norm
       integer m,n,lda,ldl,ldr,p(m)
       double complex A(lda,n),L(ldl,min(m,n)),R(ldr,n)
       double precision rnrm,zlange
-      external zswap,zgemm,zlange,dpftol
+      external p2ipiv,zswap,zgemm,zlange,dpftol
       character*4 dpftol
       double precision wrk(1)
       integer i,j

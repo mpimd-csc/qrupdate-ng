@@ -20,6 +20,8 @@ c <http://www.gnu.org/licenses/>.
 c
       program tqrder
       integer m,n,j
+      external stest, dtest, ctest, ztest, pstats
+
 
       write (*,*)
       write (*,*) 'testing QR row delete routines.'
