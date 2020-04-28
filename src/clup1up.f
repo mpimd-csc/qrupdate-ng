@@ -21,7 +21,7 @@ c
       subroutine clup1up(m,n,L,ldl,R,ldr,p,u,v,w)
 c purpose:      updates a row-pivoted LU factorization after rank-1 modification
 c               i.e., given an m-by-k lower-triangular matrix L with unit
-c               diagonal, a k-by-n upper-trapezoidal matrix R, and a 
+c               diagonal, a k-by-n upper-trapezoidal matrix R, and a
 c               permutation matrix P, where k = min(m,n),
 c               this subroutine updates L -> L1, R -> R1 and P -> P1 so that
 c               L is again lower unit triangular, R upper trapezoidal,
@@ -51,7 +51,7 @@ c
       real tau
       parameter (one = 1e0, tau = 1e-1)
       integer k,info,i,j,itmp
-      external xerbla,ccopy,caxpy,ctrsv,cgeru,cgemv
+      external xerbla,ccopy,caxpy,ctrsv,cgeru,cgemv,cswap
 
 c quick return if possible.
       k = min(m,n)
@@ -81,7 +81,7 @@ c if m > k = n, subtract the trailing part.
       if (m > k) then
         call cgemv('N',m-k,k,-one,L(k+1,1),ldl,w,1,one,w(k+1),1)
       end if
-            
+
 c work from bottom to top
       do j = k-1,1,-1
         if (abs(w(j)) < tau * abs(L(j+1,j)*w(j) + w(j+1))) then
@@ -89,7 +89,7 @@ c need pivoting. swap j and j+1
           tmp = w(j)
           w(j) = w(j+1)
           w(j+1) = tmp
-c update p          
+c update p
           itmp = p(j)
           p(j) = p(j+1)
           p(j+1) = itmp
@@ -104,7 +104,7 @@ c make L lower triangular again
 c update R
           call caxpy(n-j+1,-tmp,R(j+1,j),ldr,R(j,j),ldr)
 c update w
-          w(j) = w(j) - tmp*w(j+1)          
+          w(j) = w(j) - tmp*w(j+1)
         end if
 c eliminate w(j+1)
         tmp = w(j+1)/w(j)
@@ -122,7 +122,7 @@ c forward sweep
       do j = 1,k-1
         if (abs(R(j,j)) < tau * abs(L(j+1,j)*R(j,j) + R(j+1,j))) then
 c need pivoting. swap j and j+1
-c update p          
+c update p
           itmp = p(j)
           p(j) = p(j+1)
           p(j+1) = itmp
@@ -153,5 +153,5 @@ c if m > k = n, complete the update by updating the lower part of L.
         call cgeru(m-k,k,one,w(k+1),1,w,1,L(k+1,1),ldl)
       endif
       end subroutine
-      
-            
+
+

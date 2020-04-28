@@ -42,7 +42,7 @@ c
       integer n,ldr
       double precision R(ldr,*),u(*),w(*)
       integer info
-      external dtrsv,dlartg,dnrm2
+      external xerbla,dtrsv,dlartg,dnrm2
       double precision dnrm2,rho,rr,ui,t
       integer i,j
 

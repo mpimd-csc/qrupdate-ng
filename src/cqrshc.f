@@ -49,7 +49,7 @@ c
       integer m,n,k,ldq,ldr,i,j
       complex Q(ldq,*),R(ldr,*),w(*)
       real rw(*)
-      external xerbla,ccopy,cqrtv1,cqrqh,cqhqr
+      external xerbla,ccopy,cqrtv1,cqrqh,cqhqr,cqrot
       integer info,jj,kk,l
 c quick return if possible.
       if (m == 0 .or. n == 1) return

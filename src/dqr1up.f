@@ -43,7 +43,7 @@ c w (out)       a workspace vector of size 2*k
 c
       integer m,n,k,ldq,ldr
       double precision Q(ldq,*),R(ldr,*),u(*),v(*),w(*)
-      external dqrqh,dqhqr,dqrot,dqrtv1
+      external xerbla, dch1up, dqrqh,dqhqr,dqrot,dqrtv1
       external daxpy,ddot,dnrm2,dlamch,dscal,drot
       double precision ddot,dnrm2,dlamch,ru,ruu
       integer info,i

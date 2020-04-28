@@ -43,7 +43,7 @@ c
       complex R(ldr,*),u(*)
       real rw(*)
       integer info
-      external ctrsv,clartg,scnrm2
+      external ctrsv,clartg,scnrm2,xerbla
       complex crho,rr,ui,t
       real scnrm2,rho
       integer i,j

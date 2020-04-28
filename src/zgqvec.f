@@ -30,9 +30,10 @@ c u (out)       the generated vector.
 c
       integer m,n,ldq
       double complex Q(ldq,*),u(*)
-      external zdotu,zaxpy,dznrm2,zdscal
-      real zdotu
+      external zdotu,zaxpy,dznrm2,zdscal,xerbla
+      double complex zdotu
       double precision dznrm2,r
+      double complex rc
       integer info,i,j
 c quick return if possible.
       if (m == 0) return
@@ -66,8 +67,8 @@ c probe j-th canonical unit vector.
       u(j) = 1d0
 c form u - Q*Q'*u
       do i = 1,n
-        r = zdotu(m,Q(1,i),1,u,1)
-        call zaxpy(m,-r,Q(1,i),1,u,1)
+        rc = zdotu(m,Q(1,i),1,u,1)
+        call zaxpy(m,-rc,Q(1,i),1,u,1)
       end do
       r = dznrm2(m,u,1)
       if (r == 0d0) then

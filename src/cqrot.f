@@ -36,7 +36,7 @@ c
       integer m,n,ldq
       complex Q(ldq,*),s(*)
       real c(*)
-      external crot,lsame
+      external xerbla,crot,lsame
       logical lsame,fwd
       integer info,i
 c quick return if possible

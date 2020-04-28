@@ -45,7 +45,7 @@ c
       integer m,n,k,ldq,ldr
       complex Q(ldq,*),R(ldr,*),u(*),v(*),w(*)
       real rw(*)
-      external cqrqh,cqhqr,cqrot,cqrtv1,caxcpy
+      external xerbla, cch1up, cqrqh,cqhqr,cqrot,cqrtv1,caxcpy
       external caxpy,cdotc,scnrm2,slamch,csscal,crot
       complex cdotc
       real scnrm2,slamch,ru,ruu

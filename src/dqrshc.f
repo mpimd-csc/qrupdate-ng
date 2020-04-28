@@ -47,7 +47,7 @@ c w (o)         a workspace vector of size 2*k.
 c
       integer m,n,k,ldq,ldr,i,j
       double precision Q(ldq,*),R(ldr,*),w(*)
-      external xerbla,dcopy,dqrtv1,dqrqh,dqhqr
+      external dqrot, xerbla,dcopy,dqrtv1,dqrqh,dqhqr
       integer info,jj,kk,l
 c quick return if possible.
       if (m == 0 .or. n == 1) return

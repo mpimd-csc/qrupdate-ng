@@ -46,7 +46,7 @@ c
       integer m,n,k,ldq,ldr,j
       double complex Q(ldq,*),R(ldr,*),x(*)
       double precision rw(*)
-      external zqrtv1,zqrqh,zqrot
+      external zqrtv1,zqrqh,zqrot,zgqvec
       external xerbla,zcopy,zdotc,zaxpy,zdscal,dznrm2
       double complex zdotc
       double precision dznrm2,rx

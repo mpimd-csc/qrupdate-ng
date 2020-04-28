@@ -74,7 +74,7 @@ c form R' \ u
       call ztrsv('U','C','N',n,R,ldr,u,1)
       rho = dznrm2(n,u,1)
 c check positive definiteness.
-      rho = t - rho**2
+      rho = dble(t) - rho**2
       if (rho <= 0d0) goto 10
 c shift columns
       do i = n,j,-1

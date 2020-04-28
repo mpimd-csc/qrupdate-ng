@@ -49,7 +49,7 @@ c
       integer m,n,k,ldq,ldr,i,j
       double complex Q(ldq,*),R(ldr,*),w(*)
       double precision rw(*)
-      external xerbla,zcopy,zqrtv1,zqrqh,zqhqr
+      external xerbla,zcopy,zqrtv1,zqrqh,zqhqr,zqrot
       integer info,jj,kk,l
 c quick return if possible.
       if (m == 0 .or. n == 1) return

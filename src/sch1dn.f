@@ -42,7 +42,7 @@ c
       integer n,ldr
       real R(ldr,*),u(*),w(*)
       integer info
-      external strsv,slartg,snrm2
+      external xerbla, strsv,slartg,snrm2
       real snrm2,rho,rr,ui,t
       integer i,j
 

@@ -47,7 +47,7 @@ c
       integer m,n,k,ldq,ldr,j
       real Q(ldq,*),R(ldr,*),x(*),w(*)
       external sqrtv1,sqrqh,sqrot
-      external xerbla,scopy,sdot,saxpy,sscal,snrm2
+      external xerbla,scopy,sdot,saxpy,sscal,snrm2,sgqvec
       real sdot,snrm2,rx
       integer info,i,k1
       logical full

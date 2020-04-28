@@ -43,7 +43,7 @@ c w (out)       a workspace vector of size 2*k
 c
       integer m,n,k,ldq,ldr
       real Q(ldq,*),R(ldr,*),u(*),v(*),w(*)
-      external sqrqh,sqhqr,sqrot,sqrtv1
+      external sqrqh,sqhqr,sqrot,sqrtv1, xerbla, sch1up
       external saxpy,sdot,snrm2,slamch,sscal,srot
       real sdot,snrm2,slamch,ru,ruu
       integer info,i

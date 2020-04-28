@@ -43,7 +43,7 @@ c
       double complex R(ldr,*),u(*)
       double precision rw(*)
       integer info
-      external ztrsv,zlartg,dznrm2
+      external xerbla,ztrsv,zlartg,dznrm2
       double complex crho,rr,ui,t
       double precision dznrm2,rho
       integer i,j

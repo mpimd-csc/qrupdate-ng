@@ -36,7 +36,7 @@ c
       integer m,n,ldq
       double complex Q(ldq,*),s(*)
       double precision c(*)
-      external zrot,lsame
+      external zrot,lsame,xerbla
       logical lsame,fwd
       integer info,i
 c quick return if possible

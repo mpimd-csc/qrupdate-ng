@@ -35,7 +35,7 @@ c
       character dir
       integer m,n,ldq
       real Q(ldq,*),c(*),s(*)
-      external srot,lsame
+      external xerbla, srot,lsame
       logical lsame,fwd
       integer info,i
 c quick return if possible

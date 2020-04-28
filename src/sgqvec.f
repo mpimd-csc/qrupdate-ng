@@ -30,7 +30,7 @@ c u (out)       the generated vector.
 c
       integer m,n,ldq
       real Q(ldq,*),u(*)
-      external sdot,saxpy,snrm2,sscal
+      external sdot,saxpy,snrm2,sscal, xerbla
       real sdot,snrm2,r
       integer info,i,j
 c quick return if possible.

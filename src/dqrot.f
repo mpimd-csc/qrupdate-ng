@@ -35,7 +35,7 @@ c
       character dir
       integer m,n,ldq
       double precision Q(ldq,*),c(*),s(*)
-      external drot,lsame
+      external xerbla, drot,lsame
       logical lsame,fwd
       integer info,i
 c quick return if possible

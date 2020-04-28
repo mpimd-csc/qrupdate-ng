@@ -30,9 +30,10 @@ c u (out)       the generated vector.
 c
       integer m,n,ldq
       complex Q(ldq,*),u(*)
-      external cdotu,caxpy,scnrm2,csscal
+      external xerbla,cdotu,caxpy,scnrm2,csscal
       complex cdotu
       real scnrm2,r
+      complex rc
       integer info,i,j
 c quick return if possible.
       if (m == 0) return
@@ -66,8 +67,8 @@ c probe j-th canonical unit vector.
       u(j) = 1e0
 c form u - Q*Q'*u
       do i = 1,n
-        r = cdotu(m,Q(1,i),1,u,1)
-        call caxpy(m,-r,Q(1,i),1,u,1)
+        rc = cdotu(m,Q(1,i),1,u,1)
+        call caxpy(m,-rc,Q(1,i),1,u,1)
       end do
       r = scnrm2(m,u,1)
       if (r == 0e0) then

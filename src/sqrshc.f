@@ -47,7 +47,7 @@ c w (o)         a workspace vector of size 2*k.
 c
       integer m,n,k,ldq,ldr,i,j
       real Q(ldq,*),R(ldr,*),w(*)
-      external xerbla,scopy,sqrtv1,sqrqh,sqhqr
+      external xerbla,scopy,sqrtv1,sqrqh,sqhqr,sqrot
       integer info,jj,kk,l
 c quick return if possible.
       if (m == 0 .or. n == 1) return

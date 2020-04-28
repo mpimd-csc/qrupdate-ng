@@ -30,7 +30,7 @@ c u (out)       the generated vector.
 c
       integer m,n,ldq
       double precision Q(ldq,*),u(*)
-      external ddot,daxpy,dnrm2,dscal
+      external ddot,daxpy,dnrm2,dscal,xerbla
       double precision ddot,dnrm2,r
       integer info,i,j
 c quick return if possible.
