@@ -1,10 +1,16 @@
-ESSL-LAPACK 
-===========
+LAPACK-MISSING 
+==============
+Copyright 2020 by Martin Koehler 
 
-IBM's ESSL library does only provide a small subset of the LAPACK library's
-routines. Even simple functions like DLACPY are not available if one uses the
-ESSL library. For this reason this project checks for missing LAPACK routines in
-a provided library and creates a small static library containg the missing
-functions. 
 
+This library checks at compile-time if all required LAPACK routines are
+available and creates a small library containing the missing ones. This is
+required by projects that use IBM's ESSL library since this library does not
+contain the full set of LAPACK routines. 
+
+The routines are taken from LAPACK without any modification and thus uses the
+same license. 
+
+
+The cmake logic is licensed under the same terms as. 
 
