@@ -1,0 +1,9 @@
+# TODO
+
+* Add CMAKE build system
+* Fix Warnings
+* Fix Code smells
+* Improve documentation
+* Profile and improve performance?
+* Add minimal "getting started" example?
+* ...
