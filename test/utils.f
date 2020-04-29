@@ -686,9 +686,9 @@ c permute the orig matrix
       end if
       do i = 1,min(m,n)
         do j = 1,i-1
-          L(j,i) = cmplx(0d0,0d0)
+          L(j,i) = cmplx(0.0,0.0)
         end do
-        L(i,i) = cmplx(1e0,0d0)
+        L(i,i) = cmplx(1.0,0.0)
       end do
 c permute the orig matrix
       do i = 1,min(m,n)
