@@ -14,7 +14,7 @@ ubuntu1604:
 
 ubuntu1804:
   stage: build
-  image: docker-registry.csc.mpi-magdeburg.mpg.de:5000/ci-images/minimal/ubuntu:xenial
+  image: docker-registry.csc.mpi-magdeburg.mpg.de:5000/ci-images/minimal/ubuntu:bionic
   script:
     - apt update && apt install --yes libopenblas-dev libblas-dev liblapack-dev
     - mkdir -p build 
@@ -25,7 +25,7 @@ ubuntu1804:
 
 ubuntu2004:
   stage: build
-  image: docker-registry.csc.mpi-magdeburg.mpg.de:5000/ci-images/minimal/ubuntu:xenial
+  image: docker-registry.csc.mpi-magdeburg.mpg.de:5000/ci-images/minimal/ubuntu:focal
   script:
     - apt update && apt install --yes libopenblas-dev libblas-dev liblapack-dev
     - mkdir -p build
