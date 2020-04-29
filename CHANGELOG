@@ -1,3 +1,10 @@
+2020-??-??  ?
+
+	* CMAKE build system
+	* Fix warnings
+	* Support for IBM XLF compiler and IBM ESSL as BLAS and LAPACK.
+	* Update documentation
+
 2012-02-06  Jaroslav Hajek  <highegg@gmail.com>
 
 	* src/sqrder.f, src/dqrder.f, src/cqrder.f, src/zqrder.f: Fix fast
