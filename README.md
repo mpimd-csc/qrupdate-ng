@@ -22,7 +22,7 @@ qrupdate-ng: A Library for Fast Updating of QR and Cholesky Decompositions
 
 * QR column delete (`qrdec`)
 
-    Updates the QR factorization after an deleting a column from the original matrix. 
+    Updates the QR factorization after an deleting a column from the original matrix.
     Works for full & economized factorization.
 
 * QR column shift (`qrshc`)
@@ -48,7 +48,7 @@ qrupdate-ng: A Library for Fast Updating of QR and Cholesky Decompositions
 
 * Cholesky rank-1 downdate (`ch1dn`)
 
-    Updates the Cholesky factorization after positive rank-1 downdate `A = A - u*u'`. 
+    Updates the Cholesky factorization after positive rank-1 downdate `A = A - u*u'`.
 
 * Cholesky symmetric insert (`chinx`)
 
@@ -88,5 +88,5 @@ See the [LICENSE](LICENSE) file.
 
 ### Installation
 
-See the [INSTALL](INSTALL) file for installation details.
+See the [INSTALL](INSTALL.md) file for installation details.
 Consult individual routines for documentation.

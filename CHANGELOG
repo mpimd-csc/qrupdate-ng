@@ -1,8 +1,9 @@
 2020-??-??  ?
 
-	* CMAKE build system
-	* Fix warnings
+	* Switch fron custom makefile to CMAKE
+	* Fix warnings in the source and the tests
 	* Support for IBM XLF compiler and IBM ESSL as BLAS and LAPACK.
+	* drop support for F77 compilers
 	* Update documentation
 
 2012-02-06  Jaroslav Hajek  <highegg@gmail.com>

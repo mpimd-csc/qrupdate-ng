@@ -46,7 +46,7 @@ IF(CMAKE_Fortran_COMPILER_ID STREQUAL "GNU")
     # Standard Flags
     ADD_FORTRAN_COMPILER_FLAG(CMAKE_Fortran_FLAGS "-frecursive")
     ADD_FORTRAN_COMPILER_FLAG(CMAKE_Fortran_FLAGS "-fPIC")
-
+    ADD_FORTRAN_COMPILER_FLAG(CMAKE_Fortran_FLAGS "-fimplicit-none")
     # Debug Flags
     ADD_FORTRAN_COMPILER_FLAG(CMAKE_Fortran_FLAGS_DEBUG "-Wimplicit-procedure")
     ADD_FORTRAN_COMPILER_FLAG(CMAKE_Fortran_FLAGS_DEBUG "-Wall")
