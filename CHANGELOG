@@ -1,3 +1,7 @@
+2020-12-10  Martin Koehler <koehlerm@mpi-magdeburg.mpg.de>
+
+    * Fix failed tchinc test on aarch64
+
 2020-05-11  Martin Koehler <koehlerm@mpi-magdeburg.mpg.de>, Christian Himpe <himpe@mpi-magdeburg.mpg.de>
 
 	* Switch fron custom makefile to CMAKE
@@ -55,7 +59,7 @@
 	* src/clu1up.f: Ditto.
 	* src/zlu1up.f: Ditto.
 	* src/EXPORTS: Update.
-	* test/utils.f (P2IPIV, SLUPGEN, DLUPGEN, CLUPGEN, ZLUPGEN, 
+	* test/utils.f (P2IPIV, SLUPGEN, DLUPGEN, CLUPGEN, ZLUPGEN,
 	SLUPCHK, DLUPCHK, CLUPCHK, ZLUPCHK): New subroutines.
 	* test/tlup1up.f: New source.
 	* test/Makefile: Include it.
@@ -67,7 +71,7 @@
 	* src/clu1up.f: New source.
 	* src/zlu1up.f: New source.
 	* src/Makefile: Include them in build.
-	* test/utils.f (SLUGEN, DLUGEN, CLUGEN, ZLUGEN, 
+	* test/utils.f (SLUGEN, DLUGEN, CLUGEN, ZLUGEN,
 	SLUCHK, DLUCHK, CLUCHK, ZLUCHK): New subroutines.
 	* test/tlu1up.f: New source.
 	* test/Makefile: Include it.

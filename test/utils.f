@@ -456,7 +456,8 @@ c possibly warn about the bug.
           write (*,1001)
           write (*,1002) R(i,i), Rii
         endif
-        R(i,i) = Rii + 1e-3
+c        R(i,i) = Rii + 1e-3
+        R(i,i) = cmplx(real(Rii)+1e-3,0.0)
 c zero below diagonal
         do j = i+1,n
           R(j,i) = 0e0
@@ -492,7 +493,9 @@ c possibly warn about the bug.
           write (*,1001)
           write (*,1002) R(i,i), Rii
         endif
-        R(i,i) = Rii + 1d-3
+c        R(i,i) = Rii + 1d-3
+        R(i,i) = dcmplx(real(Rii)+1D-3,0.0D0)
+
 c zero below diagonal
         do j = i+1,n
           R(j,i) = 0d0
