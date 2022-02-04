@@ -1,15 +1,15 @@
-stages: 
- - build 
+stages:
+ - build
 
 ubuntu1604:
   stage: build
   image: docker-registry.csc.mpi-magdeburg.mpg.de:5000/ci-images/minimal/ubuntu:xenial
   script:
     - apt update && apt install --yes libopenblas-dev libblas-dev liblapack-dev
-    - mkdir -p build 
+    - mkdir -p build
     - cd build
-    - cmake ../ -DDEBUG=ON 
-    - make 
+    - cmake ../ -DDEBUG=ON
+    - make
     - make test
 
 ubuntu1804:
@@ -17,10 +17,10 @@ ubuntu1804:
   image: docker-registry.csc.mpi-magdeburg.mpg.de:5000/ci-images/minimal/ubuntu:bionic
   script:
     - apt update && apt install --yes libopenblas-dev libblas-dev liblapack-dev
-    - mkdir -p build 
+    - mkdir -p build
     - cd build
-    - cmake ../ -DDEBUG=ON 
-    - make 
+    - cmake ../ -DDEBUG=ON
+    - make
     - make test
 
 ubuntu2004:
@@ -30,29 +30,41 @@ ubuntu2004:
     - apt update && apt install --yes libopenblas-dev libblas-dev liblapack-dev
     - mkdir -p build
     - cd build
-    - cmake ../ -DDEBUG=ON 
-    - make 
+    - cmake ../ -DDEBUG=ON
+    - make
     - make test
-    
+
 centos7:
   stage: build
   image: docker-registry.csc.mpi-magdeburg.mpg.de:5000/ci-images/minimal/centos:7-base
   script:
-    - yum install -y cmake3 blas-devel lapack-devel 
+    - yum install -y cmake3 blas-devel lapack-devel
     - mkdir -p build
     - cd build
-    - cmake3 ../ -DDEBUG=ON 
-    - make 
+    - cmake3 ../ -DDEBUG=ON
+    - make
     - make test
 
 centos8:
   stage: build
   image: docker-registry.csc.mpi-magdeburg.mpg.de:5000/ci-images/minimal/centos:8-base
   script:
-    - yum install -y blas-devel lapack-devel 
+    - yum install -y blas-devel lapack-devel
     - mkdir -p build
     - cd build
-    - cmake ../ -DDEBUG=ON 
-    - make 
+    - cmake ../ -DDEBUG=ON
+    - make
     - make test
+
+cross-win32:
+  stage: build
+  image: docker-registry.csc.mpi-magdeburg.mpg.de:5000/ci-images/minimal/mingw:focal
+  script:
+    - bash ./tools/ci/cross-win32.sh
+
+cross-win64:
+  stage: build
+  image: docker-registry.csc.mpi-magdeburg.mpg.de:5000/ci-images/minimal/mingw:focal
+  script:
+    - bash ./tools/ci/cross-win64.sh
 

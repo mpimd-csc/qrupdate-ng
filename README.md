@@ -2,8 +2,9 @@ qrupdate-ng: A Library for Fast Updating of QR and Cholesky Decompositions
 ==========================================================================
 
 * License: GPL-3.0-or-later (opensource.org/licenses/GPL-3.0)
-* Version: 1.1.4 (2020-12-10)
+* Version: 1.1.5 (2022-02-04)
 * Authors: M. Koehler (0000-0003-2338-9904), C. Himpe (0000-0003-2194-6754)
+* Original Author: Jaroslav Hajek (VZLU Prague)
 * Summary: A FORTRAN library for rank-1 matrix decomposition updates
 
 ## Supported Matrix Decompositions

@@ -12,7 +12,7 @@ operating systems, which are supported by CMAKE, should work as well.
 
 Tested Fortran compilers:
 
- * GNU gfortran 4.8.5, 5.4, 7.3, 8.3, 9.2
+ * GNU gfortran 4.8.5, 5.4, 7.3, 8.3, 9.2, 9.3
  * Intel ifort 18.0.1
  * IBM XLF 16.1.1
 
@@ -76,5 +76,48 @@ and LAPACK could yield the following CMAKE call:
 
     cmake ../ -DBLAS_LIBRARIES=/home/user/software/libblas.a \
               -DLAPACK_LIBRARIES=/home/user/software/liblapack.a
+
+## Cross Compiling for Windows
+The build system supports cross compiling from Unix-like operating systems to
+Windows. Therefore, MingW64 (https://www.mingw-w64.org/) and
+Wine (https://www.winehq.org/) need to be present on the system. In case of
+Ubuntu 20.04 the following packages are required:
+* `mingw-w64`, `mingw-w64-i686-dev` , `mingw-w64-x86-64-dev`
+* `gfortran-mingw-w64-i686`, `gfortran-mingw-w64-x86-64`
+* `wine32`, `wine64`
+* `wget`
+
+Furthermore, BLAS and LAPACK are required in the MingW installation. If this is
+not the case, the reference BLAS and LAPACK library can be installed via
+```shell
+ bash ./tools/install-lapack-mingw-i686.sh
+```
+for the Windows 32-bit environment, and  using
+```shelll
+bash ./tools/install-lapack-mingw-x86_64.sh
+```
+for the Windows 64-bit environment.
+
+The Windows 32-bit  library can then be compiled using
+```shell
+cmake -S . -B build.win32 \
+      -DCMAKE_TOOLCHAIN_FILE=$(pwd)/cmake/mingw-w32-i686.cmake \
+      -DBUILD_SHARED_LIBS=ON \
+      -DCMAKE_INSTALL_PREFIX=$(pwd)/install-win32
+make -C build.win32 all
+(cd build.win32; ctest -V )
+make -C build.win32 install
+```
+
+In case of the 64-bit Windows library, the build process looks like
+```shell
+cmake -S . -B build.win64 \
+      -DCMAKE_TOOLCHAIN_FILE=$(pwd)/cmake/mingw-w64-x86_64.cmake \
+      -DBUILD_SHARED_LIBS=ON \
+      -DCMAKE_INSTALL_PREFIX=$(pwd)/install-win32
+make -C build.win64 all
+(cd build.win64; ctest -V )
+make -C build.win64 install
+```
 
 

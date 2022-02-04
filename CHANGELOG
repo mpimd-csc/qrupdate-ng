@@ -1,3 +1,8 @@
+2022-02-04 Martin Koehler <koehlerm@mpi-magdeburg.mpg.de>
+
+    * Fix Tests on CYGWIN (GH #2)
+    * Enable MingW cross compiling
+
 2020-12-10  Martin Koehler <koehlerm@mpi-magdeburg.mpg.de>
 
     * Fix failed tchinc test on aarch64
