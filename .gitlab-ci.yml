@@ -46,14 +46,14 @@ ubuntu2204:
     - make test
 
 
-centos7:
+ubuntu2204:
   stage: build
-  image: gitlab.mpi-magdeburg.mpg.de/ci-images/minimal/centos:7-base
+  image: gitlab.mpi-magdeburg.mpg.de/ci-images/minimal/ubuntu:noble
   script:
-    - yum install -y cmake3 blas-devel lapack-devel
+    - apt update && apt install --yes libopenblas-dev libblas-dev liblapack-dev
     - mkdir -p build
     - cd build
-    - cmake3 ../ -DDEBUG=ON
+    - cmake ../ -DDEBUG=ON
     - make
     - make test
 
