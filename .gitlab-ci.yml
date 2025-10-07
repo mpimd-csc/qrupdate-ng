@@ -17,6 +17,8 @@ build-ubuntu:
 
 
 build-almalinux:
+  tags:
+    - haswell
   parallel:
     matrix:
       - ALMA_VERSION: ["8", "9", "10" ]
