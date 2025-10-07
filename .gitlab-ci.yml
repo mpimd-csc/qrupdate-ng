@@ -1,42 +1,12 @@
 stages:
  - build
 
-ubuntu1604:
+build-ubuntu:
+  parallel:
+    matrix:
+      - UBUNTU_VERSION: [ "xenial", "bionic", "xenial", "focal", "jammy", "noble" ]
   stage: build
-  image: gitlab.mpi-magdeburg.mpg.de/ci-images/minimal/ubuntu:xenial
-  script:
-    - apt update && apt install --yes libopenblas-dev libblas-dev liblapack-dev
-    - mkdir -p build
-    - cd build
-    - cmake ../ -DDEBUG=ON
-    - make
-    - make test
-
-ubuntu1804:
-  stage: build
-  image: gitlab.mpi-magdeburg.mpg.de/ci-images/minimal/ubuntu:bionic
-  script:
-    - apt update && apt install --yes libopenblas-dev libblas-dev liblapack-dev
-    - mkdir -p build
-    - cd build
-    - cmake ../ -DDEBUG=ON
-    - make
-    - make test
-
-ubuntu2004:
-  stage: build
-  image: gitlab.mpi-magdeburg.mpg.de/ci-images/minimal/ubuntu:focal
-  script:
-    - apt update && apt install --yes libopenblas-dev libblas-dev liblapack-dev
-    - mkdir -p build
-    - cd build
-    - cmake ../ -DDEBUG=ON
-    - make
-    - make test
-
-ubuntu2204:
-  stage: build
-  image: gitlab.mpi-magdeburg.mpg.de/ci-images/minimal/ubuntu:jammy
+  image: gitlab.mpi-magdeburg.mpg.de/ci-images/minimal/ubuntu:${UBUNTU_VERSION}
   script:
     - apt update && apt install --yes libopenblas-dev libblas-dev liblapack-dev
     - mkdir -p build
@@ -46,22 +16,14 @@ ubuntu2204:
     - make test
 
 
-ubuntu2204:
+build-almalinux:
+  parallel:
+    matrix:
+      - ALMA_VERSION: ["8", "9", "10" ]
   stage: build
-  image: gitlab.mpi-magdeburg.mpg.de/ci-images/minimal/ubuntu:noble
+  image: gitlab.mpi-magdeburg.mpg.de/ci-images/minimal/almalinux:${ALMA_VERSION}
   script:
-    - apt update && apt install --yes libopenblas-dev libblas-dev liblapack-dev
-    - mkdir -p build
-    - cd build
-    - cmake ../ -DDEBUG=ON
-    - make
-    - make test
-
-centos8:
-  stage: build
-  image: gitlab.mpi-magdeburg.mpg.de/ci-images/minimal/centos:8-base
-  script:
-    - yum install -y blas-devel lapack-devel
+    - dnf install -y blas-devel lapack-devel
     - mkdir -p build
     - cd build
     - cmake ../ -DDEBUG=ON
@@ -91,4 +53,5 @@ cross-win64-jammy:
   image: gitlab.mpi-magdeburg.mpg.de/ci-images/minimal/mingw:jammy
   script:
     - bash ./tools/ci/cross-win64.sh
+
 
