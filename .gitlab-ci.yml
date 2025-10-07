@@ -13,7 +13,7 @@ build-ubuntu:
     - cd build
     - cmake ../ -DDEBUG=ON
     - make
-    - make test
+    - ctest -V
 
 
 build-almalinux:
@@ -30,7 +30,7 @@ build-almalinux:
     - cd build
     - cmake ../ -DDEBUG=ON
     - make
-    - make test
+    - ctest -V 
 
 cross-win32:
   stage: build
