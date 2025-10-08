@@ -26,6 +26,7 @@ build-almalinux:
   image: gitlab.mpi-magdeburg.mpg.de/ci-images/minimal/almalinux:${ALMA_VERSION}
   script:
     - dnf install -y blas-devel lapack-devel
+    - if [ ${ALMA_VERSION} -eq 9 ]; then (cd /usr/lib64/; ln -sf libblas.so.3.9.0 libblas.so.3; ln -sf liblapack.so.3.9.0 liblapack.so.3 ); fi
     - mkdir -p build
     - cd build
     - cmake ../ -DDEBUG=ON
