@@ -31,7 +31,23 @@ build-almalinux:
     - cd build
     - cmake ../ -DDEBUG=ON
     - make
-    - ctest -V 
+    - ctest -V
+
+build-fedora:
+  parallel:
+    matrix:
+      - FEDORA_VERSION: ["40", "41", "42" ]
+  stage: build
+  image: gitlab.mpi-magdeburg.mpg.de/ci-images/minimal/fedora:${FEDORA_VERSION}
+  script:
+    - dnf install -y flexiblas-devel
+    - mkdir -p build
+    - cd build
+    - cmake ../ -DDEBUG=ON
+    - make
+    - ctest -V
+
+
 
 cross-win32:
   stage: build
