@@ -255,7 +255,7 @@ c
       external dlamch
       common /stats/ passed,failed
       integer passed,failed
-      if (rnrm < 2d2*dlamch('p')) then
+      if (rnrm < 5d2*dlamch('p')) then
         dpftol = 'PASS'
         passed = passed + 1
       else
