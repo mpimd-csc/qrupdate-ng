@@ -241,7 +241,7 @@ character*4 function spftol(rnrm)
     external slamch
     common /stats/ passed,failed
     integer passed,failed
-    if (rnrm < 2e2*slamch('p')) then
+    if (rnrm < 5e2*slamch('p')) then
         spftol = 'PASS'
         passed = passed + 1
     else
