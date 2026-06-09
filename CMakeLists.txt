@@ -25,6 +25,8 @@ ENDIF()
 # Add addtional CMAKE Paths.
 LIST(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 
+# enable code coverage
+find_package(codecov)
 
 INCLUDE(FortranCompilerSettings)
 INCLUDE(GNUInstallDirs)
@@ -84,3 +86,4 @@ MESSAGE(STATUS "Debug: ${DEBUG}")
 MESSAGE(STATUS "Shared Libs: ${BUILD_SHARED_LIBS}")
 MESSAGE(STATUS "---------------------------------------------")
 
+coverage_evaluate()

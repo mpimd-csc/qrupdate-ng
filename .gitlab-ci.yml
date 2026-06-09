@@ -47,6 +47,20 @@ build-fedora:
     - make
     - ctest -V
 
+coverage:
+  image: gitlab.mpi-magdeburg.mpg.de/ci-images/minimal/ubuntu:noble
+  stage: build
+  needs: []
+  script:
+    - apt update && apt-get install --yes --no-install-recommends lcov gcovr libopenblas-dev libblas-dev liblapack-dev
+    - cmake -S . -B build-dir -DCMAKE_BUILD_TYPE=Debug -DENABLE_COVERAGE=ON
+    - cmake --build build-dir
+    - cd build-dir
+    - make
+    - OMP_NUM_THREADS=1 make test
+    - make gcov
+    - gcovr -r ..
+  coverage: '/^TOTAL.*\s+(\d+\%)$/'
 
 
 cross-win32:
