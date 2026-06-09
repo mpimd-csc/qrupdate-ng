@@ -1,3 +1,19 @@
+# Changelog
+
+## Upcomming Version
+
+* Convert to free form Fortran
+
+
+
+## Old Changelog
+
+```
+2022-02-04 Martin Koehler <koehlerm@mpi-magdeburg.mpg.de>
+
+    * Fix Tests on CYGWIN (GH #2)
+    * Enable MingW cross compiling
+
 2022-02-04 Martin Koehler <koehlerm@mpi-magdeburg.mpg.de>
 
     * Fix Tests on CYGWIN (GH #2)
@@ -91,3 +107,4 @@
 
 	* ChangeLog: Create.
 	* src/Makefile: Specify BLAS and LAPACK when creating dynamic library.
+```
