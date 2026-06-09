@@ -4,7 +4,7 @@ stages:
 build-ubuntu:
   parallel:
     matrix:
-      - UBUNTU_VERSION: [ "xenial", "bionic", "xenial", "focal", "jammy", "noble" ]
+      - UBUNTU_VERSION: [ "focal", "jammy", "noble", "resolute" ]
   stage: build
   image: gitlab.mpi-magdeburg.mpg.de/ci-images/minimal/ubuntu:${UBUNTU_VERSION}
   script:
