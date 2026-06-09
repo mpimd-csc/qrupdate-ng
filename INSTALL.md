@@ -46,8 +46,9 @@ standard options of CMAKE, the following ones are supported:
 
 | **Option**                     | **Description**                             |
 |--------------------------------|---------------------------------------------|
-| `-DEBUG=OFF/ON`                | Enable the debug build.                     |
+| `-DDEBUG=OFF/ON`               | Enable the debug build.                     |
 | `-DHOSTOPT=OFF/ON`             | Enable host specific compiler flags.        |
+| `-DENABLE_COVERAGE=OFF/ON`     | Enable code coverage.                       |
 | `-DFORTRAN_BOUND_CHECK=OFF/ON` | Enable the runtime bound checker.           |
 | `-DFORTRAN_SANITIZE=OFF/ON`    | Enable the runtime sanitizer.               |
 | `-DBUILD_SHARED_LIBS=ON/OFF`   | Enable building of shared libraries.        |
