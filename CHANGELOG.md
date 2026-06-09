@@ -3,6 +3,7 @@
 ## Upcomming Version
 
 * Convert to free form Fortran
+* Add code coverage builds
 
 
 
