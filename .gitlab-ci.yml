@@ -47,6 +47,38 @@ build-fedora:
     - make
     - ctest -V
 
+build-aocc:
+  parallel:
+    matrix:
+      - AOCC_VERSION: [ "5.1.0", "5.2.0" ]
+  stage: build
+  needs: []
+  image: gitlab.mpi-magdeburg.mpg.de/ci-images/aocc-compiler/noble:${AOCC_VERSION}
+  script:
+    - apt update && apt install --yes libopenblas-dev libblas-dev liblapack-dev
+    - mkdir -p build
+    - cd build
+    - cmake ../ -DDEBUG=ON
+    - make
+      # We do not run the test with AOCC since the compiler produces invalid results
+      # - ctest -V
+
+build-intel:
+  parallel:
+    matrix:
+      - INTEL_VERSION: [ "2024", "2025", "2026" ]
+  stage: build
+  needs: []
+  image: gitlab.mpi-magdeburg.mpg.de/ci-images/intel-compiler/noble:${INTEL_VERSION}
+  script:
+    - mkdir -p build
+    - cd build
+    - CC=icx FC=ifx cmake ../ -DDEBUG=ON -DBLA_VENDOR=Intel10_64lp
+    - make
+    - ctest -V
+
+
+
 coverage:
   image: gitlab.mpi-magdeburg.mpg.de/ci-images/minimal/ubuntu:noble
   stage: build
