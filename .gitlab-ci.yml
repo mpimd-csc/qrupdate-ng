@@ -62,6 +62,21 @@ build-aocc:
     - make
     - ctest -V
 
+build-intel:
+  parallel:
+    matrix:
+      - INTEL_VERSION: [ "2024", "2025", "2026" ]
+  stage: build
+  needs: []
+  image: gitlab.mpi-magdeburg.mpg.de/ci-images/intel-compiler/noble:${INTEL_VERSION}
+  script:
+    - mkdir -p build
+    - cd build
+    - CC=icx FC=ifx cmake ../ -DDEBUG=ON -DBLA_VENDOR=Intel10_64lp
+    - make
+    - ctest -V
+
+
 
 coverage:
   image: gitlab.mpi-magdeburg.mpg.de/ci-images/minimal/ubuntu:noble
