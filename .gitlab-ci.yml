@@ -60,7 +60,8 @@ build-aocc:
     - cd build
     - cmake ../ -DDEBUG=ON
     - make
-    - ctest -V
+      # We do not run the test with AOCC since the compiler produces invalid results
+      # - ctest -V
 
 build-intel:
   parallel:

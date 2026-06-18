@@ -18,6 +18,10 @@ Tested Fortran compilers:
  * Intel ifort >= 18.0.1
  * Intel oneAPI ifx >= 2024
 
+The AMD AOCC 5.x compiler compiles the code, but the generated code may contain
+invalid memory accesses. Please check carefully if the required routines work
+correctly in your application.
+
 Tested BLAS/LAPACK implementations:
 
  * Reference BLAS/LAPACK, http://www.netlib.org/lapack
