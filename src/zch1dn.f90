@@ -1,8 +1,7 @@
-! Copyright (C) 2008, 2009  VZLU Prague, a.s., Czech Republic
+! Copyright (C) 2008, 2009  VZLU Prague, a.s., Czech Republic, Jaroslav Hajek <highegg@gmail.com>
+! Copyright (C) 2026 Martin Köhler <koehlerm(AT)mpi-magdeburg.mpg.de>
 !
-! Author: Jaroslav Hajek <highegg@gmail.com>
-!
-! This file is part of qrupdate.
+! This file is part of qrupdate-ng.
 !
 ! qrupdate is free software; you can redistribute it and/or modify
 ! it under the terms of the GNU General Public License as published by
@@ -18,27 +17,84 @@
 ! along with this software; see the file COPYING.  If not, see
 ! <http://www.gnu.org/licenses/>.
 !
+!> \brief Downdates a Cholesky factorization after a rank-1 modification.
+!>
+!> \par Definition:
+! =============
+!> \verbatim
+!>       subroutine zch1dn(n,R,ldr,u,rw,info)
+!>
+!>       .. Scalar Arguments ..
+!>       integer            n, ldr, info
+!>       ..
+!>       .. Array Arguments ..
+!>       double complex     R(ldr,*), u(*)
+!>       double precision   rw(*)
+!>       ..
+!> \endverbatim
+!>
+!> \par Purpose:
+! =============
+!> \verbatim
+!>
+!> ZCH1DN downdates the Cholesky factorization of a hermitian
+!> positive definite matrix A after a rank-1 modification.  Given an
+!> upper triangular matrix R that is a Cholesky factor of A, i.e.,
+!> A = R'*R, where R' denotes the conjugate transpose of R, this
+!> ZCH1DN downdates R -> R1 so that R1'*R1 = A - u*u', where u
+!> is a given vector.
+!>
+!> The downdate is performed by applying a sequence of hyperbolic
+!> rotations to restore the upper triangular structure of R.  On
+!> exit, u contains the rotation sines and rw contains the rotation
+!> cosines used in the transformation.
+!> \endverbatim
+!>
+!> \param[in] n
+!> \verbatim
+!>          n is INTEGER
+!>          The order of matrix R.  n >= 0.
+!> \endverbatim
+!>
+!> \param[in,out] R
+!> \verbatim
+!>          R is COMPLEX*16 array, dimension (ldr,n)
+!>          On entry, the upper triangular matrix R, the Cholesky
+!>          factor of A.  On exit, the updated upper triangular
+!>          matrix R1, the Cholesky factor of A - u*u'.
+!> \endverbatim
+!>
+!> \param[in] ldr
+!> \verbatim
+!>          ldr is INTEGER
+!>          The leading dimension of the array R.  ldr >= n.
+!> \endverbatim
+!>
+!> \param[in,out] u
+!> \verbatim
+!>          u is COMPLEX*16 array, dimension (n)
+!>          On entry, the vector determining the rank-1 downdate.
+!>          On exit, u contains the rotation sines used to
+!>          transform R to R1.
+!> \endverbatim
+!>
+!> \param[out] rw
+!> \verbatim
+!>          rw is DOUBLE PRECISION array, dimension (n)
+!>          On exit, rw contains the cosine parts of the
+!>          rotations used to transform R to R1.
+!> \endverbatim
+!>
+!> \param[out] info
+!> \verbatim
+!>          info is INTEGER
+!>          = 0:  successful exit
+!>          = 1:  the update would violate positive-definiteness
+!>          = 2:  R is singular
+!> \endverbatim
+!>
+!> \ingroup choldecomp
 subroutine zch1dn(n,R,ldr,u,rw,info)
-    ! purpose:      given an upper triangular matrix R that is a Cholesky
-    !               factor of a hermitian positive definite matrix A, i.e.
-    !               A = R'*R, this subroutine downdates R -> R1 so that
-    !               R1'*R1 = A - u*u'
-    !               (complex version)
-    ! arguments:
-    ! n (in)        the order of matrix R
-    ! R (io)        on entry, the upper triangular matrix R
-    !               on exit, the updated matrix R1
-    ! ldr (in)      leading dimension of R. ldr >= n.
-    ! u (io)        the vector determining the rank-1 update
-    !               on exit, u contains the reflector sines
-    !               used to transform R to R1.
-    ! rw (out)      cosine parts of reflectors.
-    !
-    ! info (out)    on exit, error code:
-    !                info = 0: success.
-    !                info = 1: update violates positive-definiteness.
-    !                info = 2: R is singular.
-    !
     integer n,ldr
     double complex R(ldr,*),u(*)
     double precision rw(*)

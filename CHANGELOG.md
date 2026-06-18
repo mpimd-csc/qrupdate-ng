@@ -1,7 +1,8 @@
 # Changelog
 
-## Upcomming Version
+## Upcoming Version
 
+* Documentation rewrite. Now, we use proper doxygen.
 * Convert to free form Fortran
 * Add code coverage builds
 

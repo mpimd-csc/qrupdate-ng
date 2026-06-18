@@ -1,8 +1,7 @@
-! Copyright (C) 2008, 2009  VZLU Prague, a.s., Czech Republic
+! Copyright (C) 2008, 2009  VZLU Prague, a.s., Czech Republic, Jaroslav Hajek <highegg@gmail.com>
+! Copyright (C) 2026 Martin Köhler <koehlerm(AT)mpi-magdeburg.mpg.de>
 !
-! Author: Jaroslav Hajek <highegg@gmail.com>
-!
-! This file is part of qrupdate.
+! This file is part of qrupdate-ng.
 !
 ! qrupdate is free software; you can redistribute it and/or modify
 ! it under the terms of the GNU General Public License as published by
@@ -18,26 +17,73 @@
 ! along with this software; see the file COPYING.  If not, see
 ! <http://www.gnu.org/licenses/>.
 !
+!> \brief Updates a Cholesky factorization after deleting a row and column.
+!>
+!> \par Definition:
+! =============
+!> \verbatim
+!>       subroutine schdex(n,R,ldr,j,w)
+!>
+!>       .. Scalar Arguments ..
+!>       integer            n, ldr, j
+!>       ..
+!>       .. Array Arguments ..
+!>       real               R(ldr,*), w(*)
+!>       ..
+!> \endverbatim
+!>
+!> \par Purpose:
+! =============
+!> \verbatim
+!>
+!> SCHDEX updates the Cholesky factorization of a symmetric
+!> positive definite matrix A after deleting a row/column.
+!> Given an upper triangular matrix R that is a Cholesky
+!> factor of A, i.e., A = R.'*R, where R.' denotes the
+!> transpose of R, SCHDEX updates R -> R1 so that
+!> R1.'*R1 = A(jj,jj), where jj = [1:j-1, j+1:n+1].
+!> \endverbatim
+!>
+!> \param[in] n
+!> \verbatim
+!>          n is INTEGER
+!>          The order of matrix R.  n >= 0.
+!> \endverbatim
+!>
+!> \param[in,out] R
+!> \verbatim
+!>          R is REAL array, dimension (ldr,n)
+!>          On entry, the upper triangular matrix R, the Cholesky
+!>          factor of A.  On exit, the updated upper triangular
+!>          matrix R1, the Cholesky factor of A(jj,jj).
+!> \endverbatim
+!>
+!> \param[in] ldr
+!> \verbatim
+!>          ldr is INTEGER
+!>          The leading dimension of the array R.  ldr >= n.
+!> \endverbatim
+!>
+!> \param[in] j
+!> \verbatim
+!>          j is INTEGER
+!>          The position of the deleted row/column.
+!> \endverbatim
+!>
+!> \param[out] w
+!> \verbatim
+!>          w is REAL array, dimension (n)
+!>          A workspace vector.
+!> \endverbatim
+!>
+!> \ingroup choldecomp
 subroutine schdex(n,R,ldr,j,w)
-    ! purpose:      given an upper triangular matrix R that is a Cholesky
-    !               factor of a symmetric positive definite matrix A, i.e.
-    !               A = R'*R, this subroutine updates R -> R1 so that
-    !               R1'*R1 = A(jj,jj), where jj = [1:j-1,j+1:n+1].
-    !               (real version)
-    ! arguments:
-    ! n (in)        the order of matrix R.
-    ! R (io)        on entry, the original upper trapezoidal matrix R.
-    !               on exit, the updated matrix R1.
-    ! ldr (in)      leading dimension of R. ldr >= n.
-    ! j (in)        the position of the deleted row/column.
-    ! w (out)       a workspace vector of size n.
-    !
     integer n,ldr,j
     real R(ldr,*),w(*)
     integer info,i
     external xerbla,scopy,sqhqr
 
-    ! quick return if possible
+    ! quick return if possible.
     if (n == 1) return
 
     ! check arguments

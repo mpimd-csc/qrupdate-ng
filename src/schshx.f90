@@ -1,8 +1,7 @@
-! Copyright (C) 2008, 2009  VZLU Prague, a.s., Czech Republic
+! Copyright (C) 2008, 2009  VZLU Prague, a.s., Czech Republic, Jaroslav Hajek <highegg@gmail.com>
+! Copyright (C) 2026 Martin Köhler <koehlerm(AT)mpi-magdeburg.mpg.de>
 !
-! Author: Jaroslav Hajek <highegg@gmail.com>
-!
-! This file is part of qrupdate.
+! This file is part of qrupdate-ng.
 !
 ! qrupdate is free software; you can redistribute it and/or modify
 ! it under the terms of the GNU General Public License as published by
@@ -18,23 +17,77 @@
 ! along with this software; see the file COPYING.  If not, see
 ! <http://www.gnu.org/licenses/>.
 !
+!> \brief Updates a Cholesky factorization after a symmetric shift of rows and columns.
+!>
+!> \par Definition:
+! =============
+!> \verbatim
+!>       subroutine schshx(n,R,ldr,i,j,w)
+!>
+!>       .. Scalar Arguments ..
+!>       integer            n, ldr, i, j
+!>       ..
+!>       .. Array Arguments ..
+!>       real               R(ldr,*), w(*)
+!>       ..
+!> \endverbatim
+!>
+!> \par Purpose:
+! =============
+!> \verbatim
+!>
+!> SCHSHX updates the Cholesky factorization of a symmetric
+!> positive definite matrix A after a symmetric shift of rows and
+!> columns.  Given an upper triangular matrix R that is a Cholesky
+!> factor of A, i.e., A = R.'*R, where R.' denotes the transpose
+!> of R, SCHSHX updates R -> R1 so that
+!> R1.'*R1 = A(p,p), where p is the permutation
+!> [1:i-1, shift(i:j,-1), j+1:n] if i < j, or
+!> [1:j-1, shift(j:i,+1), i+1:n] if j < i.
+!> \endverbatim
+!>
+!> \param[in] n
+!> \verbatim
+!>          n is INTEGER
+!>          The order of matrix R.  n >= 0.
+!> \endverbatim
+!>
+!> \param[in,out] R
+!> \verbatim
+!>          R is REAL array, dimension (ldr,n)
+!>          On entry, the upper triangular matrix R, the Cholesky
+!>          factor of A.  On exit, the updated upper triangular
+!>          matrix R1, the Cholesky factor of A(p,p).
+!> \endverbatim
+!>
+!> \param[in] ldr
+!> \verbatim
+!>          ldr is INTEGER
+!>          The leading dimension of the array R.  ldr >= n.
+!> \endverbatim
+!>
+!> \param[in] i
+!> \verbatim
+!>          i is INTEGER
+!>          The first index determining the range of the shift.
+!>          1 <= i <= n.
+!> \endverbatim
+!>
+!> \param[in] j
+!> \verbatim
+!>          j is INTEGER
+!>          The second index determining the range of the shift.
+!>          1 <= j <= n.
+!> \endverbatim
+!>
+!> \param[out] w
+!> \verbatim
+!>          w is REAL array, dimension (2*n)
+!>          Workspace vector used during the retriangularization.
+!> \endverbatim
+!>
+!> \ingroup choldecomp
 subroutine schshx(n,R,ldr,i,j,w)
-    ! purpose:      given an upper triangular matrix R that is a Cholesky
-    !               factor of a symmetric positive definite matrix A, i.e.
-    !               A = R'*R, this subroutine updates R -> R1 so that
-    !               R1'*R1 = A(p,p), where p is the permutation
-    !               [1:i-1,shift(i:j,-1),j+1:n] if i < j  or
-    !               [1:j-1,shift(j:i,+1),i+1:n] if j < i.
-    !               (real version)
-    ! arguments:
-    ! n (in)        the order of matrix R
-    ! R (io)        on entry, the upper triangular matrix R
-    !               on exit, the updated matrix R1
-    ! ldr (in)      leading dimension of R. ldr >= n.
-    ! i (in)        the first index determining the range (see above).
-    ! j (in)        the second index determining the range (see above).
-    ! w (o)         a workspace vector of size 2*n.
-    !
     integer n,ldr,i,j
     real R(ldr,*),w(*)
     external xerbla,scopy,sqrtv1,sqrqh,sqhqr

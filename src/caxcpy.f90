@@ -1,8 +1,7 @@
-! Copyright (C) 2008, 2009  VZLU Prague, a.s., Czech Republic
+! Copyright (C) 2008, 2009  VZLU Prague, a.s., Czech Republic, Jaroslav Hajek <highegg@gmail.com>
+! Copyright (C) 2026 Martin Köhler <koehlerm(AT)mpi-magdeburg.mpg.de>
 !
-! Author: Jaroslav Hajek <highegg@gmail.com>
-!
-! This file is part of qrupdate.
+! This file is part of qrupdate-ng.
 !
 ! qrupdate is free software; you can redistribute it and/or modify
 ! it under the terms of the GNU General Public License as published by
@@ -18,16 +17,82 @@
 ! along with this software; see the file COPYING.  If not, see
 ! <http://www.gnu.org/licenses/>.
 !
+!> \brief Performs scaled conjugate vector addition.
+!>
+!> \par Definition:
+! =============
+!> \verbatim
+!>       subroutine caxcpy(n,a,x,incx,y,incy)
+!>
+!>       .. Scalar Arguments ..
+!>       integer            n, incx, incy
+!>       ..
+!>       .. Array Arguments ..
+!>       complex            a, x(*), y(*)
+!>       ..
+!> \endverbatim
+!>
+!> \par Purpose:
+! =============
+!> \verbatim
+!>
+!> CAXCPY performs the operation y := y + a * conjg(x), where a is a
+!> complex scalar, x is a vector of length n, conjg(x) denotes the
+!> element-wise complex conjugate of x, and y is a vector of the same
+!> length.  On entry, y contains the existing values; on exit, y is
+!> overwritten with the result.  This is the complex analogue of the
+!> BLAS caxpy, with the x argument conjugated before scaling.
+!> \endverbatim
+!>
+!> \param[in] n
+!> \verbatim
+!>          n is INTEGER
+!>          The number of elements in vectors x and y.  If n <= 0,
+!>          the subroutine returns immediately without modification.
+!> \endverbatim
+!>
+!> \param[in] a
+!> \verbatim
+!>          a is COMPLEX
+!>          The complex scalar used to scale the conjugated vector
+!>          conjg(x) before accumulation into y.
+!> \endverbatim
+!>
+!> \param[in] x
+!> \verbatim
+!>          x is COMPLEX array, dimension (*)
+!>          The vector whose complex conjugate is scaled by a and
+!>          added to y.  x is not modified.
+!> \endverbatim
+!>
+!> \param[in] incx
+!> \verbatim
+!>          incx is INTEGER
+!>          The stride (increment) for elements of x.  If incx > 0,
+!>          elements are accessed starting from x(1); if incx < 0,
+!>          elements are accessed starting from
+!>          x(1 + (-n+1)*incx).  A value of 1 accesses
+!>          contiguous elements.
+!> \endverbatim
+!>
+!> \param[in,out] y
+!> \verbatim
+!>          y is COMPLEX array, dimension (*)
+!>          On entry, the vector y of length n.  On exit, y is
+!>          overwritten with y + a * conjg(x).
+!> \endverbatim
+!>
+!> \param[in] incy
+!> \verbatim
+!>          incy is INTEGER
+!>          The stride (increment) for elements of y.  If incy > 0,
+!>          elements are accessed starting from y(1); if incy < 0,
+!>          elements are accessed starting from
+!>          y(1 + (-n+1)*incy).  A value of 1 accesses
+!>          contiguous elements.
+!> \endverbatim
+!> \ingroup aux
 subroutine caxcpy(n,a,x,incx,y,incy)
-    ! purpose:      constant times a conjugated vector plus a vector.
-    ! arguments:
-    ! n (in)        vector length
-    ! a (in)        complex factor
-    ! x (in)        added vector
-    ! incx (in)     x increments
-    ! y (io)        accumulator vector
-    ! incy (in)     y increments
-    !
     integer n,incx,incy
     complex a,x(*),y(*)
     integer i,ix,iy
