@@ -26,17 +26,17 @@ This following operations are supported:
 * QR column insert (`qrinc`)
 
     Updates the QR factorization after an inserting a column to the original matrix.
-    Works for full & economized factorization.
+    Works for full and economized factorization.
 
 * QR column delete (`qrdec`)
 
     Updates the QR factorization after an deleting a column from the original matrix.
-    Works for full & economized factorization.
+    Works for full and economized factorization.
 
 * QR column shift (`qrshc`)
 
     Updates the QR factorization after a circular shift of columns in  the original matrix.
-    Works for full & economized factorization.
+    Works for full and economized factorization.
 
 * QR row insert (`qrinr`)
 
@@ -56,11 +56,11 @@ This following operations are supported:
 
 * Cholesky rank-1 update (`ch1up`)
 
-    Updates the Cholesky factorization after positive rank-1 update `A = A + u*u'`.
+    Updates the Cholesky factorization after positive rank-1 update.
 
 * Cholesky rank-1 downdate (`ch1dn`)
 
-    Updates the Cholesky factorization after positive rank-1 downdate `A = A - u*u'`.
+    Updates the Cholesky factorization after positive rank-1 downdate.
 
 * Cholesky symmetric insert (`chinx`)
 
@@ -82,12 +82,12 @@ This following operations are supported:
 
 * LU rank-1 update (`lu1up`)
 
-    Updates the LU factorization after a rank-1 update (`A = A + u*v.'`).
+    Updates the LU factorization after a rank-1 update.
     No pivoting available. Faster than `lup1up`, but less stable.
 
 * LU pivoted rank-1 update (`lup1up`)
 
-    Updates a row-pivoted LUP factorization after a rank-1 update (`A = A + u*v.'`).
+    Updates a row-pivoted LUP factorization after a rank-1 update.
     Also updates the row permutation matrix. Slower than `lu1up`, but more stable.
 
 ## Installation
