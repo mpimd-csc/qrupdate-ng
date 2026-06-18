@@ -47,6 +47,22 @@ build-fedora:
     - make
     - ctest -V
 
+build-aocc:
+  parallel:
+    matrix:
+      - AOCC_VERSION: [ "5.1.0", "5.2.0" ]
+  stage: build
+  needs: []
+  image: gitlab.mpi-magdeburg.mpg.de/ci-images/aocc-compiler/noble:${AOCC_VERSION}
+  script:
+    - apt update && apt install --yes libopenblas-dev libblas-dev liblapack-dev
+    - mkdir -p build
+    - cd build
+    - cmake ../ -DDEBUG=ON
+    - make
+    - ctest -V
+
+
 coverage:
   image: gitlab.mpi-magdeburg.mpg.de/ci-images/minimal/ubuntu:noble
   stage: build
