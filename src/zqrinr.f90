@@ -1,8 +1,7 @@
-! Copyright (C) 2008, 2009  VZLU Prague, a.s., Czech Republic
+! Copyright (C) 2008, 2009  VZLU Prague, a.s., Czech Republic, Jaroslav Hajek <highegg@gmail.com>
+! Copyright (C) 2026 Martin Köhler <koehlerm(AT)mpi-magdeburg.mpg.de>
 !
-! Author: Jaroslav Hajek <highegg@gmail.com>
-!
-! This file is part of qrupdate.
+! This file is part of qrupdate-ng.
 !
 ! qrupdate is free software; you can redistribute it and/or modify
 ! it under the terms of the GNU General Public License as published by
@@ -18,29 +17,94 @@
 ! along with this software; see the file COPYING.  If not, see
 ! <http://www.gnu.org/licenses/>.
 !
+!> \brief Updates a QR factorization after inserting a new row.
+!>
+!> \par Definition:
+! =============
+!> \verbatim
+!>       subroutine zqrinr(m,n,Q,ldq,R,ldr,j,x,rw)
+!>
+!>       .. Scalar Arguments ..
+!>       integer             m, n, ldq, ldr, j
+!>       ..
+!>       .. Array Arguments ..
+!>       double complex      Q(ldq,*)
+!>       double complex      R(ldr,*)
+!>       double complex      x(*)
+!>       double precision    rw(*)
+!>       ..
+!> \endverbatim
+!>
+!> \par Purpose:
+! =============
+!> \verbatim
+!>
+!> ZQRINR updates a QR factorization after inserting a new row. i.e.,
+!> given an m-by-m unitary matrix Q, an m-by-n upper trapezoidal matrix
+!> R and index j in the range 1:m+1, ZQRINR updates Q -> Q1 and
+!> R -> R1 so that Q1 is again unitary, R1 upper trapezoidal, and Q1*R1
+!> = [A(1:j-1,:); x; A(j:m,:)], where A = Q*R. (complex version)
+!> \endverbatim
+!>
+!> \param[in] m
+!> \verbatim
+!>          m is INTEGER
+!>          The number of rows of the matrix Q.  m >= 0.
+!> \endverbatim
+!>
+!> \param[in] n
+!> \verbatim
+!>          n is INTEGER
+!>          The number of columns of the matrix R.  n >= 0.
+!> \endverbatim
+!>
+!> \param[in,out] Q
+!> \verbatim
+!>          Q is COMPLEX*16 array, dimension (ldq,*)
+!>          On entry, the unitary matrix Q.  On exit, the
+!>          updated matrix Q1.
+!> \endverbatim
+!>
+!> \param[in] ldq
+!> \verbatim
+!>          ldq is INTEGER
+!>          The leading dimension of Q.  ldq >= m+1.
+!> \endverbatim
+!>
+!> \param[in,out] R
+!> \verbatim
+!>          R is COMPLEX*16 array, dimension (ldr,*)
+!>          On entry, the original matrix R.  On exit, the
+!>          updated matrix R1.
+!> \endverbatim
+!>
+!> \param[in] ldr
+!> \verbatim
+!>          ldr is INTEGER
+!>          The leading dimension of R.  ldr >= m+1.
+!> \endverbatim
+!>
+!> \param[in] j
+!> \verbatim
+!>          j is INTEGER
+!>          The position of the new row in R1.  1 <= j <= m+1.
+!> \endverbatim
+!>
+!> \param[in,out] x
+!> \verbatim
+!>          x is COMPLEX*16 array, dimension (*)
+!>          On entry, the row being added.  On exit, x is
+!>          destroyed.
+!> \endverbatim
+!>
+!> \param[out] rw
+!> \verbatim
+!>          rw is DOUBLE PRECISION array, dimension (*)
+!>          A real workspace vector of size min(m,n).
+!> \endverbatim
+!>
+!> \ingroup qrdecomp
 subroutine zqrinr(m,n,Q,ldq,R,ldr,j,x,rw)
-    ! purpose:      updates a QR factorization after inserting a new
-    !               row.
-    !               i.e., given an m-by-m unitary matrix Q, an m-by-n
-    !               upper trapezoidal matrix R and index j in the range
-    !               1:m+1, this subroutine updates Q -> Q1  and R -> R1
-    !               so that Q1 is again unitary, R1 upper trapezoidal,
-    !               and Q1*R1 = [A(1:j-1,:); x; A(j:m,:)], where A = Q*R.
-    !               (complex version)
-    ! arguments:
-    ! m (in)        number of rows of the matrix Q.
-    ! n (in)        number of columns of the matrix R.
-    ! Q (io)        on entry, the unitary matrix Q.
-    !               on exit, the updated matrix Q1.
-    ! ldq (in)      leading dimension of Q. ldq >= m+1.
-    ! R (io)        on entry, the original matrix R.
-    !               on exit, the updated matrix R1.
-    ! ldr (in)      leading dimension of R. ldr >= m+1.
-    ! j (in)        the position of the new row in R1
-    ! x (io)        on entry, the row being added
-    !               on exit, x is destroyed.
-    ! rw (out)      a real workspace vector of size min(m,n).
-    !
     integer m,n,j,ldq,ldr
     double complex Q(ldq,*),R(ldr,*),x(*)
     double precision rw(*)

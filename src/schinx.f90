@@ -1,8 +1,7 @@
-! Copyright (C) 2008, 2009  VZLU Prague, a.s., Czech Republic
+! Copyright (C) 2008, 2009  VZLU Prague, a.s., Czech Republic, Jaroslav Hajek <highegg@gmail.com>
+! Copyright (C) 2026 Martin Köhler <koehlerm(AT)mpi-magdeburg.mpg.de>
 !
-! Author: Jaroslav Hajek <highegg@gmail.com>
-!
-! This file is part of qrupdate.
+! This file is part of qrupdate-ng.
 !
 ! qrupdate is free software; you can redistribute it and/or modify
 ! it under the terms of the GNU General Public License as published by
@@ -18,30 +17,92 @@
 ! along with this software; see the file COPYING.  If not, see
 ! <http://www.gnu.org/licenses/>.
 !
+!> \brief Updates a Cholesky factorization after inserting a row and column.
+!>
+!> \par Definition:
+! =============
+!> \verbatim
+!>       subroutine schinx(n,R,ldr,j,u,w,info)
+!>
+!>       .. Scalar Arguments ..
+!>       integer            n, j, ldr, info
+!>       ..
+!>       .. Array Arguments ..
+!>       real               R(ldr,*), u(*), w(*)
+!>       ..
+!> \endverbatim
+!>
+!> \par Purpose:
+! =============
+!> \verbatim
+!>
+!> SCHINX updates the Cholesky factorization of a symmetric
+!> positive definite matrix A after inserting a row and column.
+!> Given an upper triangular matrix R that is a Cholesky factor of
+!> A, i.e., A = R.'*R, where R.' denotes the transpose of R, this
+!> SCHINX updates R -> R1 so that R1.'*R1 = A1, where
+!> A1(jj,jj) = A, A1(j,:) = u.', A1(:,j) = u, and
+!> jj = [1:j-1, j+1:n+1].
+!>
+!> On exit, u is destroyed and R is extended by one row and column.
+!> The insertion is performed by first solving R.'*u = v, checking
+!> positive definiteness, and then retriangularizing.
+!> \endverbatim
+!>
+!> \param[in] n
+!> \verbatim
+!>          n is INTEGER
+!>          The order of matrix R.  n >= 0.
+!> \endverbatim
+!>
+!> \param[in,out] R
+!> \verbatim
+!>          R is REAL array, dimension (ldr,n+1)
+!>          On entry, the upper triangular matrix R, the Cholesky
+!>          factor of A.  On exit, the updated upper triangular
+!>          matrix R1, the Cholesky factor of A1.
+!> \endverbatim
+!>
+!> \param[in] ldr
+!> \verbatim
+!>          ldr is INTEGER
+!>          The leading dimension of the array R.  ldr >= n+1.
+!> \endverbatim
+!>
+!> \param[in] j
+!> \verbatim
+!>          j is INTEGER
+!>          The position of the inserted row and column.
+!>          1 <= j <= n+1.
+!> \endverbatim
+!>
+!> \param[in,out] u
+!> \verbatim
+!>          u is REAL array, dimension (n+1)
+!>          On entry, the vector defining the inserted row/column.
+!>          On exit, u is destroyed.
+!> \endverbatim
+!>
+!> \param[out] w
+!> \verbatim
+!>          w is REAL array, dimension (n+1)
+!>          Workspace vector used during the retriangularization.
+!> \endverbatim
+!>
+!> \param[out] info
+!> \verbatim
+!>          info is INTEGER
+!>          = 0:  successful exit
+!>          = 1:  the update would violate positive-definiteness
+!>          = 2:  R is singular
+!> \endverbatim
+!>
+!> \ingroup choldecomp
 subroutine schinx(n,R,ldr,j,u,w,info)
-    ! purpose:      given an upper triangular matrix R that is a Cholesky
-    !               factor of a symmetric positive definite matrix A, i.e.
-    !               A = R'*R, this subroutine updates R -> R1 so that
-    !               R1'*R1 = A1, A1(jj,jj) = A, A(j,:) = u', A(:,j) = u,
-    !               jj = [1:j-1,j+1:n+1].
-    !               (real version)
-    ! arguments:
-    ! n (in)        the order of matrix R.
-    ! R (io)        on entry, the original upper trapezoidal matrix R.
-    !               on exit, the updated matrix R1.
-    ! ldr (in)      leading dimension of R. ldr >= n+1.
-    ! j (in)        the position of the inserted row/column
-    ! u (io)        on entry, the inserted row/column.
-    !               on exit, u is destroyed.
-    ! w (out)       workspace vector of size n+1.
-    ! info (out)    on exit, error code:
-    !                info = 1: update violates positive-definiteness.
-    !                info = 2: R is singular.
-    !
     integer n,j,ldr,info
     real R(ldr,*),u(*),w(*)
     external xerbla,scopy,snrm2,strsv,sqrtv1,sqrqh
-    real snrm2,t,rho
+    real snrm2,rho,t,rr
     integer i
 
     ! check arguments
@@ -52,7 +113,7 @@ subroutine schinx(n,R,ldr,j,u,w,info)
         info = -4
     end if
     if (info /= 0) then
-        call xerbla('SCHINX',-info)
+        call xerbla('SCHINX',info)
         return
     end if
 

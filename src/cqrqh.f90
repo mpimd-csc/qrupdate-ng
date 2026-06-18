@@ -1,8 +1,7 @@
-! Copyright (C) 2008, 2009  VZLU Prague, a.s., Czech Republic
+! Copyright (C) 2008, 2009  VZLU Prague, a.s., Czech Republic, Jaroslav Hajek <highegg@gmail.com>
+! Copyright (C) 2026 Martin Köhler <koehlerm(AT)mpi-magdeburg.mpg.de>
 !
-! Author: Jaroslav Hajek <highegg@gmail.com>
-!
-! This file is part of qrupdate.
+! This file is part of qrupdate-ng.
 !
 ! qrupdate is free software; you can redistribute it and/or modify
 ! it under the terms of the GNU General Public License as published by
@@ -18,19 +17,75 @@
 ! along with this software; see the file COPYING.  If not, see
 ! <http://www.gnu.org/licenses/>.
 !
+!> \brief Converts an upper trapezoidal matrix to upper Hessenberg form.
+!>
+!> \par Definition:
+! =============
+!> \verbatim
+!>       subroutine cqrqh(m,n,R,ldr,c,s)
+!>
+!>       .. Scalar Arguments ..
+!>       integer            m, n, ldr
+!>       ..
+!>       .. Array Arguments ..
+!>       complex            R(ldr,*), s(*)
+!>       real               c(*)
+!>       ..
+!> \endverbatim
+!>
+!> \par Purpose:
+! =============
+!> \verbatim
+!>
+!> CQRQH brings an m-by-n upper trapezoidal matrix R into upper
+!> Hessenberg form.  Given an m-by-n upper trapezoidal matrix R,
+!> CQRQH applies min(m-1,n) inverse Givens rotations
+!> from the right to introduce subdiagonal elements, producing an
+!> upper Hessenberg matrix.
+!>
+!> On exit, c contains the cosine parts and s contains the sine
+!> parts of the Givens rotations used in the transformation.
+!> \endverbatim
+!>
+!> \param[in] m
+!> \verbatim
+!>          m is INTEGER
+!>          The number of rows of the matrix R.  m >= 0.
+!> \endverbatim
+!>
+!> \param[in] n
+!> \verbatim
+!>          n is INTEGER
+!>          The number of columns of the matrix R.  n >= 0.
+!> \endverbatim
+!>
+!> \param[in,out] R
+!> \verbatim
+!>          R is COMPLEX array, dimension (ldr,n)
+!>          On entry, the upper trapezoidal matrix R.  On exit, the
+!>          upper Hessenberg matrix.
+!> \endverbatim
+!>
+!> \param[in] ldr
+!> \verbatim
+!>          ldr is INTEGER
+!>          The leading dimension of the array R.  ldr >= m.
+!> \endverbatim
+!>
+!> \param[in] c
+!> \verbatim
+!>          c is REAL array, dimension (min(m-1,n))
+!>          The cosine parts of the Givens rotations.
+!> \endverbatim
+!>
+!> \param[in] s
+!> \verbatim
+!>          s is COMPLEX array, dimension (min(m-1,n))
+!>          The sine parts of the Givens rotations.
+!> \endverbatim
+!>
+!> \ingroup qrdecomp
 subroutine cqrqh(m,n,R,ldr,c,s)
-    ! purpose:      brings an upper trapezoidal matrix R into upper
-    !               Hessenberg form using min(m-1,n) Givens rotations.
-    !               (complex version)
-    ! arguments:
-    ! m (in)        number of rows of the matrix R
-    ! n (in)        number of columns of the matrix R
-    ! R (io)        on entry, the upper Hessenberg matrix R
-    !               on exit, the updated upper trapezoidal matrix
-    ! ldr (in)      leading dimension of R, >= m
-    ! c(in)         rotation cosines, size at least min(m-1,n)
-    ! s(in)         rotation sines, size at least min(m-1,n)
-    !
     integer m,n,ldr
     complex R(ldr,*),s(*)
     real c(*)

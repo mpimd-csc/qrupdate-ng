@@ -14,9 +14,9 @@ operating systems, which are supported by CMAKE, should work as well.
 
 Tested Fortran compilers:
 
- * GNU gfortran 9.3
- * Intel ifort 18.0.1
- * IBM XLF 16.1.1
+ * GNU gfortran >= 9.3
+ * Intel ifort >= 18.0.1
+ * Intel oneAPI ifx >= 2024
 
 Tested BLAS/LAPACK implementations:
 
@@ -26,9 +26,6 @@ Tested BLAS/LAPACK implementations:
  * Intel MKL, https://software.intel.com/en-us/mkl
  * IBM ESSL (Missing LAPACK routines are automatically added.),
    https://www.ibm.com/support/knowledgecenter/en/SSFHY8
-
-The compilation requires at least CMAKE 3.1.
-
 
 ## Configuration and Installation
 
@@ -122,5 +119,16 @@ make -C build.win64 all
 (cd build.win64; ctest -V )
 make -C build.win64 install
 ```
+
+## Documentation
+
+The library uses Doxygen for documenting the source code. If Doxygen is
+installed in the system, cmake will detect it. After configuring the
+documentation can bei built using
+```shell
+make doc
+```
+and gets available in `doc/html`.
+
 
 

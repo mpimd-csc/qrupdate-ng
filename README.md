@@ -1,20 +1,27 @@
-qrupdate-ng: A Library for Fast Updating of QR and Cholesky Decompositions
-==========================================================================
+qrupdate-ng
+===========
 
-* License: GPL-3.0-or-later (opensource.org/licenses/GPL-3.0)
-* Version: 1.1.90 (2026-05-28)
+A Library for Fast Updating of QR, Cholesky, and LU  Decompositions
+
+Version: 1.1.90 (2026-05-28)
+
 * Authors: M. Koehler (0000-0003-2338-9904), C. Himpe (0000-0003-2194-6754)
 * Original Author: Jaroslav Hajek (VZLU Prague)
-* Summary: A FORTRAN library for rank-1 matrix decomposition updates
 
 ## Supported Matrix Decompositions
 
-### [QR Decomposition](https://en.wikipedia.org/wiki/QR_decomposition)
+The library supports the follwoing matrix decompositions
+
+### QR Decomposition
+
+See [QR Decompositions](\ref qrdecomp) for details.
+
+This following operations are supported:
 
 * QR rank-1 update (`qr1up`)
 
-    Updates the QR factorization after an additive rank-1 update to the original matrix (`A = A + u*v'`).
-    Works for full & economized factorization.
+    Updates the QR factorization after an additive rank-1 update to the original matrix.
+    Works for full and economized factorization.
 
 * QR column insert (`qrinc`)
 
@@ -41,7 +48,11 @@ qrupdate-ng: A Library for Fast Updating of QR and Cholesky Decompositions
     Updates the QR factorization after an deleting a row from the original matrix.
     Works for full factorization only.
 
-### [Cholesky Decomposition](https://en.wikipedia.org/wiki/Cholesky_decomposition)
+### Cholesky Decomposition
+
+See [Cholesky Decompositions](\ref choldecomp) for details.
+
+This following operations are supported:
 
 * Cholesky rank-1 update (`ch1up`)
 
@@ -63,7 +74,11 @@ qrupdate-ng: A Library for Fast Updating of QR and Cholesky Decompositions
 
     Updates the Cholesky factorization after a symmetric column/row left/right circular shift.
 
-### [LU Decomposition](https://en.wikipedia.org/wiki/LU_decomposition)
+### LU Decomposition
+
+See [LU Decompositions](\ref ludecomp) for details.
+
+This following operations are supported:
 
 * LU rank-1 update (`lu1up`)
 
@@ -75,19 +90,22 @@ qrupdate-ng: A Library for Fast Updating of QR and Cholesky Decompositions
     Updates a row-pivoted LUP factorization after a rank-1 update (`A = A + u*v.'`).
     Also updates the row permutation matrix. Slower than `lu1up`, but more stable.
 
-### Based on
+## Installation
+
+See the [INSTALL](INSTALL.md) file for installation details.
+Consult individual routines for documentation.
+
+## Based on
 
 qrupdate-ng is a modernized and maintained fork of:
 
 [qrupdate](https://sourceforge.net/p/qrupdate) (Version 1.1.2)
 
-For a list of original authors see [CHANGELOG](CHANGELOG) file.
+For a list of original authors see [CHANGELOG](CHANGELOG.md) file.
 
-### License
+## License
 
-See the [LICENSE](LICENSE) file.
+License: GPL-3.0-or-later (opensource.org/licenses/GPL-3.0)
+See `LICENSE` for details.
 
-### Installation
 
-See the [INSTALL](INSTALL.md) file for installation details.
-Consult individual routines for documentation.

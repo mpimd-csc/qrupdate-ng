@@ -1,8 +1,7 @@
-! Copyright (C) 2008, 2009  VZLU Prague, a.s., Czech Republic
+! Copyright (C) 2008, 2009  VZLU Prague, a.s., Czech Republic, Jaroslav Hajek <highegg@gmail.com>
+! Copyright (C) 2026 Martin Köhler <koehlerm(AT)mpi-magdeburg.mpg.de>
 !
-! Author: Jaroslav Hajek <highegg@gmail.com>
-!
-! This file is part of qrupdate.
+! This file is part of qrupdate-ng.
 !
 ! qrupdate is free software; you can redistribute it and/or modify
 ! it under the terms of the GNU General Public License as published by
@@ -18,20 +17,76 @@
 ! along with this software; see the file COPYING.  If not, see
 ! <http://www.gnu.org/licenses/>.
 !
+!> \brief Reduces an upper Hessenberg matrix to upper trapezoidal form.
+!>
+!> \par Definition:
+! =============
+!> \verbatim
+!>       subroutine dqhqr(m,n,R,ldr,c,s)
+!>
+!>       .. Scalar Arguments ..
+!>       integer            m, n, ldr
+!>       ..
+!>       .. Array Arguments ..
+!>       double precision   R(ldr,*), c(*), s(*)
+!>       ..
+!> \endverbatim
+!>
+!> \par Purpose:
+! =============
+!> \verbatim
+!>
+!> DQHQR reduces an m-by-n upper Hessenberg matrix R to upper
+!> trapezoidal form.  Given an m-by-n upper Hessenberg matrix R,
+!> DQHQR applies min(m-1,n) Givens rotations from the
+!> left to eliminate the subdiagonal elements, producing an upper
+!> trapezoidal matrix.
+!>
+!> On exit, c contains the cosine parts and s contains the sine
+!> parts of the Givens rotations used in the reduction.
+!> \endverbatim
+!>
+!> \param[in] m
+!> \verbatim
+!>          m is INTEGER
+!>          The number of rows of the matrix R.  m >= 0.
+!> \endverbatim
+!>
+!> \param[in] n
+!> \verbatim
+!>          n is INTEGER
+!>          The number of columns of the matrix R.  n >= 0.
+!> \endverbatim
+!>
+!> \param[in,out] R
+!> \verbatim
+!>          R is DOUBLE PRECISION array, dimension (ldr,n)
+!>          On entry, the upper Hessenberg matrix R.  On exit, the
+!>          updated upper trapezoidal matrix.
+!> \endverbatim
+!>
+!> \param[in] ldr
+!> \verbatim
+!>          ldr is INTEGER
+!>          The leading dimension of the array R.  ldr >= m.
+!> \endverbatim
+!>
+!> \param[out] c
+!> \verbatim
+!>          c is DOUBLE PRECISION array, dimension (min(m-1,n))
+!>          On exit, the cosine parts of the Givens rotations used
+!>          to reduce R to upper trapezoidal form.
+!> \endverbatim
+!>
+!> \param[out] s
+!> \verbatim
+!>          s is DOUBLE PRECISION array, dimension (min(m-1,n))
+!>          On exit, the sine parts of the Givens rotations used
+!>          to reduce R to upper trapezoidal form.
+!> \endverbatim
+!>
+!> \ingroup qrdecomp
 subroutine dqhqr(m,n,R,ldr,c,s)
-    ! purpose:      given an m-by-n upper Hessenberg matrix R, this
-    !               subroutine updates R to upper trapezoidal form
-    !               using min(m-1,n) Givens rotations.
-    !               (real version)
-    ! arguments:
-    ! m (in)        number of rows of the matrix R
-    ! n (in)        number of columns of the matrix R
-    ! R (io)        on entry, the upper Hessenberg matrix R
-    !               on exit, the updated upper trapezoidal matrix
-    ! ldr (in)      leading dimension of R, >= m
-    ! c(out)        rotation cosines, size at least min(m-1,n)
-    ! s(out)        rotation sines, size at least min(m-1,n)
-    !
     integer m,n,ldr
     double precision R(ldr,*),c(*),s(*)
     external xerbla,dlartg

@@ -1,8 +1,7 @@
-! Copyright (C) 2008, 2009  VZLU Prague, a.s., Czech Republic
+! Copyright (C) 2008, 2009  VZLU Prague, a.s., Czech Republic, Jaroslav Hajek <highegg@gmail.com>
+! Copyright (C) 2026 Martin Köhler <koehlerm(AT)mpi-magdeburg.mpg.de>
 !
-! Author: Jaroslav Hajek <highegg@gmail.com>
-!
-! This file is part of qrupdate.
+! This file is part of qrupdate-ng.
 !
 ! qrupdate is free software; you can redistribute it and/or modify
 ! it under the terms of the GNU General Public License as published by
@@ -18,22 +17,75 @@
 ! along with this software; see the file COPYING.  If not, see
 ! <http://www.gnu.org/licenses/>.
 !
+!> \brief Updates a Cholesky factorization after a rank-1 modification.
+!>
+!> \par Definition:
+! =============
+!> \verbatim
+!>       subroutine dch1up(n,R,ldr,u,w)
+!>
+!>       .. Scalar Arguments ..
+!>       integer            n, ldr
+!>       ..
+!>       .. Array Arguments ..
+!>       double precision   R(ldr,*), u(*), w(*)
+!>       ..
+!> \endverbatim
+!>
+!> \par Purpose:
+! =============
+!> \verbatim
+!>
+!> DCH1UP updates the Cholesky factorization of a symmetric
+!> positive definite matrix A after a rank-1 modification.  Given an
+!> upper triangular matrix R that is a Cholesky factor of A, i.e.,
+!> A = R.'*R, where R.' denotes the transpose of R, DCH1UP
+!> updates R -> R1 so that R1.'*R1 = A + u*u.', where u is a given
+!> vector.
+!>
+!> The update is performed by applying a sequence of Givens rotations
+!> to restore the upper triangular structure of R.  On exit, u
+!> contains the rotation sines and w contains the rotation cosines
+!> used in the transformation.
+!> \endverbatim
+!>
+!> \param[in] n
+!> \verbatim
+!>          n is INTEGER
+!>          The order of matrix R.  n >= 0.
+!> \endverbatim
+!>
+!> \param[in,out] R
+!> \verbatim
+!>          R is DOUBLE PRECISION array, dimension (ldr,n)
+!>          On entry, the upper triangular matrix R, the Cholesky
+!>          factor of A.  On exit, the updated upper triangular
+!>          matrix R1, the Cholesky factor of A + u*u.'.
+!> \endverbatim
+!>
+!> \param[in] ldr
+!> \verbatim
+!>          ldr is INTEGER
+!>          The leading dimension of the array R.  ldr >= n.
+!> \endverbatim
+!>
+!> \param[in,out] u
+!> \verbatim
+!>          u is DOUBLE PRECISION array, dimension (n)
+!>          On entry, the vector determining the rank-1 update.
+!>          On exit, u contains the rotation sines used to
+!>          transform R to R1.
+!> \endverbatim
+!>
+!> \param[out] w
+!> \verbatim
+!>          w is DOUBLE PRECISION array, dimension (n)
+!>          On exit, w contains the cosine parts of the Givens
+!>          rotations used to transform R to R1.
+!> \endverbatim
+!>
+!> \ingroup choldecomp
 subroutine dch1up(n,R,ldr,u,w)
-    ! purpose:      given an upper triangular matrix R that is a Cholesky
-    !               factor of a symmetric positive definite matrix A, i.e.
-    !               A = R'*R, this subroutine updates R -> R1 so that
-    !               R1'*R1 = A + u*u'
-    !               (real version)
-    ! arguments:
-    ! n (in)        the order of matrix R
-    ! R (io)        on entry, the upper triangular matrix R
-    !               on exit, the updated matrix R1
-    ! ldr (in)      leading dimension of R. ldr >= n.
-    ! u (io)        the vector determining the rank-1 update
-    !               on exit, u contains the rotation sines
-    !               used to transform R to R1.
-    ! w (out)       cosine parts of rotations.
-    !
     integer n,ldr
     double precision R(ldr,*),u(*)
     double precision w(*)

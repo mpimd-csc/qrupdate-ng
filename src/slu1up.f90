@@ -1,8 +1,7 @@
-! Copyright (C) 2009  VZLU Prague, a.s., Czech Republic
+! Copyright (C) 2008, 2009  VZLU Prague, a.s., Czech Republic, Jaroslav Hajek <highegg@gmail.com>
+! Copyright (C) 2026 Martin Köhler <koehlerm(AT)mpi-magdeburg.mpg.de>
 !
-! Author: Jaroslav Hajek <highegg@gmail.com>
-!
-! This file is part of qrupdate.
+! This file is part of qrupdate-ng.
 !
 ! qrupdate is free software; you can redistribute it and/or modify
 ! it under the terms of the GNU General Public License as published by
@@ -18,31 +17,93 @@
 ! along with this software; see the file COPYING.  If not, see
 ! <http://www.gnu.org/licenses/>.
 !
+!> \brief Updates an LU factorization after a rank-1 modification.
+!>
+!> \par Definition:
+! =============
+!> \verbatim
+!>       subroutine slu1up(m,n,L,ldl,R,ldr,u,v)
+!>
+!>       .. Scalar Arguments ..
+!>       integer            m, n, ldl, ldr
+!>       ..
+!>       .. Array Arguments ..
+!>       real               L(ldl,*), R(ldr,*), u(*), v(*)
+!>       ..
+!> \endverbatim
+!>
+!> \par Purpose:
+! =============
+!> \verbatim
+!>
+!> SLU1UP updates an LU factorization after rank-1 modification.
+!> Given an m-by-k lower-triangular matrix L with unit diagonal and
+!> a k-by-n upper-trapezoidal matrix R, where k = min(m,n), this
+!> SLU1UP updates L -> L1 and R -> R1 so that L1 is again
+!> lower unit triangular, R1 upper trapezoidal, and
+!> L1*R1 = L*R + u*v.', where v.' denotes the transpose of v.
+!>
+!> The update is performed using the Bennett algorithm with
+!> column-major access, which processes the leading k-by-k block
+!> first and then finishes the trailing part of R if needed.
+!> \endverbatim
+!>
+!> \param[in] m
+!> \verbatim
+!>          m is INTEGER
+!>          The number of rows of the matrix L.  m >= 0.
+!> \endverbatim
+!>
+!> \param[in] n
+!> \verbatim
+!>          n is INTEGER
+!>          The number of columns of the matrix R.  n >= 0.
+!> \endverbatim
+!>
+!> \param[in,out] L
+!> \verbatim
+!>          L is REAL array, dimension (ldl,k)
+!>          On entry, the unit lower triangular matrix L.  On exit,
+!>          the updated unit lower triangular matrix L1.
+!> \endverbatim
+!>
+!> \param[in] ldl
+!> \verbatim
+!>          ldl is INTEGER
+!>          The leading dimension of the array L.  ldl >= m.
+!> \endverbatim
+!>
+!> \param[in,out] R
+!> \verbatim
+!>          R is REAL array, dimension (ldr,n)
+!>          On entry, the upper trapezoidal m-by-n matrix R.
+!>          On exit, the updated upper trapezoidal matrix R1.
+!> \endverbatim
+!>
+!> \param[in] ldr
+!> \verbatim
+!>          ldr is INTEGER
+!>          The leading dimension of the array R.  ldr >= k,
+!>          where k = min(m,n).
+!> \endverbatim
+!>
+!> \param[in,out] u
+!> \verbatim
+!>          u is REAL array, dimension (m)
+!>          On entry, the left m-vector defining the rank-1
+!>          modification.  On exit, if k < m, u is destroyed;
+!>          otherwise, u contains the updated vector.
+!> \endverbatim
+!>
+!> \param[in,out] v
+!> \verbatim
+!>          v is REAL array, dimension (n)
+!>          On entry, the right n-vector defining the rank-1
+!>          modification.  On exit, v is destroyed.
+!> \endverbatim
+!>
+!> \ingroup ludecomp
 subroutine slu1up(m,n,L,ldl,R,ldr,u,v)
-    ! purpose:      updates an LU factorization after rank-1 modification
-    !               i.e., given an m-by-k lower-triangular matrix L with uni
-    !               diagonal and a k-by-n upper-trapezoidal matrix R,
-    !               where k = min(m,n),
-    !               this subroutine updates L -> L1 and R -> R1 so that
-    !               L is again lower unit triangular, R upper trapezoidal,
-    !               and L1*R1 = L*R + u*v.'.
-    !               (real version)
-    ! arguments:
-    ! m (in)        order of the matrix L.
-    ! n (in)        number of columns of the matrix U.
-    ! L (io)        on entry, the unit lower triangular matrix L.
-    !               on exit, the updated matrix L1.
-    ! ldl (in)      the leading dimension of L. ldl >= m.
-    ! R (io)        on entry, the upper trapezoidal m-by-n matrix R.
-    !               on exit, the updated matrix R1.
-    ! ldr (in)      the leading dimension of R. ldr >= min(m,n).
-    ! u (io)        the left m-vector. On exit, if k < m, u is destroyed.
-    ! v (io)        the right n-vector. On exit, v is destroyed.
-    !
-    ! REMARK:       Algorithm is due to
-    !               J. Bennett: Triangular factors of modified matrices,
-    !                           Numerische Mathematik, 7 (1965)
-    !
     integer m,n,ldl,ldr
     real L(ldl,*),R(ldr,*),u(*),v(*)
     real ui,vi

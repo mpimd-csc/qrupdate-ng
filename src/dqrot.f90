@@ -1,8 +1,7 @@
-! Copyright (C) 2008, 2009  VZLU Prague, a.s., Czech Republic
+! Copyright (C) 2008, 2009  VZLU Prague, a.s., Czech Republic, Jaroslav Hajek <highegg@gmail.com>
+! Copyright (C) 2026 Martin Köhler <koehlerm(AT)mpi-magdeburg.mpg.de>
 !
-! Author: Jaroslav Hajek <highegg@gmail.com>
-!
-! This file is part of qrupdate.
+! This file is part of qrupdate-ng.
 !
 ! qrupdate is free software; you can redistribute it and/or modify
 ! it under the terms of the GNU General Public License as published by
@@ -18,27 +17,94 @@
 ! along with this software; see the file COPYING.  If not, see
 ! <http://www.gnu.org/licenses/>.
 !
+!> \brief Applies a sequence of Givens rotations from the right to a matrix.
+!>
+!> \par Definition:
+! =============
+!> \verbatim
+!>       subroutine dqrot(dir,m,n,Q,ldq,c,s)
+!>
+!>       .. Scalar Arguments ..
+!>       character           dir
+!>       integer             m, n, ldq
+!>       ..
+!>       .. Array Arguments ..
+!>       double precision    Q(ldq,*)
+!>       double precision    c(*)
+!>       double precision    s(*)
+!>       ..
+!> \endverbatim
+!>
+!> \par Purpose:
+! =============
+!> \verbatim
+!>
+!> DQROT applies a sequence of Givens rotations from the right
+!> side to an m-by-n matrix Q.  Given a direction indicator
+!> dir, the rotation cosine and sine vectors c and s, DQROT
+!> applies the rotations to Q, updating it in place.  If dir
+!> is 'F' (forward), rotations are applied from the first to
+!> the last; if dir is 'B' (backward), from the last to the
+!> first.
+!> \endverbatim
+!>
+!> \param[in] dir
+!> \verbatim
+!>          dir is CHARACTER
+!>          If 'B' or 'b', rotations are applied backwards
+!>          (from the last to the first).  If 'F' or 'f',
+!>          rotations are applied forwards (from the first to
+!>          the last).
+!> \endverbatim
+!>
+!> \param[in] m
+!> \verbatim
+!>          m is INTEGER
+!>          The number of rows of matrix Q.  m >= 0.
+!> \endverbatim
+!>
+!> \param[in] n
+!> \verbatim
+!>          n is INTEGER
+!>          The number of columns of the matrix Q.  n >= 0.
+!> \endverbatim
+!>
+!> \param[in,out] Q
+!> \verbatim
+!>          Q is DOUBLE PRECISION array, dimension (ldq,*)
+!>          On entry, the matrix Q.  On exit, the updated
+!>          matrix Q1.
+!> \endverbatim
+!>
+!> \param[in] ldq
+!> \verbatim
+!>          ldq is INTEGER
+!>          The leading dimension of Q.  ldq >= m.
+!> \endverbatim
+!>
+!> \param[in] c
+!> \verbatim
+!>          c is DOUBLE PRECISION array, dimension (*)
+!>          The rotation cosines.  Must contain at least n-1
+!>          elements.
+!> \endverbatim
+!>
+!> \param[in] s
+!> \verbatim
+!>          s is DOUBLE PRECISION array, dimension (*)
+!>          The rotation sines.  Must contain at least n-1
+!>          elements.
+!> \endverbatim
+!>
+!> \ingroup givens
 subroutine dqrot(dir,m,n,Q,ldq,c,s)
-    ! purpose:      Apply a sequence of inv. rotations from right
-    !
-    ! arguments:
-    ! dir (in)      if 'B' or 'b', rotations are applied from backwards
-    !               if 'F' or 'f', from forwards.
-    ! m (in)        number of rows of matrix Q
-    ! n (in)        number of columns of the matrix Q
-    ! Q (io)        on entry, the matrix Q
-    !               on exit, the updated matrix Q1
-    ! ldq (in)      the leading dimension of Q
-    ! c (in)        n-1 rotation cosines
-    ! s (in)        n-1 rotation sines
-    !
     character dir
     integer m,n,ldq
     double precision Q(ldq,*),c(*),s(*)
     external xerbla, drot,lsame
     logical lsame,fwd
     integer info,i
-    ! quick return if possible
+    ! quick return if possible.
     if (m == 0 .or. n == 0 .or. n == 1) return
     ! check arguments.
     info = 0

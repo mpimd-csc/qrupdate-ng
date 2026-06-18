@@ -1,8 +1,7 @@
-! Copyright (C) 2008, 2009  VZLU Prague, a.s., Czech Republic
+! Copyright (C) 2008, 2009  VZLU Prague, a.s., Czech Republic, Jaroslav Hajek <highegg@gmail.com>
+! Copyright (C) 2026 Martin Köhler <koehlerm(AT)mpi-magdeburg.mpg.de>
 !
-! Author: Jaroslav Hajek <highegg@gmail.com>
-!
-! This file is part of qrupdate.
+! This file is part of qrupdate-ng.
 !
 ! qrupdate is free software; you can redistribute it and/or modify
 ! it under the terms of the GNU General Public License as published by
@@ -18,28 +17,90 @@
 ! along with this software; see the file COPYING.  If not, see
 ! <http://www.gnu.org/licenses/>.
 !
+!> \brief Updates a Cholesky factorization after inserting a row and column.
+!>
+!> \par Definition:
+! =============
+!> \verbatim
+!>       subroutine cchinx(n,R,ldr,j,u,rw,info)
+!>
+!>       .. Scalar Arguments ..
+!>       integer            n, j, ldr, info
+!>       ..
+!>       .. Array Arguments ..
+!>       complex            R(ldr,*), u(*), rw(*)
+!>       ..
+!> \endverbatim
+!>
+!> \par Purpose:
+! =============
+!> \verbatim
+!>
+!> CCHINX updates the Cholesky factorization of a hermitian
+!> positive definite matrix A after inserting a row and column.
+!> Given an upper triangular matrix R that is a Cholesky factor of
+!> A, i.e., A = R'*R, where R' denotes the conjugate transpose of
+!> R, CCHINX updates R -> R1 so that R1'*R1 = A1, where
+!> A1(jj,jj) = A, A1(j,:) = u', A1(:,j) = u, and
+!> jj = [1:j-1, j+1:n+1].
+!>
+!> On exit, u is destroyed and R is extended by one row and column.
+!> The insertion is performed by first solving R'*u = v, checking
+!> positive definiteness, and then retriangularizing.
+!> \endverbatim
+!>
+!> \param[in] n
+!> \verbatim
+!>          n is INTEGER
+!>          The order of matrix R.  n >= 0.
+!> \endverbatim
+!>
+!> \param[in,out] R
+!> \verbatim
+!>          R is COMPLEX array, dimension (ldr,n+1)
+!>          On entry, the upper triangular matrix R, the Cholesky
+!>          factor of A.  On exit, the updated upper triangular
+!>          matrix R1, the Cholesky factor of A1.
+!> \endverbatim
+!>
+!> \param[in] ldr
+!> \verbatim
+!>          ldr is INTEGER
+!>          The leading dimension of the array R.  ldr >= n+1.
+!> \endverbatim
+!>
+!> \param[in] j
+!> \verbatim
+!>          j is INTEGER
+!>          The position of the inserted row and column.
+!>          1 <= j <= n+1.
+!> \endverbatim
+!>
+!> \param[in,out] u
+!> \verbatim
+!>          u is COMPLEX array, dimension (n+1)
+!>          On entry, the vector defining the inserted row/column.
+!>          On exit, u is destroyed.
+!> \endverbatim
+!>
+!> \param[out] rw
+!> \verbatim
+!>          rw is REAL array, dimension (n+1)
+!>          Workspace vector used to store rotation cosines during
+!>          the retriangularization.
+!> \endverbatim
+!>
+!> \param[out] info
+!> \verbatim
+!>          info is INTEGER
+!>          = 0:  successful exit
+!>          = 1:  the update would violate positive-definiteness
+!>          = 2:  R is singular
+!>          = 3:  the diagonal element of u is not real
+!> \endverbatim
+!>
+!> \ingroup choldecomp
 subroutine cchinx(n,R,ldr,j,u,rw,info)
-    ! purpose:      given an upper triangular matrix R that is a Cholesky
-    !               factor of a hermitian positive definite matrix A, i.e.
-    !               A = R'*R, this subroutine updates R -> R1 so that
-    !               R1'*R1 = A1, A1(jj,jj) = A, A(j,:) = u', A(:,j) = u,
-    !               jj = [1:j-1,j+1:n+1].
-    !               (complex version)
-    ! arguments:
-    ! n (in)        the order of matrix R.
-    ! R (io)        on entry, the original upper trapezoidal matrix R.
-    !               on exit, the updated matrix R1.
-    ! ldr (in)      leading dimension of R. ldr >= n+1.
-    ! j (in)        the position of the inserted row/column
-    ! u (io)        on entry, the inserted row/column.
-    !               on exit, u is destroyed.
-    ! rw (out)      real workspace vector of size n+1.
-    ! info (out)    on exit, error code:
-    !                info = 0: success.
-    !                info = 1: update violates positive-definiteness.
-    !                info = 2: R is singular.
-    !                info = 3: diagonal element of u is not real.
-    !
     integer n,j,ldr,info
     complex R(ldr,*),u(*),rw(*)
     external xerbla,ccopy,scnrm2,ctrsv,cqrtv1,cqrqh

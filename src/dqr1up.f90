@@ -1,8 +1,7 @@
-! Copyright (C) 2008, 2009  VZLU Prague, a.s., Czech Republic
+! Copyright (C) 2008, 2009  VZLU Prague, a.s., Czech Republic, Jaroslav Hajek <highegg@gmail.com>
+! Copyright (C) 2026 Martin Köhler <koehlerm(AT)mpi-magdeburg.mpg.de>
 !
-! Author: Jaroslav Hajek <highegg@gmail.com>
-!
-! This file is part of qrupdate.
+! This file is part of qrupdate-ng.
 !
 ! qrupdate is free software; you can redistribute it and/or modify
 ! it under the terms of the GNU General Public License as published by
@@ -18,29 +17,103 @@
 ! along with this software; see the file COPYING.  If not, see
 ! <http://www.gnu.org/licenses/>.
 !
+!> \brief Updates a QR factorization after a rank-1 modification.
+!>
+!> \par Definition:
+! =============
+!> \verbatim
+!>       subroutine dqr1up(m,n,k,Q,ldq,R,ldr,u,v,w)
+!>
+!>       .. Scalar Arguments ..
+!>       integer             m, n, k, ldq, ldr
+!>       ..
+!>       .. Array Arguments ..
+!>       double precision    Q(ldq,*)
+!>       double precision    R(ldr,*)
+!>       double precision    u(*)
+!>       double precision    v(*)
+!>       double precision    w(*)
+!>       ..
+!> \endverbatim
+!>
+!> \par Purpose:
+! =============
+!> \verbatim
+!>
+!> DQR1UP updates a QR factorization after rank-1 modification i.e.,
+!> given a m-by-k orthogonal Q and m-by-n upper trapezoidal R, an
+!> m-vector u and n-vector v, DQR1UP updates Q -> Q1 and R ->
+!> R1 so that Q1*R1 = Q*R + u*v', and Q1 is again orthonormal and R1
+!> upper trapezoidal. (real version)
+!> \endverbatim
+!>
+!> \param[in] m
+!> \verbatim
+!>          m is INTEGER
+!>          The number of rows of the matrix Q.  m >= 0.
+!> \endverbatim
+!>
+!> \param[in] n
+!> \verbatim
+!>          n is INTEGER
+!>          The number of columns of the matrix R.  n >= 0.
+!> \endverbatim
+!>
+!> \param[in] k
+!> \verbatim
+!>          k is INTEGER
+!>          The number of columns of Q, and rows of R.  Must be
+!>          either k = m (full Q) or k = n < m (economical form).
+!> \endverbatim
+!>
+!> \param[in,out] Q
+!> \verbatim
+!>          Q is DOUBLE PRECISION array, dimension (ldq,*)
+!>          On entry, the orthogonal m-by-k matrix Q.  On exit,
+!>          the updated matrix Q1.
+!> \endverbatim
+!>
+!> \param[in] ldq
+!> \verbatim
+!>          ldq is INTEGER
+!>          The leading dimension of Q.  ldq >= m.
+!> \endverbatim
+!>
+!> \param[in,out] R
+!> \verbatim
+!>          R is DOUBLE PRECISION array, dimension (ldr,*)
+!>          On entry, the upper trapezoidal m-by-n matrix R.  On
+!>          exit, the updated matrix R1.
+!> \endverbatim
+!>
+!> \param[in] ldr
+!> \verbatim
+!>          ldr is INTEGER
+!>          The leading dimension of R.  ldr >= k.
+!> \endverbatim
+!>
+!> \param[in,out] u
+!> \verbatim
+!>          u is DOUBLE PRECISION array, dimension (*)
+!>          On entry, the left m-vector.  On exit, if k < m,
+!>          u is destroyed.
+!> \endverbatim
+!>
+!> \param[in,out] v
+!> \verbatim
+!>          v is DOUBLE PRECISION array, dimension (*)
+!>          On entry, the right n-vector.  On exit, v is
+!>          destroyed.
+!> \endverbatim
+!>
+!> \param[out] w
+!> \verbatim
+!>          w is DOUBLE PRECISION array, dimension (*)
+!>          A workspace vector of size 2*k.
+!> \endverbatim
+!>
+!> \ingroup qrdecomp
 subroutine dqr1up(m,n,k,Q,ldq,R,ldr,u,v,w)
-    ! purpose:      updates a QR factorization after rank-1 modification
-    !               i.e., given a m-by-k orthogonal Q and m-by-n upper
-    !               trapezoidal R, an m-vector u and n-vector v,
-    !               this subroutine updates Q -> Q1 and R -> R1 so that
-    !               Q1*R1 = Q*R + u*v', and Q1 is again orthonormal
-    !               and R1 upper trapezoidal.
-    !               (real version)
-    ! arguments:
-    ! m (in)        number of rows of the matrix Q.
-    ! n (in)        number of columns of the matrix R.
-    ! k (in)        number of columns of Q, and rows of R. Must be
-    !               either k = m (full Q) or k = n < m (economical form).
-    ! Q (io)        on entry, the orthogonal m-by-k matrix Q.
-    !               on exit, the updated matrix Q1.
-    ! ldq (in)      the leading dimension of Q. ldq >= m.
-    ! R (io)        on entry, the upper trapezoidal m-by-n matrix R..
-    !               on exit, the updated matrix R1.
-    ! ldr (in)      the leading dimension of R. ldr >= k.
-    ! u (io)        the left m-vector. On exit, if k < m, u is destroyed.
-    ! v (io)        the right n-vector. On exit, v is destroyed.
-    ! w (out)       a workspace vector of size 2*k
-    !
     integer m,n,k,ldq,ldr
     double precision Q(ldq,*),R(ldr,*),u(*),v(*),w(*)
     external xerbla, dch1up, dqrqh,dqhqr,dqrot,dqrtv1

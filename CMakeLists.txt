@@ -36,7 +36,8 @@ IF( CMAKE_Fortran_COMPILER_ID STREQUAL "XL")
 	SET(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -qfixed -qnosave")
 ENDIF()
 
-
+# Find Doxygen
+find_package(Doxygen OPTIONAL_COMPONENTS dot)
 
 FIND_PACKAGE(BLAS REQUIRED)
 MESSAGE(STATUS "BLAS Vendor: ${BLA_VENDOR}")
@@ -52,6 +53,39 @@ ENDIF()
 
 ADD_SUBDIRECTORY(src)
 ADD_SUBDIRECTORY(test)
+
+# Add documentation target
+if(DOXYGEN_FOUND)
+    # Configure Doxygen to extract all functions including undocumented ones
+    # and to browse source files
+    set(DOXYGEN_EXTRACT_ALL YES)
+    set(DOXYGEN_EXTRACT_STATIC YES)
+    set(DOXYGEN_SOURCE_BROWSER YES)
+    set(DOXYGEN_GENERATE_TREEVIEW YES)
+    # Optimize output for Fortran
+    set(DOXYGEN_OPTIMIZE_OUTPUT_FOR_FORTRAN YES)
+    set(DOXYGEN_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/doc")
+    # Set input directories and files
+    set(DOXYGEN_INPUT_DIR
+        ${CMAKE_CURRENT_SOURCE_DIR}/README.md
+        ${CMAKE_CURRENT_SOURCE_DIR}/INSTALL.md
+        ${CMAKE_CURRENT_SOURCE_DIR}/CHANGELOG.md
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/categories.doxy
+        ${CMAKE_CURRENT_SOURCE_DIR}/LICENSE ${CMAKE_CURRENT_SOURCE_DIR}/src)
+    set(DOXYGEN_USE_MDFILE_AS_MAINPAGE ${CMAKE_CURRENT_SOURCE_DIR}/README.md)
+    set(DOXYGEN_MARKDOWN_SUPPORT YES)
+    set(DOXYGEN_EXCLUDE_PATTERNS "*/build*/*")
+
+    # Configure Doxygen
+    doxygen_add_docs(doc
+        ${DOXYGEN_INPUT_DIR}
+        ALL
+        COMMENT "Generate documentation"
+    )
+    install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/doc/html/
+            TYPE DOC)
+endif()
+
 
 INCLUDE(CMakePackageConfigHelpers)
 WRITE_BASIC_PACKAGE_VERSION_FILE(
