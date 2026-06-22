@@ -79,6 +79,13 @@ subroutine dtest(m,n)
     external drandg,dlupgen,dger,dlup1up,dlupchk
     integer k,p(m)
     ! set up random matrix & vectors
+    A = 0.0D0
+    L = 0.0D0
+    R = 0.0D0
+    u = 0.0D0
+    v = 0.0D0
+    w = 0.0D0
+
     call drandg(m,n,A,m)
     call drandg(m,1,u,m)
     call drandg(n,1,v,n)
@@ -89,6 +96,7 @@ subroutine dtest(m,n)
     call dger(m,n,1d0,u,1,v,1,A,m)
     ! update the pivoted LU decomposition
     call dlup1up(m,n,L,m,R,k,p,u,v,w)
+
     ! check result
     call dlupchk(m,n,A,m,L,m,R,k,p)
 end subroutine
