@@ -61,10 +61,8 @@ jobs:
     steps:
 
     - name: Checkout QR Update
-      uses: actions/checkout@v4.2.2
+      uses: actions/checkout@v7
 
-    - name: Install ninja-build tool
-      uses: seanmiddleditch/gha-setup-ninja@v6
 
     - name: Install basics (Ubuntu)
       if: ${{ matrix.os == 'ubuntu-latest' }}
