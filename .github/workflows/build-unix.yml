@@ -3,7 +3,7 @@ name: Build on Unix
 on:
   push:
     branches:
-    - main
+    - master
     - cmake_integration
     paths:
     - .github/workflows/*.yml
