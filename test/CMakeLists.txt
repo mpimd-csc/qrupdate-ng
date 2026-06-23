@@ -3,6 +3,7 @@ SET(UTILS_SRC utils.f90)
 ADD_LIBRARY(utils STATIC ${UTILS_SRC})
 ADD_COVERAGE(utils)
 
+
 SET(TEST_PRGM
     tch1dn
     tch1up
@@ -21,7 +22,16 @@ SET(TEST_PRGM
 
 
 IF ( CMAKE_CROSSCOMPILING AND CMAKE_SYSTEM_NAME MATCHES Windows )
-    set(CMAKE_CROSSCOMPILING_EMULATOR "/usr/bin/wine")
+    FIND_PROGRAM(WINE_CMD wine
+        HINTS
+          /usr/bin
+          /usr/local/bin
+          ENV WINEROOT
+    )
+    if (NOT WINE_CMD)
+        MESSAGE(FATAL_ERROR "Wine not found. Consider setting WINEROOT")
+    endif()
+    set(CMAKE_CROSSCOMPILING_EMULATOR "${WINE_CMD}")
     SET(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} ${Fortran_LOCAL_FLAGS}")
     # FIND_PROGRAM(WINE NAMES wine wine32 wine64)
     # IF ( NOT WINE )
@@ -75,12 +85,12 @@ FOREACH(TEST_CODE ${TEST_PRGM})
     ADD_EXECUTABLE(${TEST_CODE} ${TEST_CODE}.f90)
     ADD_COVERAGE(${TEST_CODE})
     TARGET_LINK_LIBRARIES(${TEST_CODE} utils qrupdate )
-    set_target_properties(${TEST_CODE} PROPERTIES CROSSCOMPILING_EMULATOR "/usr/bin/wine")
+    # set_target_properties(${TEST_CODE} PROPERTIES CROSSCOMPILING_EMULATOR "/usr/bin/wine")
     IF ( CMAKE_CROSSCOMPILING )
         IF ( CMAKE_SYSTEM_NAME MATCHES Windows)
             ADD_TEST(NAME test_${TEST_CODE} COMMAND ${TEST_CODE})
             SET_TESTS_PROPERTIES(test_${TEST_CODE} PROPERTIES ENVIRONMENT "WINEPATH=${WINEPATH}")
-            SET_TESTS_PROPERTIES(test_${TEST_CODE} PROPERTIES CROSSCOMPILING_EMULATOR "/usr/bin/wine")
+            # SET_TESTS_PROPERTIES(test_${TEST_CODE} PROPERTIES CROSSCOMPILING_EMULATOR "/usr/bin/wine")
         ELSE()
             MESSAGE(WARNING "Cross-Compile checks are only possible from Linux to Windows.")
         ENDIF()
