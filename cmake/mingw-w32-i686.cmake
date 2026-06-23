@@ -6,6 +6,8 @@
 #    *) ninja -C build
 
 
+
+CMAKE_MINIMUM_REQUIRED(VERSION 3.15.0)
 set(CMAKE_SYSTEM_NAME Windows)
 set(TOOLCHAIN_PREFIX i686-w64-mingw32)
 
