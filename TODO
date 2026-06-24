@@ -1,8 +1,6 @@
 # TODO
 
 * Fix Code smells
-* Improve documentation
-* Code Coverage
 * Profile and improve performance?
 * Add minimal "getting started" examples?
 * 64-Bit integer support

@@ -9,4 +9,4 @@ sed -i -e "s/VERSION \([[:digit:]]\+[\.]\?\)\{3\} /VERSION ${NEWV} /g" CMakeList
 sed -i -e "s/version: \([[:digit:]]\+[\.]\?\)\{3\}/version: ${NEWV}/g" CODE
 sed -i -e "s/release-date: .*$/release-date: ${D}/g" CODE
 sed -i -e "s/Version: \([[:digit:]]\+[\.]\?\)\{3\}.*$/Version: ${NEWV} (${D})/g" README.md
-
+sed -i -e "s/version = \"\([[:digit:]]\+[\.]\?\)\{3\}\"/version = \"${NEWV}\"/g" fpm.toml

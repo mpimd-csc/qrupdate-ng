@@ -1,0 +1,26 @@
+name = "qrupdate-ng"
+version = "1.90.0"
+license = "BSD-3-clause"
+author = "M. Koehler, C. Himpe, Jaroslav Hajek"
+maintainer = "@mpimd-csc/qrupdate-ng"
+copyright = "Copyright (C) 2008, 2009  VZLU Prague, a.s., Czech Republic, Jaroslav Hajek, Copyright (C) 2026 Martin Köhler, MPI Magdeburg"
+
+[dependencies]
+blas="*"
+
+[fortran]
+source-form = "default"
+implicit-external = true
+
+[build]
+auto-executables = false
+auto-tests = true
+auto-examples = false
+module-naming    = "qrupdate"
+
+[library]
+source-dir = "src"
+
+[install]
+library = true
+

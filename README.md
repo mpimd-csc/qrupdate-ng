@@ -95,6 +95,17 @@ This following operations are supported:
 See the [INSTALL](INSTALL.md) file for installation details.
 Consult individual routines for documentation.
 
+### Fortran Package Manager
+
+If you are using the Fortran Package Manager [FPM](https://fpm.fortran-lang.org/)
+you can add `qrupdate-ng` as dependency by including the following in your
+`fpm.toml`:
+```toml
+[dependencies]
+qrupdate-ng = { git = "https://github.com/mpimd-csc/qrupdate-ng.git", branch = "main" }
+```
+
+
 ## Based on
 
 qrupdate-ng is a modernized and maintained fork of:

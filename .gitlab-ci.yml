@@ -6,15 +6,23 @@ build-ubuntu:
     matrix:
       - UBUNTU_VERSION: [ "focal", "jammy", "noble", "resolute" ]
   stage: build
-  image: gitlab.mpi-magdeburg.mpg.de/ci-images/minimal/ubuntu:${UBUNTU_VERSION}
+  image: ${CI_REGISTRY_IMAGE}/ubuntu:${UBUNTU_VERSION}
   script:
-    - apt update && apt install --yes libopenblas-dev libblas-dev liblapack-dev
     - mkdir -p build
     - cd build
     - cmake ../ -DDEBUG=ON
     - make
     - ctest -V
 
+build-ubuntu-fpm:
+  parallel:
+    matrix:
+      - UBUNTU_VERSION: [ "focal", "jammy", "noble", "resolute" ]
+  stage: build
+  image: ${CI_REGISTRY_IMAGE}/ubuntu:${UBUNTU_VERSION}
+  script:
+    - fpm build
+    - fpm test
 
 build-almalinux:
   tags:
