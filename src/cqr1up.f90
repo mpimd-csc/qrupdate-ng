@@ -121,9 +121,13 @@
 !>
 !> \ingroup qrdecomp
 subroutine cqr1up(m,n,k,Q,ldq,R,ldr,u,v,w,rw)
-    integer m,n,k,ldq,ldr
-    complex Q(ldq,*),R(ldr,*),u(*),v(*),w(*)
-    real rw(*)
+    integer, intent(in) :: m, n, k, ldq, ldr
+    complex, intent(inout) :: Q(ldq,*)
+    complex, intent(inout) :: R(ldr,*)
+    complex, intent(inout) :: u(*)
+    complex, intent(inout) :: v(*)
+    complex, intent(out) :: w(*)
+    real, intent(out) :: rw(*)
     external xerbla, cch1up, cqrqh,cqhqr,cqrot,cqrtv1,caxcpy
     external caxpy,cdotc,scnrm2,slamch,csscal,crot
     complex cdotc

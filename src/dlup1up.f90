@@ -114,8 +114,13 @@
 !>
 !> \ingroup ludecomp
 subroutine dlup1up(m,n,L,ldl,R,ldr,p,u,v,w)
-    integer m,n,ldl,ldr,p(*)
-    double precision L(ldl,*),R(ldr,*),u(*),v(*),w(*)
+    integer, intent(in) :: m, n, ldl, ldr
+    integer, intent(inout) :: p(*)
+    double precision, intent(inout) :: L(ldl,*)
+    double precision, intent(inout) :: R(ldr,*)
+    double precision, intent(in) :: u(*)
+    double precision, intent(in) :: v(*)
+    double precision, intent(out) :: w(*)
     double precision one,tau,tmp
     parameter (one = 1d0, tau = 1d-1)
     integer k,info,i,j,itmp

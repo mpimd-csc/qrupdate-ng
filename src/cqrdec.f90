@@ -106,9 +106,10 @@
 !>
 !> \ingroup qrdecomp
 subroutine cqrdec(m,n,k,Q,ldq,R,ldr,j,rw)
-    integer m,n,k,ldq,ldr,j
-    complex Q(ldq,*),R(ldr,*)
-    real rw(*)
+    integer, intent(in) :: m, n, k, ldq, ldr, j
+    complex, intent(inout) :: Q(ldq,*)
+    complex, intent(inout) :: R(ldr,*)
+    real, intent(out) :: rw(*)
     external xerbla,ccopy,cqhqr,cqrot
     integer info,i
     ! quick return if possible.

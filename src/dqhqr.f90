@@ -87,8 +87,10 @@
 !>
 !> \ingroup qrdecomp
 subroutine dqhqr(m,n,R,ldr,c,s)
-    integer m,n,ldr
-    double precision R(ldr,*),c(*),s(*)
+    integer, intent(in) :: m, n, ldr
+    double precision, intent(inout) :: R(ldr,*)
+    double precision, intent(out) :: c(*)
+    double precision, intent(out) :: s(*)
     external xerbla,dlartg
     double precision t
     integer info,i,ii,j

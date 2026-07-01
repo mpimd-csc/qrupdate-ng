@@ -95,10 +95,10 @@
 !>
 !> \ingroup choldecomp
 subroutine zch1dn(n,R,ldr,u,rw,info)
-    integer n,ldr
-    double complex R(ldr,*),u(*)
-    double precision rw(*)
-    integer info
+    integer, intent(in) :: n, ldr
+    double complex, intent(inout) :: R(ldr,*), u(*)
+    double precision, intent(out) :: rw(*)
+    integer, intent(out) :: info
     external xerbla,ztrsv,zlartg,dznrm2
     double complex crho,rr,ui,t
     double precision dznrm2,rho

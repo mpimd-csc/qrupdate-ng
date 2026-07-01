@@ -101,8 +101,11 @@
 !>
 !> \ingroup choldecomp
 subroutine cchinx(n,R,ldr,j,u,rw,info)
-    integer n,j,ldr,info
-    complex R(ldr,*),u(*),rw(*)
+    integer, intent(in) :: n, j, ldr
+    integer, intent(out) :: info
+    complex, intent(inout) :: R(ldr,*)
+    complex, intent(inout) :: u(*)
+    real, intent(out) :: rw(*)
     external xerbla,ccopy,scnrm2,ctrsv,cqrtv1,cqrqh
     complex t
     real scnrm2,rho

@@ -71,8 +71,9 @@
 !>
 !> \ingroup givens
 subroutine dqrtv1(n,u,w)
-    integer n
-    double precision u(*),w(*)
+    integer, intent(in) :: n
+    double precision, intent(inout) :: u(*)
+    double precision, intent(out) :: w(*)
     external dlartg
     double precision rr,t
     integer i

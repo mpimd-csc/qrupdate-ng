@@ -88,9 +88,10 @@
 !>
 !> \ingroup qrdecomp
 subroutine cqhqr(m,n,R,ldr,c,s)
-    integer m,n,ldr
-    complex R(ldr,*),s(*)
-    real c(*)
+    integer, intent(in) :: m, n, ldr
+    complex, intent(inout) :: R(ldr,*)
+    real, intent(out) :: c(*)
+    complex, intent(out) :: s(*)
     external xerbla,clartg
     complex t
     integer info,i,ii,j

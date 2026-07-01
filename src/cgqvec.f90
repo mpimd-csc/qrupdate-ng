@@ -80,8 +80,9 @@
 !>
 !> \ingroup qrdecomp
 subroutine cgqvec(m,n,Q,ldq,u)
-    integer m,n,ldq
-    complex Q(ldq,*),u(*)
+    integer, intent(in) :: m, n, ldq
+    complex, intent(in) :: Q(ldq,*)
+    complex, intent(out) :: u(*)
     external xerbla,cdotu,caxpy,scnrm2,csscal
     complex cdotu
     real scnrm2,r

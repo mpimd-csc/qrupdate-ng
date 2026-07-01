@@ -105,9 +105,11 @@
 !>
 !> \ingroup qrdecomp
 subroutine cqrinr(m,n,Q,ldq,R,ldr,j,x,rw)
-    integer m,n,j,ldq,ldr
-    complex Q(ldq,*),R(ldr,*),x(*)
-    real rw(*)
+    integer, intent(in) :: m, n, j, ldq, ldr
+    complex, intent(inout) :: Q(ldq,*)
+    complex, intent(inout) :: R(ldr,*)
+    complex, intent(inout) :: x(*)
+    real, intent(out) :: rw(*)
     external xerbla,ccopy,cqhqr,cqrot
     integer info,i,k
     ! check arguments

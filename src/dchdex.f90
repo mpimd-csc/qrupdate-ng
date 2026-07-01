@@ -78,8 +78,9 @@
 !>
 !> \ingroup choldecomp
 subroutine dchdex(n,R,ldr,j,w)
-    integer n,ldr,j
-    double precision R(ldr,*),w(*)
+    integer, intent(in) :: n, ldr, j
+    double precision, intent(inout) :: R(ldr,*)
+    double precision, intent(out) :: w(*)
     integer info,i
     external xerbla,dcopy,dqhqr
 

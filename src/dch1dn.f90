@@ -94,9 +94,11 @@
 !>
 !> \ingroup choldecomp
 subroutine dch1dn(n,R,ldr,u,w,info)
-    integer n,ldr
-    double precision R(ldr,*),u(*),w(*)
-    integer info
+    integer, intent(in) :: n, ldr
+    double precision, intent(inout) :: R(ldr,*)
+    double precision, intent(inout) :: u(*)
+    double precision, intent(out) :: w(*)
+    integer, intent(out) :: info
     external xerbla,dtrsv,dlartg,dnrm2
     double precision dnrm2,rho,rr,ui,t
     integer i,j

@@ -98,9 +98,11 @@
 !>
 !> \ingroup givens
 subroutine dqrot(dir,m,n,Q,ldq,c,s)
-    character dir
-    integer m,n,ldq
-    double precision Q(ldq,*),c(*),s(*)
+    character, intent(in) :: dir
+    integer, intent(in) :: m, n, ldq
+    double precision, intent(inout) :: Q(ldq,*)
+    double precision, intent(in) :: c(*)
+    double precision, intent(in) :: s(*)
     external xerbla, drot,lsame
     logical lsame,fwd
     integer info,i

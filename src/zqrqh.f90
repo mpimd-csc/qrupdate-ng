@@ -83,9 +83,10 @@
 !>
 !> \ingroup qrdecomp
 subroutine zqrqh(m,n,R,ldr,c,s)
-    integer m,n,ldr
-    double complex R(ldr,*),s(*)
-    double precision c(*)
+    integer, intent(in) :: m, n, ldr
+    double complex, intent(inout) :: R(ldr,*)
+    double precision, intent(in) :: c(*)
+    double complex, intent(in) :: s(*)
     external xerbla
     double complex t
     integer info,i,ii,j

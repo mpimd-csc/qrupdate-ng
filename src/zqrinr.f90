@@ -105,9 +105,9 @@
 !>
 !> \ingroup qrdecomp
 subroutine zqrinr(m,n,Q,ldq,R,ldr,j,x,rw)
-    integer m,n,j,ldq,ldr
-    double complex Q(ldq,*),R(ldr,*),x(*)
-    double precision rw(*)
+    integer, intent(in) :: m, n, j, ldq, ldr
+    double complex, intent(inout) :: Q(ldq,*), R(ldr,*), x(*)
+    double precision, intent(out) :: rw(*)
     external xerbla,zcopy,zqhqr,zqrot
     integer info,i,k
     ! check arguments

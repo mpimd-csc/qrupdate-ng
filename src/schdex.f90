@@ -78,8 +78,9 @@
 !>
 !> \ingroup choldecomp
 subroutine schdex(n,R,ldr,j,w)
-    integer n,ldr,j
-    real R(ldr,*),w(*)
+    integer, intent(in) :: n, ldr, j
+    real, intent(inout) :: R(ldr,*)
+    real, intent(out) :: w(*)
     integer info,i
     external xerbla,scopy,sqhqr
 

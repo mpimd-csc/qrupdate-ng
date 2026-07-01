@@ -99,8 +99,11 @@
 !>
 !> \ingroup choldecomp
 subroutine dchinx(n,R,ldr,j,u,w,info)
-    integer n,j,ldr,info
-    double precision R(ldr,*),u(*),w(*)
+    integer, intent(in) :: n, j, ldr
+    integer, intent(out) :: info
+    double precision, intent(inout) :: R(ldr,*)
+    double precision, intent(inout) :: u(*)
+    double precision, intent(out) :: w(*)
     external xerbla,dcopy,dnrm2,dtrsv,dqrtv1,dqrqh
     double precision dnrm2,rho,t,rr
     integer i

@@ -98,10 +98,11 @@
 !>
 !> \ingroup givens
 subroutine zqrot(dir,m,n,Q,ldq,c,s)
-    character dir
-    integer m,n,ldq
-    double complex Q(ldq,*),s(*)
-    double precision c(*)
+    character, intent(in) :: dir
+    integer, intent(in) :: m, n, ldq
+    double complex, intent(inout) :: Q(ldq,*)
+    double precision, intent(in) :: c(*)
+    double complex, intent(in) :: s(*)
     external zrot,lsame,xerbla
     logical lsame,fwd
     integer info,i

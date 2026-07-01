@@ -80,8 +80,9 @@
 !>
 !> \ingroup qrdecomp
 subroutine dgqvec(m,n,Q,ldq,u)
-    integer m,n,ldq
-    double precision Q(ldq,*),u(*)
+    integer, intent(in) :: m, n, ldq
+    double precision, intent(in) :: Q(ldq,*)
+    double precision, intent(out) :: u(*)
     external ddot,daxpy,dnrm2,dscal,xerbla
     double precision ddot,dnrm2,r
     integer info,i,j

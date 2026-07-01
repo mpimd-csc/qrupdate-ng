@@ -98,10 +98,11 @@
 !>
 !> \ingroup givens
 subroutine cqrot(dir,m,n,Q,ldq,c,s)
-    character dir
-    integer m,n,ldq
-    complex Q(ldq,*),s(*)
-    real c(*)
+    character, intent(in) :: dir
+    integer, intent(in) :: m, n, ldq
+    complex, intent(inout) :: Q(ldq,*)
+    complex, intent(in) :: s(*)
+    real, intent(in) :: c(*)
     external xerbla,crot,lsame
     logical lsame,fwd
     integer info,i

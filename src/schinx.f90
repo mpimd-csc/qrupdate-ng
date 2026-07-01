@@ -99,8 +99,11 @@
 !>
 !> \ingroup choldecomp
 subroutine schinx(n,R,ldr,j,u,w,info)
-    integer n,j,ldr,info
-    real R(ldr,*),u(*),w(*)
+    integer, intent(in) :: n, j, ldr
+    real, intent(inout) :: R(ldr,*)
+    real, intent(inout) :: u(*)
+    real, intent(out) :: w(*)
+    integer, intent(out) :: info
     external xerbla,scopy,snrm2,strsv,sqrtv1,sqrqh
     real snrm2,rho,t,rr
     integer i

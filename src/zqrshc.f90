@@ -119,9 +119,10 @@
 !>
 !> \ingroup qrdecomp
 subroutine zqrshc(m,n,k,Q,ldq,R,ldr,i,j,w,rw)
-    integer m,n,k,ldq,ldr,i,j
-    double complex Q(ldq,*),R(ldr,*),w(*)
-    double precision rw(*)
+    integer, intent(in) :: m, n, k, ldq, ldr, i, j
+    double complex, intent(inout) :: Q(ldq,*), R(ldr,*)
+    double complex, intent(out) :: w(*)
+    double precision, intent(out) :: rw(*)
     external xerbla,zcopy,zqrtv1,zqrqh,zqhqr,zqrot
     integer info,jj,kk,l
     ! quick return if possible.

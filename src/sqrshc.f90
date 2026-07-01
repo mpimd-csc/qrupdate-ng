@@ -112,8 +112,9 @@
 !>
 !> \ingroup qrdecomp
 subroutine sqrshc(m,n,k,Q,ldq,R,ldr,i,j,w)
-    integer m,n,k,ldq,ldr,i,j
-    real Q(ldq,*),R(ldr,*),w(*)
+    integer, intent(in) :: m, n, k, ldq, ldr, i, j
+    real, intent(inout) :: Q(ldq,*), R(ldr,*)
+    real, intent(out) :: w(*)
     external xerbla,scopy,sqrtv1,sqrqh,sqhqr,sqrot
     integer info,jj,kk,l
     ! quick return if possible.

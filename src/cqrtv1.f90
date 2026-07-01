@@ -72,9 +72,9 @@
 !>
 !> \ingroup givens
 subroutine cqrtv1(n,u,w)
-    integer n
-    complex u(*)
-    real w(*)
+    integer, intent(in) :: n
+    complex, intent(inout) :: u(*)
+    real, intent(out) :: w(*)
     external clartg
     complex rr,t
     integer i

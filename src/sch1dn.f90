@@ -94,9 +94,10 @@
 !>
 !> \ingroup choldecomp
 subroutine sch1dn(n,R,ldr,u,w,info)
-    integer n,ldr
-    real R(ldr,*),u(*),w(*)
-    integer info
+    integer, intent(in) :: n, ldr
+    real, intent(inout) :: R(ldr,*), u(*)
+    real, intent(out) :: w(*)
+    integer, intent(out) :: info
     external xerbla, strsv,slartg,snrm2
     real snrm2,rho,rr,ui,t
     integer i,j

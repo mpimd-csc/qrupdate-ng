@@ -114,8 +114,12 @@
 !>
 !> \ingroup qrdecomp
 subroutine dqr1up(m,n,k,Q,ldq,R,ldr,u,v,w)
-    integer m,n,k,ldq,ldr
-    double precision Q(ldq,*),R(ldr,*),u(*),v(*),w(*)
+    integer, intent(in) :: m, n, k, ldq, ldr
+    double precision, intent(inout) :: Q(ldq,*)
+    double precision, intent(inout) :: R(ldr,*)
+    double precision, intent(inout) :: u(*)
+    double precision, intent(inout) :: v(*)
+    double precision, intent(out) :: w(*)
     external xerbla, dch1up, dqrqh,dqhqr,dqrot,dqrtv1
     external daxpy,ddot,dnrm2,dlamch,dscal,drot
     double precision ddot,dnrm2,dlamch,ru,ruu

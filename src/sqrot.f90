@@ -98,9 +98,11 @@
 !>
 !> \ingroup givens
 subroutine sqrot(dir,m,n,Q,ldq,c,s)
-    character dir
-    integer m,n,ldq
-    real Q(ldq,*),c(*),s(*)
+    character, intent(in) :: dir
+    integer, intent(in) :: m, n, ldq
+    real, intent(inout) :: Q(ldq,*)
+    real, intent(in) :: c(*)
+    real, intent(in) :: s(*)
     external xerbla, srot,lsame
     logical lsame,fwd
     integer info,i

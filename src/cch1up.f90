@@ -87,9 +87,10 @@
 !>
 !> \ingroup choldecomp
 subroutine cch1up(n,R,ldr,u,w)
-    integer n,ldr
-    complex R(ldr,*),u(*)
-    real w(*)
+    integer, intent(in) :: n, ldr
+    complex, intent(inout) :: R(ldr,*)
+    complex, intent(inout) :: u(*)
+    real, intent(out) :: w(*)
     external clartg
     complex rr,ui,t
     integer i,j

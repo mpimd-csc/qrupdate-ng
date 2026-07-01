@@ -106,8 +106,10 @@
 !>
 !> \ingroup qrdecomp
 subroutine dqrdec(m,n,k,Q,ldq,R,ldr,j,w)
-    integer m,n,k,ldq,ldr,j
-    double precision Q(ldq,*),R(ldr,*),w(*)
+    integer, intent(in) :: m, n, k, ldq, ldr, j
+    double precision, intent(inout) :: Q(ldq,*)
+    double precision, intent(inout) :: R(ldr,*)
+    double precision, intent(out) :: w(*)
     external xerbla,dcopy,dqhqr,dqrot
     integer info,i
     ! quick return if possible.

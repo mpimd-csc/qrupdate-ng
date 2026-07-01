@@ -88,8 +88,9 @@
 !>
 !> \ingroup choldecomp
 subroutine dchshx(n,R,ldr,i,j,w)
-    integer n,ldr,i,j
-    double precision R(ldr,*),w(*)
+    integer, intent(in) :: n, ldr, i, j
+    double precision, intent(inout) :: R(ldr,*)
+    double precision, intent(out) :: w(*)
     external xerbla,dcopy,dqrtv1,dqrqh,dqhqr
     integer info,l
     ! quick return if possible.

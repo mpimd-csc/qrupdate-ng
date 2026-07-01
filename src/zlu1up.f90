@@ -105,8 +105,9 @@
 !>
 !> \ingroup ludecomp
 subroutine zlu1up(m,n,L,ldl,R,ldr,u,v)
-    integer m,n,ldl,ldr
-    double complex L(ldl,*),R(ldr,*),u(*),v(*)
+    integer, intent(in) :: m, n, ldl, ldr
+    double complex, intent(inout) :: L(ldl,*), R(ldr,*)
+    double complex, intent(inout) :: u(*), v(*)
     double complex ui,vi
     integer k,info,i,j
     external xerbla
