@@ -71,8 +71,9 @@
 !>
 !> \ingroup givens
 subroutine sqrtv1(n,u,w)
-    integer n
-    real u(*),w(*)
+    integer, intent(in) :: n
+    real, intent(inout) :: u(*)
+    real, intent(out) :: w(*)
     external slartg
     real rr,t
     integer i

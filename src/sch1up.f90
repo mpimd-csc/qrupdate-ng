@@ -86,9 +86,9 @@
 !>
 !> \ingroup choldecomp
 subroutine sch1up(n,R,ldr,u,w)
-    integer n,ldr
-    real R(ldr,*),u(*)
-    real w(*)
+    integer, intent(in) :: n, ldr
+    real, intent(inout) :: R(ldr,*), u(*)
+    real, intent(out) :: w(*)
     external slartg
     real rr,ui,t
     integer i,j

@@ -79,9 +79,9 @@
 !>
 !> \ingroup choldecomp
 subroutine cchdex(n,R,ldr,j,rw)
-    integer n,ldr,j
-    complex R(ldr,*)
-    real rw(*)
+    integer, intent(in) :: n, ldr, j
+    complex, intent(inout) :: R(ldr,*)
+    real, intent(out) :: rw(*)
     integer info,i
     external xerbla,ccopy,cqhqr
 

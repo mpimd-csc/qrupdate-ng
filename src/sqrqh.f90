@@ -83,8 +83,10 @@
 !>
 !> \ingroup qrdecomp
 subroutine sqrqh(m,n,R,ldr,c,s)
-    integer m,n,ldr
-    real R(ldr,*),c(*),s(*)
+    integer, intent(in) :: m, n, ldr
+    real, intent(inout) :: R(ldr,*)
+    real, intent(in) :: c(*)
+    real, intent(in) :: s(*)
     external xerbla
     real t
     integer info,i,ii,j

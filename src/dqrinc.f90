@@ -113,8 +113,11 @@
 !>
 !> \ingroup qrdecomp
 subroutine dqrinc(m,n,k,Q,ldq,R,ldr,j,x,w)
-    integer m,n,k,ldq,ldr,j
-    double precision Q(ldq,*),R(ldr,*),x(*),w(*)
+    integer, intent(in) :: m, n, k, ldq, ldr, j
+    double precision, intent(inout) :: Q(ldq,*)
+    double precision, intent(inout) :: R(ldr,*)
+    double precision, intent(in) :: x(*)
+    double precision, intent(out) :: w(*)
     external dqrtv1,dqrqh,dqrot,dgqvec
     external xerbla,dcopy,ddot,daxpy,dscal,dnrm2
     double precision ddot,dnrm2,rx

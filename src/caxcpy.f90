@@ -93,8 +93,9 @@
 !> \endverbatim
 !> \ingroup aux
 subroutine caxcpy(n,a,x,incx,y,incy)
-    integer n,incx,incy
-    complex a,x(*),y(*)
+    integer, intent(in) :: n, incx, incy
+    complex, intent(in) :: a, x(*)
+    complex, intent(inout) :: y(*)
     integer i,ix,iy
     ! quick return if possible.
     if (n <= 0) return

@@ -113,9 +113,10 @@
 !>
 !> \ingroup qrdecomp
 subroutine cqrinc(m,n,k,Q,ldq,R,ldr,j,x,rw)
-    integer m,n,k,ldq,ldr,j
-    complex Q(ldq,*),R(ldr,*),x(*)
-    real rw(*)
+    integer, intent(in) :: m, n, k, ldq, ldr, j
+    complex, intent(inout) :: Q(ldq,*), R(ldr,*)
+    complex, intent(in) :: x(*)
+    real, intent(out) :: rw(*)
     external cgqvec, cqrtv1,cqrqh,cqrot
     external xerbla,ccopy,cdotc,caxpy,csscal,scnrm2
     complex cdotc

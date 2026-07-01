@@ -6,7 +6,7 @@
 * Documentation rewrite. Now, we use proper doxygen.
 * Convert to free form Fortran
 * Add code coverage builds
-
+* Add fortran module `qrupdate`
 
 
 ## Old Changelog

@@ -105,8 +105,11 @@
 !>
 !> \ingroup qrdecomp
 subroutine dqrinr(m,n,Q,ldq,R,ldr,j,x,w)
-    integer m,n,j,ldq,ldr
-    double precision Q(ldq,*),R(ldr,*),x(*),w(*)
+    integer, intent(in) :: m, n, j, ldq, ldr
+    double precision, intent(inout) :: Q(ldq,*)
+    double precision, intent(inout) :: R(ldr,*)
+    double precision, intent(inout) :: x(*)
+    double precision, intent(out) :: w(*)
     external xerbla,dcopy,dqhqr,dqrot
     integer info,i,k
     ! check arguments

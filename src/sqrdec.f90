@@ -106,8 +106,9 @@
 !>
 !> \ingroup qrdecomp
 subroutine sqrdec(m,n,k,Q,ldq,R,ldr,j,w)
-    integer m,n,k,ldq,ldr,j
-    real Q(ldq,*),R(ldr,*),w(*)
+    integer, intent(in) :: m, n, k, ldq, ldr, j
+    real, intent(inout) :: Q(ldq,*), R(ldr,*)
+    real, intent(out) :: w(*)
     external xerbla,scopy,sqhqr,sqrot
     integer info,i
     ! quick return if possible.

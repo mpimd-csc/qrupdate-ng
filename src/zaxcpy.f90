@@ -94,8 +94,10 @@
 !> \endverbatim
 !> \ingroup aux
 subroutine zaxcpy(n,a,x,incx,y,incy)
-    integer n,incx,incy
-    double complex a,x(*),y(*)
+    integer, intent(in) :: n, incx, incy
+    double complex, intent(in) :: a
+    double complex, intent(in) :: x(*)
+    double complex, intent(inout) :: y(*)
     integer i,ix,iy
     ! quick return if possible.
     if (n <= 0) return

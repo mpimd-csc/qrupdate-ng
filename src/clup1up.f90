@@ -114,8 +114,13 @@
 !>
 !> \ingroup ludecomp
 subroutine clup1up(m,n,L,ldl,R,ldr,p,u,v,w)
-    integer m,n,ldl,ldr,p(*)
-    complex L(ldl,*),R(ldr,*),u(*),v(*),w(*)
+    integer, intent(in) :: m, n, ldl, ldr
+    integer, intent(inout) :: p(*)
+    complex, intent(inout) :: L(ldl,*)
+    complex, intent(inout) :: R(ldr,*)
+    complex, intent(in) :: u(*)
+    complex, intent(in) :: v(*)
+    complex, intent(out) :: w(*)
     complex one,tmp
     real tau
     parameter (one = 1e0, tau = 1e-1)

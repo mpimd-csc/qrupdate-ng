@@ -80,8 +80,9 @@
 !>
 !> \ingroup qrdecomp
 subroutine zgqvec(m,n,Q,ldq,u)
-    integer m,n,ldq
-    double complex Q(ldq,*),u(*)
+    integer, intent(in) :: m, n, ldq
+    double complex, intent(in) :: Q(ldq,*)
+    double complex, intent(out) :: u(*)
     external zdotu,zaxpy,dznrm2,zdscal,xerbla
     double complex zdotu
     double precision dznrm2,r

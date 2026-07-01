@@ -79,9 +79,9 @@
 !>
 !> \ingroup choldecomp
 subroutine zchdex(n,R,ldr,j,rw)
-    integer n,ldr,j
-    double complex R(ldr,*)
-    double precision rw(*)
+    integer, intent(in) :: n, ldr, j
+    double complex, intent(inout) :: R(ldr,*)
+    double precision, intent(out) :: rw(*)
     integer info,i
     external xerbla,zcopy,zqhqr
 

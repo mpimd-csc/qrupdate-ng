@@ -72,9 +72,9 @@
 !>
 !> \ingroup givens
 subroutine zqrtv1(n,u,w)
-    integer n
-    double complex u(*)
-    double precision w(*)
+    integer, intent(in) :: n
+    double complex, intent(inout) :: u(*)
+    double precision, intent(out) :: w(*)
     external zlartg
     double complex rr,t
     integer i

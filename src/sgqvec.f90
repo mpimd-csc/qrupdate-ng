@@ -80,8 +80,9 @@
 !>
 !> \ingroup qrdecomp
 subroutine sgqvec(m,n,Q,ldq,u)
-    integer m,n,ldq
-    real Q(ldq,*),u(*)
+    integer, intent(in) :: m, n, ldq
+    real, intent(in) :: Q(ldq,*)
+    real, intent(out) :: u(*)
     external sdot,saxpy,snrm2,sscal, xerbla
     real sdot,snrm2,r
     integer info,i,j

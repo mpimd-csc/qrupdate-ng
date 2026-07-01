@@ -95,10 +95,11 @@
 !>
 !> \ingroup choldecomp
 subroutine cch1dn(n,R,ldr,u,rw,info)
-    integer n,ldr
-    complex R(ldr,*),u(*)
-    real rw(*)
-    integer info
+    integer, intent(in) :: n, ldr
+    complex, intent(inout) :: R(ldr,*)
+    complex, intent(inout) :: u(*)
+    real, intent(out) :: rw(*)
+    integer, intent(out) :: info
     external ctrsv,clartg,scnrm2,xerbla
     complex crho,rr,ui,t
     real scnrm2,rho

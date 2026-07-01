@@ -97,8 +97,10 @@
 !>
 !> \ingroup qrdecomp
 subroutine dqrder(m,n,Q,ldq,R,ldr,j,w)
-    integer m,n,j,ldq,ldr
-    double precision Q(ldq,*),R(ldr,*),w(*)
+    integer, intent(in) :: m, n, j, ldq, ldr
+    double precision, intent(inout) :: Q(ldq,*)
+    double precision, intent(inout) :: R(ldr,*)
+    double precision, intent(out) :: w(*)
     external xerbla,dcopy,dqrtv1,dqrot,dqrqh
     integer info,i,k
     ! quick return if possible.

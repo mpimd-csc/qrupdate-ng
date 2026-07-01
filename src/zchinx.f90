@@ -101,8 +101,10 @@
 !>
 !> \ingroup choldecomp
 subroutine zchinx(n,R,ldr,j,u,rw,info)
-    integer n,j,ldr,info
-    double complex R(ldr,*),u(*),rw(*)
+    integer, intent(in) :: n, j, ldr
+    double complex, intent(inout) :: R(ldr,*), u(*)
+    double precision, intent(out) :: rw(*)
+    integer, intent(out) :: info
     external xerbla,zcopy,dznrm2,ztrsv,zqrtv1,zqrqh
     double complex t
     double precision dznrm2,rho

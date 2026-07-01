@@ -114,8 +114,11 @@
 !>
 !> \ingroup ludecomp
 subroutine slup1up(m,n,L,ldl,R,ldr,p,u,v,w)
-    integer m,n,ldl,ldr,p(*)
-    real L(ldl,*),R(ldr,*),u(*),v(*),w(*)
+    integer, intent(in) :: m, n, ldl, ldr
+    integer, intent(inout) :: p(*)
+    real, intent(inout) :: L(ldl,*), R(ldr,*)
+    real, intent(in) :: u(*), v(*)
+    real, intent(out) :: w(*)
     real one,tau,tmp
     parameter (one = 1e0, tau = 1e-1)
     integer k,info,i,j,itmp

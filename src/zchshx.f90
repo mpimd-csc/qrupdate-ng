@@ -97,9 +97,10 @@
 !>
 !> \ingroup choldecomp
 subroutine zchshx(n,R,ldr,i,j,w,rw)
-    integer n,ldr,i,j
-    double complex R(ldr,*),w(*)
-    double precision rw(*)
+    integer, intent(in) :: n, ldr, i, j
+    double complex, intent(inout) :: R(ldr,*)
+    double complex, intent(out) :: w(*)
+    double precision, intent(out) :: rw(*)
     external xerbla,zcopy,zqrtv1,zqrqh,zqhqr
     integer info,l
     ! quick return if possible.

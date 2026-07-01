@@ -87,9 +87,9 @@
 !>
 !> \ingroup choldecomp
 subroutine zch1up(n,R,ldr,u,w)
-    integer n,ldr
-    double complex R(ldr,*),u(*)
-    double precision w(*)
+    integer, intent(in) :: n, ldr
+    double complex, intent(inout) :: R(ldr,*), u(*)
+    double precision, intent(out) :: w(*)
     external zlartg
     double complex rr,ui,t
     integer i,j

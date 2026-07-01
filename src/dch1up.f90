@@ -86,9 +86,10 @@
 !>
 !> \ingroup choldecomp
 subroutine dch1up(n,R,ldr,u,w)
-    integer n,ldr
-    double precision R(ldr,*),u(*)
-    double precision w(*)
+    integer, intent(in) :: n, ldr
+    double precision, intent(inout) :: R(ldr,*)
+    double precision, intent(inout) :: u(*)
+    double precision, intent(out) :: w(*)
     external dlartg
     double precision rr,ui,t
     integer i,j

@@ -121,9 +121,10 @@
 !>
 !> \ingroup qrdecomp
 subroutine zqr1up(m,n,k,Q,ldq,R,ldr,u,v,w,rw)
-    integer m,n,k,ldq,ldr
-    double complex Q(ldq,*),R(ldr,*),u(*),v(*),w(*)
-    double precision rw(*)
+    integer, intent(in) :: m, n, k, ldq, ldr
+    double complex, intent(inout) :: Q(ldq,*), R(ldr,*), u(*), v(*)
+    double complex, intent(out) :: w(*)
+    double precision, intent(out) :: rw(*)
     external zqrqh,zqhqr,zqrot,zqrtv1,zaxpy,zaxcpy,xerbla,zch1up
     external zdotc,dznrm2,dlamch,zdscal,zrot
     double complex zdotc

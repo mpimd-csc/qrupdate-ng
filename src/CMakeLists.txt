@@ -1,4 +1,5 @@
 SET(SRC
+    qrupdate.f90
     caxcpy.f90
     cch1dn.f90
     cch1up.f90

@@ -113,8 +113,10 @@
 !>
 !> \ingroup qrdecomp
 subroutine sqrinc(m,n,k,Q,ldq,R,ldr,j,x,w)
-    integer m,n,k,ldq,ldr,j
-    real Q(ldq,*),R(ldr,*),x(*),w(*)
+    integer, intent(in) :: m, n, k, ldq, ldr, j
+    real, intent(inout) :: Q(ldq,*), R(ldr,*)
+    real, intent(in) :: x(*)
+    real, intent(out) :: w(*)
     external sqrtv1,sqrqh,sqrot
     external xerbla,scopy,sdot,saxpy,sscal,snrm2,sgqvec
     real sdot,snrm2,rx

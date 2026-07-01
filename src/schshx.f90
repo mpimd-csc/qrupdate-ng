@@ -88,8 +88,9 @@
 !>
 !> \ingroup choldecomp
 subroutine schshx(n,R,ldr,i,j,w)
-    integer n,ldr,i,j
-    real R(ldr,*),w(*)
+    integer, intent(in) :: n, ldr, i, j
+    real, intent(inout) :: R(ldr,*)
+    real, intent(out) :: w(*)
     external xerbla,scopy,sqrtv1,sqrqh,sqhqr
     integer info,l
     ! quick return if possible.

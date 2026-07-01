@@ -104,8 +104,10 @@
 !>
 !> \ingroup qrdecomp
 subroutine sqrinr(m,n,Q,ldq,R,ldr,j,x,w)
-    integer m,n,j,ldq,ldr
-    real Q(ldq,*),R(ldr,*),x(*),w(*)
+    integer, intent(in) :: m, n, j, ldq, ldr
+    real, intent(inout) :: Q(ldq,*), R(ldr,*)
+    real, intent(inout) :: x(*)
+    real, intent(out) :: w(*)
     external xerbla,scopy,sqhqr,sqrot
     integer info,i,k
     ! check arguments

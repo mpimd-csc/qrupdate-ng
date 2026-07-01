@@ -114,8 +114,10 @@
 !>
 !> \ingroup qrdecomp
 subroutine sqr1up(m,n,k,Q,ldq,R,ldr,u,v,w)
-    integer m,n,k,ldq,ldr
-    real Q(ldq,*),R(ldr,*),u(*),v(*),w(*)
+    integer, intent(in) :: m, n, k, ldq, ldr
+    real, intent(inout) :: Q(ldq,*), R(ldr,*)
+    real, intent(inout) :: u(*), v(*)
+    real, intent(out) :: w(*)
     external sqrqh,sqhqr,sqrot,sqrtv1, xerbla, sch1up
     external saxpy,sdot,snrm2,slamch,sscal,srot
     real sdot,snrm2,slamch,ru,ruu

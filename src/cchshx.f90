@@ -97,9 +97,10 @@
 !>
 !> \ingroup choldecomp
 subroutine cchshx(n,R,ldr,i,j,w,rw)
-    integer n,ldr,i,j
-    complex R(ldr,*),w(*)
-    real rw(*)
+    integer, intent(in) :: n, ldr, i, j
+    complex, intent(inout) :: R(ldr,*)
+    complex, intent(out) :: w(*)
+    real, intent(out) :: rw(*)
     external xerbla,ccopy,cqrtv1,cqrqh,cqhqr
     integer info,l
     ! quick return if possible.
