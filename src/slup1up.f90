@@ -114,12 +114,13 @@
 !>
 !> \ingroup ludecomp
 subroutine slup1up(m,n,L,ldl,R,ldr,p,u,v,w)
+  use iso_fortran_env
     integer, intent(in) :: m, n, ldl, ldr
     integer, intent(inout) :: p(*)
-    real, intent(inout) :: L(ldl,*), R(ldr,*)
-    real, intent(in) :: u(*), v(*)
-    real, intent(out) :: w(*)
-    real one,tau,tmp
+    real(real32), intent(inout) :: L(ldl,*), R(ldr,*)
+    real(real32), intent(in) :: u(*), v(*)
+    real(real32), intent(out) :: w(*)
+    real(real32) one,tau,tmp
     parameter (one = 1e0, tau = 1e-1)
     integer k,info,i,j,itmp
     external xerbla,scopy,saxpy,strsv,sger,sgemv,sswap

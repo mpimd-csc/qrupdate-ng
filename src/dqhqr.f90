@@ -87,12 +87,13 @@
 !>
 !> \ingroup qrdecomp
 subroutine dqhqr(m,n,R,ldr,c,s)
+  use iso_fortran_env
     integer, intent(in) :: m, n, ldr
-    double precision, intent(inout) :: R(ldr,*)
-    double precision, intent(out) :: c(*)
-    double precision, intent(out) :: s(*)
+    real(real64), intent(inout) :: R(ldr,*)
+    real(real64), intent(out) :: c(*)
+    real(real64), intent(out) :: s(*)
     external xerbla,dlartg
-    double precision t
+    real(real64) t
     integer info,i,ii,j
     ! quick return if possible.
     if (m == 0 .or. m == 1 .or. n == 0) return

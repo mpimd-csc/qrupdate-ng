@@ -80,11 +80,12 @@
 !>
 !> \ingroup qrdecomp
 subroutine dgqvec(m,n,Q,ldq,u)
+  use iso_fortran_env
     integer, intent(in) :: m, n, ldq
-    double precision, intent(in) :: Q(ldq,*)
-    double precision, intent(out) :: u(*)
+    real(real64), intent(in) :: Q(ldq,*)
+    real(real64), intent(out) :: u(*)
     external ddot,daxpy,dnrm2,dscal,xerbla
-    double precision ddot,dnrm2,r
+    real(real64) ddot,dnrm2,r
     integer info,i,j
     ! quick return if possible.
     if (m == 0) return

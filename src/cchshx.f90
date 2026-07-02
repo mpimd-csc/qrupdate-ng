@@ -97,10 +97,11 @@
 !>
 !> \ingroup choldecomp
 subroutine cchshx(n,R,ldr,i,j,w,rw)
+  use iso_fortran_env
     integer, intent(in) :: n, ldr, i, j
-    complex, intent(inout) :: R(ldr,*)
-    complex, intent(out) :: w(*)
-    real, intent(out) :: rw(*)
+    complex(real32), intent(inout) :: R(ldr,*)
+    complex(real32), intent(out) :: w(*)
+    real(real32), intent(out) :: rw(*)
     external xerbla,ccopy,cqrtv1,cqrqh,cqhqr
     integer info,l
     ! quick return if possible.

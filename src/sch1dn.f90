@@ -94,12 +94,13 @@
 !>
 !> \ingroup choldecomp
 subroutine sch1dn(n,R,ldr,u,w,info)
+  use iso_fortran_env
     integer, intent(in) :: n, ldr
-    real, intent(inout) :: R(ldr,*), u(*)
-    real, intent(out) :: w(*)
+    real(real32), intent(inout) :: R(ldr,*), u(*)
+    real(real32), intent(out) :: w(*)
     integer, intent(out) :: info
     external xerbla, strsv,slartg,snrm2
-    real snrm2,rho,rr,ui,t
+    real(real32) snrm2,rho,rr,ui,t
     integer i,j
 
     ! quick return if possible.

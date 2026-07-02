@@ -99,13 +99,14 @@
 !>
 !> \ingroup choldecomp
 subroutine dchinx(n,R,ldr,j,u,w,info)
+  use iso_fortran_env
     integer, intent(in) :: n, j, ldr
     integer, intent(out) :: info
-    double precision, intent(inout) :: R(ldr,*)
-    double precision, intent(inout) :: u(*)
-    double precision, intent(out) :: w(*)
+    real(real64), intent(inout) :: R(ldr,*)
+    real(real64), intent(inout) :: u(*)
+    real(real64), intent(out) :: w(*)
     external xerbla,dcopy,dnrm2,dtrsv,dqrtv1,dqrqh
-    double precision dnrm2,rho,t,rr
+    real(real64) dnrm2,rho,t,rr
     integer i
 
     ! check arguments

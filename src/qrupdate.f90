@@ -1,13 +1,14 @@
 module qrupdate
+  use iso_fortran_env
   implicit none
 
   interface
     subroutine caxcpy(n, a, x, incx, y, incy)
       integer, intent(in) :: n
-      complex, intent(in) :: a
-      complex, intent(in) :: x
+      complex(real32), intent(in) :: a
+      complex(real32), intent(in) :: x
       integer, intent(in) :: incx
-      complex, intent(inout) :: y
+      complex(real32), intent(inout) :: y
       integer, intent(in) :: incy
     end subroutine caxcpy
   end interface
@@ -15,10 +16,10 @@ module qrupdate
   interface
     subroutine cch1dn(n, R, ldr, u, rw, info)
       integer, intent(in) :: n
-      complex, intent(inout) :: R
+      complex(real32), intent(inout) :: R
       integer, intent(in) :: ldr
-      complex, intent(inout) :: u
-      real, intent(out) :: rw
+      complex(real32), intent(inout) :: u
+      real(real32), intent(out) :: rw
       integer, intent(out) :: info
     end subroutine cch1dn
   end interface
@@ -26,31 +27,31 @@ module qrupdate
   interface
     subroutine cch1up(n, R, ldr, u, w)
       integer, intent(in) :: n
-      complex, intent(inout) :: R
+      complex(real32), intent(inout) :: R
       integer, intent(in) :: ldr
-      complex, intent(inout) :: u
-      real, intent(out) :: w
+      complex(real32), intent(inout) :: u
+      real(real32), intent(out) :: w
     end subroutine cch1up
   end interface
 
   interface
     subroutine cchdex(n, R, ldr, j, rw)
       integer, intent(in) :: n
-      complex, intent(inout) :: R
+      complex(real32), intent(inout) :: R
       integer, intent(in) :: ldr
       integer, intent(in) :: j
-      real, intent(out) :: rw
+      real(real32), intent(out) :: rw
     end subroutine cchdex
   end interface
 
   interface
     subroutine cchinx(n, R, ldr, j, u, rw, info)
       integer, intent(in) :: n
-      complex, intent(inout) :: R
+      complex(real32), intent(inout) :: R
       integer, intent(in) :: ldr
       integer, intent(in) :: j
-      complex, intent(inout) :: u
-      real, intent(out) :: rw
+      complex(real32), intent(inout) :: u
+      real(real32), intent(out) :: rw
       integer, intent(out) :: info
     end subroutine cchinx
   end interface
@@ -58,12 +59,12 @@ module qrupdate
   interface
     subroutine cchshx(n, R, ldr, i, j, w, rw)
       integer, intent(in) :: n
-      complex, intent(inout) :: R
+      complex(real32), intent(inout) :: R
       integer, intent(in) :: ldr
       integer, intent(in) :: i
       integer, intent(in) :: j
-      complex, intent(out) :: w
-      real, intent(out) :: rw
+      complex(real32), intent(out) :: w
+      real(real32), intent(out) :: rw
     end subroutine cchshx
   end interface
 
@@ -71,9 +72,9 @@ module qrupdate
     subroutine cgqvec(m, n, Q, ldq, u)
       integer, intent(in) :: m
       integer, intent(in) :: n
-      complex, intent(in) :: Q
+      complex(real32), intent(in) :: Q
       integer, intent(in) :: ldq
-      complex, intent(out) :: u
+      complex(real32), intent(out) :: u
     end subroutine cgqvec
   end interface
 
@@ -81,12 +82,12 @@ module qrupdate
     subroutine clu1up(m, n, L, ldl, R, ldr, u, v)
       integer, intent(in) :: m
       integer, intent(in) :: n
-      complex, intent(inout) :: L
+      complex(real32), intent(inout) :: L
       integer, intent(in) :: ldl
-      complex, intent(inout) :: R
+      complex(real32), intent(inout) :: R
       integer, intent(in) :: ldr
-      complex, intent(inout) :: u
-      complex, intent(inout) :: v
+      complex(real32), intent(inout) :: u
+      complex(real32), intent(inout) :: v
     end subroutine clu1up
   end interface
 
@@ -94,14 +95,14 @@ module qrupdate
     subroutine clup1up(m, n, L, ldl, R, ldr, p, u, v, w)
       integer, intent(in) :: m
       integer, intent(in) :: n
-      complex, intent(inout) :: L
+      complex(real32), intent(inout) :: L
       integer, intent(in) :: ldl
-      complex, intent(inout) :: R
+      complex(real32), intent(inout) :: R
       integer, intent(in) :: ldr
       integer, intent(in) :: p
-      complex, intent(in) :: u
-      complex, intent(in) :: v
-      complex, intent(out) :: w
+      complex(real32), intent(in) :: u
+      complex(real32), intent(in) :: v
+      complex(real32), intent(out) :: w
     end subroutine clup1up
   end interface
 
@@ -109,10 +110,10 @@ module qrupdate
     subroutine cqhqr(m, n, R, ldr, c, s)
       integer, intent(in) :: m
       integer, intent(in) :: n
-      complex, intent(inout) :: R
+      complex(real32), intent(inout) :: R
       integer, intent(in) :: ldr
-      real, intent(out) :: c
-      complex, intent(out) :: s
+      real(real32), intent(out) :: c
+      complex(real32), intent(out) :: s
     end subroutine cqhqr
   end interface
 
@@ -121,14 +122,14 @@ module qrupdate
       integer, intent(in) :: m
       integer, intent(in) :: n
       integer, intent(in) :: k
-      complex, intent(inout) :: Q
+      complex(real32), intent(inout) :: Q
       integer, intent(in) :: ldq
-      complex, intent(inout) :: R
+      complex(real32), intent(inout) :: R
       integer, intent(in) :: ldr
-      complex, intent(inout) :: u
-      complex, intent(inout) :: v
-      complex, intent(out) :: w
-      real, intent(out) :: rw
+      complex(real32), intent(inout) :: u
+      complex(real32), intent(inout) :: v
+      complex(real32), intent(out) :: w
+      real(real32), intent(out) :: rw
     end subroutine cqr1up
   end interface
 
@@ -137,12 +138,12 @@ module qrupdate
       integer, intent(in) :: m
       integer, intent(in) :: n
       integer, intent(in) :: k
-      complex, intent(inout) :: Q
+      complex(real32), intent(inout) :: Q
       integer, intent(in) :: ldq
-      complex, intent(inout) :: R
+      complex(real32), intent(inout) :: R
       integer, intent(in) :: ldr
       integer, intent(in) :: j
-      real, intent(out) :: rw
+      real(real32), intent(out) :: rw
     end subroutine cqrdec
   end interface
 
@@ -150,13 +151,13 @@ module qrupdate
     subroutine cqrder(m, n, Q, ldq, R, ldr, j, w, rw)
       integer, intent(in) :: m
       integer, intent(in) :: n
-      complex, intent(inout) :: Q
+      complex(real32), intent(inout) :: Q
       integer, intent(in) :: ldq
-      complex, intent(inout) :: R
+      complex(real32), intent(inout) :: R
       integer, intent(in) :: ldr
       integer, intent(in) :: j
-      complex, intent(out) :: w
-      real, intent(out) :: rw
+      complex(real32), intent(out) :: w
+      real(real32), intent(out) :: rw
     end subroutine cqrder
   end interface
 
@@ -165,13 +166,13 @@ module qrupdate
       integer, intent(in) :: m
       integer, intent(in) :: n
       integer, intent(in) :: k
-      complex, intent(inout) :: Q
+      complex(real32), intent(inout) :: Q
       integer, intent(in) :: ldq
-      complex, intent(inout) :: R
+      complex(real32), intent(inout) :: R
       integer, intent(in) :: ldr
       integer, intent(in) :: j
-      complex, intent(in) :: x
-      real, intent(out) :: rw
+      complex(real32), intent(in) :: x
+      real(real32), intent(out) :: rw
     end subroutine cqrinc
   end interface
 
@@ -179,13 +180,13 @@ module qrupdate
     subroutine cqrinr(m, n, Q, ldq, R, ldr, j, x, rw)
       integer, intent(in) :: m
       integer, intent(in) :: n
-      complex, intent(inout) :: Q
+      complex(real32), intent(inout) :: Q
       integer, intent(in) :: ldq
-      complex, intent(inout) :: R
+      complex(real32), intent(inout) :: R
       integer, intent(in) :: ldr
       integer, intent(in) :: j
-      complex, intent(inout) :: x
-      real, intent(out) :: rw
+      complex(real32), intent(inout) :: x
+      real(real32), intent(out) :: rw
     end subroutine cqrinr
   end interface
 
@@ -194,10 +195,10 @@ module qrupdate
       character, intent(in) :: dir
       integer, intent(in) :: m
       integer, intent(in) :: n
-      complex, intent(inout) :: Q
+      complex(real32), intent(inout) :: Q
       integer, intent(in) :: ldq
-      real, intent(in) :: c
-      complex, intent(in) :: s
+      real(real32), intent(in) :: c
+      complex(real32), intent(in) :: s
     end subroutine cqrot
   end interface
 
@@ -205,10 +206,10 @@ module qrupdate
     subroutine cqrqh(m, n, R, ldr, c, s)
       integer, intent(in) :: m
       integer, intent(in) :: n
-      complex, intent(inout) :: R
+      complex(real32), intent(inout) :: R
       integer, intent(in) :: ldr
-      real, intent(in) :: c
-      complex, intent(in) :: s
+      real(real32), intent(in) :: c
+      complex(real32), intent(in) :: s
     end subroutine cqrqh
   end interface
 
@@ -217,32 +218,32 @@ module qrupdate
       integer, intent(in) :: m
       integer, intent(in) :: n
       integer, intent(in) :: k
-      complex, intent(inout) :: Q
+      complex(real32), intent(inout) :: Q
       integer, intent(in) :: ldq
-      complex, intent(inout) :: R
+      complex(real32), intent(inout) :: R
       integer, intent(in) :: ldr
       integer, intent(in) :: i
       integer, intent(in) :: j
-      complex, intent(out) :: w
-      real, intent(out) :: rw
+      complex(real32), intent(out) :: w
+      real(real32), intent(out) :: rw
     end subroutine cqrshc
   end interface
 
   interface
     subroutine cqrtv1(n, u, w)
       integer, intent(in) :: n
-      complex, intent(inout) :: u
-      real, intent(out) :: w
+      complex(real32), intent(inout) :: u
+      real(real32), intent(out) :: w
     end subroutine cqrtv1
   end interface
 
   interface
     subroutine dch1dn(n, R, ldr, u, w, info)
       integer, intent(in) :: n
-      double precision, intent(inout) :: R
+      real(real64), intent(inout) :: R
       integer, intent(in) :: ldr
-      double precision, intent(inout) :: u
-      double precision, intent(out) :: w
+      real(real64), intent(inout) :: u
+      real(real64), intent(out) :: w
       integer, intent(out) :: info
     end subroutine dch1dn
   end interface
@@ -250,31 +251,31 @@ module qrupdate
   interface
     subroutine dch1up(n, R, ldr, u, w)
       integer, intent(in) :: n
-      double precision, intent(inout) :: R
+      real(real64), intent(inout) :: R
       integer, intent(in) :: ldr
-      double precision, intent(inout) :: u
-      double precision, intent(out) :: w
+      real(real64), intent(inout) :: u
+      real(real64), intent(out) :: w
     end subroutine dch1up
   end interface
 
   interface
     subroutine dchdex(n, R, ldr, j, w)
       integer, intent(in) :: n
-      double precision, intent(inout) :: R
+      real(real64), intent(inout) :: R
       integer, intent(in) :: ldr
       integer, intent(in) :: j
-      double precision, intent(out) :: w
+      real(real64), intent(out) :: w
     end subroutine dchdex
   end interface
 
   interface
     subroutine dchinx(n, R, ldr, j, u, w, info)
       integer, intent(in) :: n
-      double precision, intent(inout) :: R
+      real(real64), intent(inout) :: R
       integer, intent(in) :: ldr
       integer, intent(in) :: j
-      double precision, intent(inout) :: u
-      double precision, intent(out) :: w
+      real(real64), intent(inout) :: u
+      real(real64), intent(out) :: w
       integer, intent(out) :: info
     end subroutine dchinx
   end interface
@@ -282,11 +283,11 @@ module qrupdate
   interface
     subroutine dchshx(n, R, ldr, i, j, w)
       integer, intent(in) :: n
-      double precision, intent(inout) :: R
+      real(real64), intent(inout) :: R
       integer, intent(in) :: ldr
       integer, intent(in) :: i
       integer, intent(in) :: j
-      double precision, intent(out) :: w
+      real(real64), intent(out) :: w
     end subroutine dchshx
   end interface
 
@@ -294,9 +295,9 @@ module qrupdate
     subroutine dgqvec(m, n, Q, ldq, u)
       integer, intent(in) :: m
       integer, intent(in) :: n
-      double precision, intent(in) :: Q
+      real(real64), intent(in) :: Q
       integer, intent(in) :: ldq
-      double precision, intent(out) :: u
+      real(real64), intent(out) :: u
     end subroutine dgqvec
   end interface
 
@@ -304,12 +305,12 @@ module qrupdate
     subroutine dlu1up(m, n, L, ldl, R, ldr, u, v)
       integer, intent(in) :: m
       integer, intent(in) :: n
-      double precision, intent(inout) :: L
+      real(real64), intent(inout) :: L
       integer, intent(in) :: ldl
-      double precision, intent(inout) :: R
+      real(real64), intent(inout) :: R
       integer, intent(in) :: ldr
-      double precision, intent(inout) :: u
-      double precision, intent(inout) :: v
+      real(real64), intent(inout) :: u
+      real(real64), intent(inout) :: v
     end subroutine dlu1up
   end interface
 
@@ -317,14 +318,14 @@ module qrupdate
     subroutine dlup1up(m, n, L, ldl, R, ldr, p, u, v, w)
       integer, intent(in) :: m
       integer, intent(in) :: n
-      double precision, intent(inout) :: L
+      real(real64), intent(inout) :: L
       integer, intent(in) :: ldl
-      double precision, intent(inout) :: R
+      real(real64), intent(inout) :: R
       integer, intent(in) :: ldr
       integer, intent(in) :: p
-      double precision, intent(in) :: u
-      double precision, intent(in) :: v
-      double precision, intent(out) :: w
+      real(real64), intent(in) :: u
+      real(real64), intent(in) :: v
+      real(real64), intent(out) :: w
     end subroutine dlup1up
   end interface
 
@@ -332,10 +333,10 @@ module qrupdate
     subroutine dqhqr(m, n, R, ldr, c, s)
       integer, intent(in) :: m
       integer, intent(in) :: n
-      double precision, intent(inout) :: R
+      real(real64), intent(inout) :: R
       integer, intent(in) :: ldr
-      double precision, intent(out) :: c
-      double precision, intent(out) :: s
+      real(real64), intent(out) :: c
+      real(real64), intent(out) :: s
     end subroutine dqhqr
   end interface
 
@@ -344,13 +345,13 @@ module qrupdate
       integer, intent(in) :: m
       integer, intent(in) :: n
       integer, intent(in) :: k
-      double precision, intent(inout) :: Q
+      real(real64), intent(inout) :: Q
       integer, intent(in) :: ldq
-      double precision, intent(inout) :: R
+      real(real64), intent(inout) :: R
       integer, intent(in) :: ldr
-      double precision, intent(inout) :: u
-      double precision, intent(inout) :: v
-      double precision, intent(out) :: w
+      real(real64), intent(inout) :: u
+      real(real64), intent(inout) :: v
+      real(real64), intent(out) :: w
     end subroutine dqr1up
   end interface
 
@@ -359,12 +360,12 @@ module qrupdate
       integer, intent(in) :: m
       integer, intent(in) :: n
       integer, intent(in) :: k
-      double precision, intent(inout) :: Q
+      real(real64), intent(inout) :: Q
       integer, intent(in) :: ldq
-      double precision, intent(inout) :: R
+      real(real64), intent(inout) :: R
       integer, intent(in) :: ldr
       integer, intent(in) :: j
-      double precision, intent(out) :: w
+      real(real64), intent(out) :: w
     end subroutine dqrdec
   end interface
 
@@ -372,12 +373,12 @@ module qrupdate
     subroutine dqrder(m, n, Q, ldq, R, ldr, j, w)
       integer, intent(in) :: m
       integer, intent(in) :: n
-      double precision, intent(inout) :: Q
+      real(real64), intent(inout) :: Q
       integer, intent(in) :: ldq
-      double precision, intent(inout) :: R
+      real(real64), intent(inout) :: R
       integer, intent(in) :: ldr
       integer, intent(in) :: j
-      double precision, intent(out) :: w
+      real(real64), intent(out) :: w
     end subroutine dqrder
   end interface
 
@@ -386,13 +387,13 @@ module qrupdate
       integer, intent(in) :: m
       integer, intent(in) :: n
       integer, intent(in) :: k
-      double precision, intent(inout) :: Q
+      real(real64), intent(inout) :: Q
       integer, intent(in) :: ldq
-      double precision, intent(inout) :: R
+      real(real64), intent(inout) :: R
       integer, intent(in) :: ldr
       integer, intent(in) :: j
-      double precision, intent(in) :: x
-      double precision, intent(out) :: w
+      real(real64), intent(in) :: x
+      real(real64), intent(out) :: w
     end subroutine dqrinc
   end interface
 
@@ -400,13 +401,13 @@ module qrupdate
     subroutine dqrinr(m, n, Q, ldq, R, ldr, j, x, w)
       integer, intent(in) :: m
       integer, intent(in) :: n
-      double precision, intent(inout) :: Q
+      real(real64), intent(inout) :: Q
       integer, intent(in) :: ldq
-      double precision, intent(inout) :: R
+      real(real64), intent(inout) :: R
       integer, intent(in) :: ldr
       integer, intent(in) :: j
-      double precision, intent(inout) :: x
-      double precision, intent(out) :: w
+      real(real64), intent(inout) :: x
+      real(real64), intent(out) :: w
     end subroutine dqrinr
   end interface
 
@@ -415,10 +416,10 @@ module qrupdate
       character, intent(in) :: dir
       integer, intent(in) :: m
       integer, intent(in) :: n
-      double precision, intent(inout) :: Q
+      real(real64), intent(inout) :: Q
       integer, intent(in) :: ldq
-      double precision, intent(in) :: c
-      double precision, intent(in) :: s
+      real(real64), intent(in) :: c
+      real(real64), intent(in) :: s
     end subroutine dqrot
   end interface
 
@@ -426,10 +427,10 @@ module qrupdate
     subroutine dqrqh(m, n, R, ldr, c, s)
       integer, intent(in) :: m
       integer, intent(in) :: n
-      double precision, intent(inout) :: R
+      real(real64), intent(inout) :: R
       integer, intent(in) :: ldr
-      double precision, intent(in) :: c
-      double precision, intent(in) :: s
+      real(real64), intent(in) :: c
+      real(real64), intent(in) :: s
     end subroutine dqrqh
   end interface
 
@@ -438,31 +439,31 @@ module qrupdate
       integer, intent(in) :: m
       integer, intent(in) :: n
       integer, intent(in) :: k
-      double precision, intent(inout) :: Q
+      real(real64), intent(inout) :: Q
       integer, intent(in) :: ldq
-      double precision, intent(inout) :: R
+      real(real64), intent(inout) :: R
       integer, intent(in) :: ldr
       integer, intent(in) :: i
       integer, intent(in) :: j
-      double precision, intent(out) :: w
+      real(real64), intent(out) :: w
     end subroutine dqrshc
   end interface
 
   interface
     subroutine dqrtv1(n, u, w)
       integer, intent(in) :: n
-      double precision, intent(inout) :: u
-      double precision, intent(out) :: w
+      real(real64), intent(inout) :: u
+      real(real64), intent(out) :: w
     end subroutine dqrtv1
   end interface
 
   interface
     subroutine sch1dn(n, R, ldr, u, w, info)
       integer, intent(in) :: n
-      real, intent(inout) :: R
+      real(real32), intent(inout) :: R
       integer, intent(in) :: ldr
-      real, intent(inout) :: u
-      real, intent(out) :: w
+      real(real32), intent(inout) :: u
+      real(real32), intent(out) :: w
       integer, intent(out) :: info
     end subroutine sch1dn
   end interface
@@ -470,31 +471,31 @@ module qrupdate
   interface
     subroutine sch1up(n, R, ldr, u, w)
       integer, intent(in) :: n
-      real, intent(inout) :: R
+      real(real32), intent(inout) :: R
       integer, intent(in) :: ldr
-      real, intent(inout) :: u
-      real, intent(out) :: w
+      real(real32), intent(inout) :: u
+      real(real32), intent(out) :: w
     end subroutine sch1up
   end interface
 
   interface
     subroutine schdex(n, R, ldr, j, w)
       integer, intent(in) :: n
-      real, intent(inout) :: R
+      real(real32), intent(inout) :: R
       integer, intent(in) :: ldr
       integer, intent(in) :: j
-      real, intent(out) :: w
+      real(real32), intent(out) :: w
     end subroutine schdex
   end interface
 
   interface
     subroutine schinx(n, R, ldr, j, u, w, info)
       integer, intent(in) :: n
-      real, intent(inout) :: R
+      real(real32), intent(inout) :: R
       integer, intent(in) :: ldr
       integer, intent(in) :: j
-      real, intent(inout) :: u
-      real, intent(out) :: w
+      real(real32), intent(inout) :: u
+      real(real32), intent(out) :: w
       integer, intent(out) :: info
     end subroutine schinx
   end interface
@@ -502,11 +503,11 @@ module qrupdate
   interface
     subroutine schshx(n, R, ldr, i, j, w)
       integer, intent(in) :: n
-      real, intent(inout) :: R
+      real(real32), intent(inout) :: R
       integer, intent(in) :: ldr
       integer, intent(in) :: i
       integer, intent(in) :: j
-      real, intent(out) :: w
+      real(real32), intent(out) :: w
     end subroutine schshx
   end interface
 
@@ -514,9 +515,9 @@ module qrupdate
     subroutine sgqvec(m, n, Q, ldq, u)
       integer, intent(in) :: m
       integer, intent(in) :: n
-      real, intent(in) :: Q
+      real(real32), intent(in) :: Q
       integer, intent(in) :: ldq
-      real, intent(out) :: u
+      real(real32), intent(out) :: u
     end subroutine sgqvec
   end interface
 
@@ -524,12 +525,12 @@ module qrupdate
     subroutine slu1up(m, n, L, ldl, R, ldr, u, v)
       integer, intent(in) :: m
       integer, intent(in) :: n
-      real, intent(inout) :: L
+      real(real32), intent(inout) :: L
       integer, intent(in) :: ldl
-      real, intent(inout) :: R
+      real(real32), intent(inout) :: R
       integer, intent(in) :: ldr
-      real, intent(inout) :: u
-      real, intent(inout) :: v
+      real(real32), intent(inout) :: u
+      real(real32), intent(inout) :: v
     end subroutine slu1up
   end interface
 
@@ -537,14 +538,14 @@ module qrupdate
     subroutine slup1up(m, n, L, ldl, R, ldr, p, u, v, w)
       integer, intent(in) :: m
       integer, intent(in) :: n
-      real, intent(inout) :: L
+      real(real32), intent(inout) :: L
       integer, intent(in) :: ldl
-      real, intent(inout) :: R
+      real(real32), intent(inout) :: R
       integer, intent(in) :: ldr
       integer, intent(in) :: p
-      real, intent(in) :: u
-      real, intent(in) :: v
-      real, intent(out) :: w
+      real(real32), intent(in) :: u
+      real(real32), intent(in) :: v
+      real(real32), intent(out) :: w
     end subroutine slup1up
   end interface
 
@@ -552,10 +553,10 @@ module qrupdate
     subroutine sqhqr(m, n, R, ldr, c, s)
       integer, intent(in) :: m
       integer, intent(in) :: n
-      real, intent(inout) :: R
+      real(real32), intent(inout) :: R
       integer, intent(in) :: ldr
-      real, intent(out) :: c
-      real, intent(out) :: s
+      real(real32), intent(out) :: c
+      real(real32), intent(out) :: s
     end subroutine sqhqr
   end interface
 
@@ -564,13 +565,13 @@ module qrupdate
       integer, intent(in) :: m
       integer, intent(in) :: n
       integer, intent(in) :: k
-      real, intent(inout) :: Q
+      real(real32), intent(inout) :: Q
       integer, intent(in) :: ldq
-      real, intent(inout) :: R
+      real(real32), intent(inout) :: R
       integer, intent(in) :: ldr
-      real, intent(inout) :: u
-      real, intent(inout) :: v
-      real, intent(out) :: w
+      real(real32), intent(inout) :: u
+      real(real32), intent(inout) :: v
+      real(real32), intent(out) :: w
     end subroutine sqr1up
   end interface
 
@@ -579,12 +580,12 @@ module qrupdate
       integer, intent(in) :: m
       integer, intent(in) :: n
       integer, intent(in) :: k
-      real, intent(inout) :: Q
+      real(real32), intent(inout) :: Q
       integer, intent(in) :: ldq
-      real, intent(inout) :: R
+      real(real32), intent(inout) :: R
       integer, intent(in) :: ldr
       integer, intent(in) :: j
-      real, intent(out) :: w
+      real(real32), intent(out) :: w
     end subroutine sqrdec
   end interface
 
@@ -592,12 +593,12 @@ module qrupdate
     subroutine sqrder(m, n, Q, ldq, R, ldr, j, w)
       integer, intent(in) :: m
       integer, intent(in) :: n
-      real, intent(inout) :: Q
+      real(real32), intent(inout) :: Q
       integer, intent(in) :: ldq
-      real, intent(inout) :: R
+      real(real32), intent(inout) :: R
       integer, intent(in) :: ldr
       integer, intent(in) :: j
-      real, intent(out) :: w
+      real(real32), intent(out) :: w
     end subroutine sqrder
   end interface
 
@@ -606,13 +607,13 @@ module qrupdate
       integer, intent(in) :: m
       integer, intent(in) :: n
       integer, intent(in) :: k
-      real, intent(inout) :: Q
+      real(real32), intent(inout) :: Q
       integer, intent(in) :: ldq
-      real, intent(inout) :: R
+      real(real32), intent(inout) :: R
       integer, intent(in) :: ldr
       integer, intent(in) :: j
-      real, intent(in) :: x
-      real, intent(out) :: w
+      real(real32), intent(in) :: x
+      real(real32), intent(out) :: w
     end subroutine sqrinc
   end interface
 
@@ -620,13 +621,13 @@ module qrupdate
     subroutine sqrinr(m, n, Q, ldq, R, ldr, j, x, w)
       integer, intent(in) :: m
       integer, intent(in) :: n
-      real, intent(inout) :: Q
+      real(real32), intent(inout) :: Q
       integer, intent(in) :: ldq
-      real, intent(inout) :: R
+      real(real32), intent(inout) :: R
       integer, intent(in) :: ldr
       integer, intent(in) :: j
-      real, intent(inout) :: x
-      real, intent(out) :: w
+      real(real32), intent(inout) :: x
+      real(real32), intent(out) :: w
     end subroutine sqrinr
   end interface
 
@@ -635,10 +636,10 @@ module qrupdate
       character, intent(in) :: dir
       integer, intent(in) :: m
       integer, intent(in) :: n
-      real, intent(inout) :: Q
+      real(real32), intent(inout) :: Q
       integer, intent(in) :: ldq
-      real, intent(in) :: c
-      real, intent(in) :: s
+      real(real32), intent(in) :: c
+      real(real32), intent(in) :: s
     end subroutine sqrot
   end interface
 
@@ -646,10 +647,10 @@ module qrupdate
     subroutine sqrqh(m, n, R, ldr, c, s)
       integer, intent(in) :: m
       integer, intent(in) :: n
-      real, intent(inout) :: R
+      real(real32), intent(inout) :: R
       integer, intent(in) :: ldr
-      real, intent(in) :: c
-      real, intent(in) :: s
+      real(real32), intent(in) :: c
+      real(real32), intent(in) :: s
     end subroutine sqrqh
   end interface
 
@@ -658,31 +659,31 @@ module qrupdate
       integer, intent(in) :: m
       integer, intent(in) :: n
       integer, intent(in) :: k
-      real, intent(inout) :: Q
+      real(real32), intent(inout) :: Q
       integer, intent(in) :: ldq
-      real, intent(inout) :: R
+      real(real32), intent(inout) :: R
       integer, intent(in) :: ldr
       integer, intent(in) :: i
       integer, intent(in) :: j
-      real, intent(out) :: w
+      real(real32), intent(out) :: w
     end subroutine sqrshc
   end interface
 
   interface
     subroutine sqrtv1(n, u, w)
       integer, intent(in) :: n
-      real, intent(inout) :: u
-      real, intent(out) :: w
+      real(real32), intent(inout) :: u
+      real(real32), intent(out) :: w
     end subroutine sqrtv1
   end interface
 
   interface
     subroutine zaxcpy(n, a, x, incx, y, incy)
       integer, intent(in) :: n
-      complex, intent(in) :: a
-      complex, intent(in) :: x
+      complex(real32), intent(in) :: a
+      complex(real32), intent(in) :: x
       integer, intent(in) :: incx
-      complex, intent(inout) :: y
+      complex(real32), intent(inout) :: y
       integer, intent(in) :: incy
     end subroutine zaxcpy
   end interface
@@ -690,10 +691,10 @@ module qrupdate
   interface
     subroutine zch1dn(n, R, ldr, u, rw, info)
       integer, intent(in) :: n
-      complex, intent(inout) :: R
+      complex(real32), intent(inout) :: R
       integer, intent(in) :: ldr
-      complex, intent(inout) :: u
-      double precision, intent(out) :: rw
+      complex(real32), intent(inout) :: u
+      real(real64), intent(out) :: rw
       integer, intent(out) :: info
     end subroutine zch1dn
   end interface
@@ -701,31 +702,31 @@ module qrupdate
   interface
     subroutine zch1up(n, R, ldr, u, w)
       integer, intent(in) :: n
-      complex, intent(inout) :: R
+      complex(real32), intent(inout) :: R
       integer, intent(in) :: ldr
-      complex, intent(inout) :: u
-      double precision, intent(out) :: w
+      complex(real32), intent(inout) :: u
+      real(real64), intent(out) :: w
     end subroutine zch1up
   end interface
 
   interface
     subroutine zchdex(n, R, ldr, j, rw)
       integer, intent(in) :: n
-      complex, intent(inout) :: R
+      complex(real32), intent(inout) :: R
       integer, intent(in) :: ldr
       integer, intent(in) :: j
-      double precision, intent(out) :: rw
+      real(real64), intent(out) :: rw
     end subroutine zchdex
   end interface
 
   interface
     subroutine zchinx(n, R, ldr, j, u, rw, info)
       integer, intent(in) :: n
-      complex, intent(inout) :: R
+      complex(real32), intent(inout) :: R
       integer, intent(in) :: ldr
       integer, intent(in) :: j
-      complex, intent(inout) :: u
-      double precision, intent(out) :: rw
+      complex(real32), intent(inout) :: u
+      real(real64), intent(out) :: rw
       integer, intent(out) :: info
     end subroutine zchinx
   end interface
@@ -733,12 +734,12 @@ module qrupdate
   interface
     subroutine zchshx(n, R, ldr, i, j, w, rw)
       integer, intent(in) :: n
-      complex, intent(inout) :: R
+      complex(real32), intent(inout) :: R
       integer, intent(in) :: ldr
       integer, intent(in) :: i
       integer, intent(in) :: j
-      complex, intent(out) :: w
-      double precision, intent(out) :: rw
+      complex(real32), intent(out) :: w
+      real(real64), intent(out) :: rw
     end subroutine zchshx
   end interface
 
@@ -746,9 +747,9 @@ module qrupdate
     subroutine zgqvec(m, n, Q, ldq, u)
       integer, intent(in) :: m
       integer, intent(in) :: n
-      complex, intent(in) :: Q
+      complex(real32), intent(in) :: Q
       integer, intent(in) :: ldq
-      complex, intent(out) :: u
+      complex(real32), intent(out) :: u
     end subroutine zgqvec
   end interface
 
@@ -756,12 +757,12 @@ module qrupdate
     subroutine zlu1up(m, n, L, ldl, R, ldr, u, v)
       integer, intent(in) :: m
       integer, intent(in) :: n
-      complex, intent(inout) :: L
+      complex(real32), intent(inout) :: L
       integer, intent(in) :: ldl
-      complex, intent(inout) :: R
+      complex(real32), intent(inout) :: R
       integer, intent(in) :: ldr
-      complex, intent(inout) :: u
-      complex, intent(inout) :: v
+      complex(real32), intent(inout) :: u
+      complex(real32), intent(inout) :: v
     end subroutine zlu1up
   end interface
 
@@ -769,14 +770,14 @@ module qrupdate
     subroutine zlup1up(m, n, L, ldl, R, ldr, p, u, v, w)
       integer, intent(in) :: m
       integer, intent(in) :: n
-      complex, intent(inout) :: L
+      complex(real32), intent(inout) :: L
       integer, intent(in) :: ldl
-      complex, intent(inout) :: R
+      complex(real32), intent(inout) :: R
       integer, intent(in) :: ldr
       integer, intent(in) :: p
-      complex, intent(in) :: u
-      complex, intent(in) :: v
-      complex, intent(out) :: w
+      complex(real32), intent(in) :: u
+      complex(real32), intent(in) :: v
+      complex(real32), intent(out) :: w
     end subroutine zlup1up
   end interface
 
@@ -784,10 +785,10 @@ module qrupdate
     subroutine zqhqr(m, n, R, ldr, c, s)
       integer, intent(in) :: m
       integer, intent(in) :: n
-      complex, intent(inout) :: R
+      complex(real32), intent(inout) :: R
       integer, intent(in) :: ldr
-      double precision, intent(out) :: c
-      complex, intent(out) :: s
+      real(real64), intent(out) :: c
+      complex(real32), intent(out) :: s
     end subroutine zqhqr
   end interface
 
@@ -796,14 +797,14 @@ module qrupdate
       integer, intent(in) :: m
       integer, intent(in) :: n
       integer, intent(in) :: k
-      complex, intent(inout) :: Q
+      complex(real32), intent(inout) :: Q
       integer, intent(in) :: ldq
-      complex, intent(inout) :: R
+      complex(real32), intent(inout) :: R
       integer, intent(in) :: ldr
-      complex, intent(inout) :: u
-      complex, intent(inout) :: v
-      complex, intent(out) :: w
-      double precision, intent(out) :: rw
+      complex(real32), intent(inout) :: u
+      complex(real32), intent(inout) :: v
+      complex(real32), intent(out) :: w
+      real(real64), intent(out) :: rw
     end subroutine zqr1up
   end interface
 
@@ -812,12 +813,12 @@ module qrupdate
       integer, intent(in) :: m
       integer, intent(in) :: n
       integer, intent(in) :: k
-      complex, intent(inout) :: Q
+      complex(real32), intent(inout) :: Q
       integer, intent(in) :: ldq
-      complex, intent(inout) :: R
+      complex(real32), intent(inout) :: R
       integer, intent(in) :: ldr
       integer, intent(in) :: j
-      double precision, intent(out) :: rw
+      real(real64), intent(out) :: rw
     end subroutine zqrdec
   end interface
 
@@ -825,13 +826,13 @@ module qrupdate
     subroutine zqrder(m, n, Q, ldq, R, ldr, j, w, rw)
       integer, intent(in) :: m
       integer, intent(in) :: n
-      complex, intent(inout) :: Q
+      complex(real32), intent(inout) :: Q
       integer, intent(in) :: ldq
-      complex, intent(inout) :: R
+      complex(real32), intent(inout) :: R
       integer, intent(in) :: ldr
       integer, intent(in) :: j
-      complex, intent(out) :: w
-      double precision, intent(out) :: rw
+      complex(real32), intent(out) :: w
+      real(real64), intent(out) :: rw
     end subroutine zqrder
   end interface
 
@@ -840,13 +841,13 @@ module qrupdate
       integer, intent(in) :: m
       integer, intent(in) :: n
       integer, intent(in) :: k
-      complex, intent(inout) :: Q
+      complex(real32), intent(inout) :: Q
       integer, intent(in) :: ldq
-      complex, intent(inout) :: R
+      complex(real32), intent(inout) :: R
       integer, intent(in) :: ldr
       integer, intent(in) :: j
-      complex, intent(in) :: x
-      double precision, intent(out) :: rw
+      complex(real32), intent(in) :: x
+      real(real64), intent(out) :: rw
     end subroutine zqrinc
   end interface
 
@@ -854,13 +855,13 @@ module qrupdate
     subroutine zqrinr(m, n, Q, ldq, R, ldr, j, x, rw)
       integer, intent(in) :: m
       integer, intent(in) :: n
-      complex, intent(inout) :: Q
+      complex(real32), intent(inout) :: Q
       integer, intent(in) :: ldq
-      complex, intent(inout) :: R
+      complex(real32), intent(inout) :: R
       integer, intent(in) :: ldr
       integer, intent(in) :: j
-      complex, intent(inout) :: x
-      double precision, intent(out) :: rw
+      complex(real32), intent(inout) :: x
+      real(real64), intent(out) :: rw
     end subroutine zqrinr
   end interface
 
@@ -869,10 +870,10 @@ module qrupdate
       character, intent(in) :: dir
       integer, intent(in) :: m
       integer, intent(in) :: n
-      complex, intent(inout) :: Q
+      complex(real32), intent(inout) :: Q
       integer, intent(in) :: ldq
-      double precision, intent(in) :: c
-      complex, intent(in) :: s
+      real(real64), intent(in) :: c
+      complex(real32), intent(in) :: s
     end subroutine zqrot
   end interface
 
@@ -880,10 +881,10 @@ module qrupdate
     subroutine zqrqh(m, n, R, ldr, c, s)
       integer, intent(in) :: m
       integer, intent(in) :: n
-      complex, intent(inout) :: R
+      complex(real32), intent(inout) :: R
       integer, intent(in) :: ldr
-      double precision, intent(in) :: c
-      complex, intent(in) :: s
+      real(real64), intent(in) :: c
+      complex(real32), intent(in) :: s
     end subroutine zqrqh
   end interface
 
@@ -892,22 +893,22 @@ module qrupdate
       integer, intent(in) :: m
       integer, intent(in) :: n
       integer, intent(in) :: k
-      complex, intent(inout) :: Q
+      complex(real32), intent(inout) :: Q
       integer, intent(in) :: ldq
-      complex, intent(inout) :: R
+      complex(real32), intent(inout) :: R
       integer, intent(in) :: ldr
       integer, intent(in) :: i
       integer, intent(in) :: j
-      complex, intent(out) :: w
-      double precision, intent(out) :: rw
+      complex(real32), intent(out) :: w
+      real(real64), intent(out) :: rw
     end subroutine zqrshc
   end interface
 
   interface
     subroutine zqrtv1(n, u, w)
       integer, intent(in) :: n
-      complex, intent(inout) :: u
-      double precision, intent(out) :: w
+      complex(real32), intent(inout) :: u
+      real(real64), intent(out) :: w
     end subroutine zqrtv1
   end interface
 

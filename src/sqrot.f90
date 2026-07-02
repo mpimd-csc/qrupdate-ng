@@ -98,11 +98,12 @@
 !>
 !> \ingroup givens
 subroutine sqrot(dir,m,n,Q,ldq,c,s)
+  use iso_fortran_env
     character, intent(in) :: dir
     integer, intent(in) :: m, n, ldq
-    real, intent(inout) :: Q(ldq,*)
-    real, intent(in) :: c(*)
-    real, intent(in) :: s(*)
+    real(real32), intent(inout) :: Q(ldq,*)
+    real(real32), intent(in) :: c(*)
+    real(real32), intent(in) :: s(*)
     external xerbla, srot,lsame
     logical lsame,fwd
     integer info,i

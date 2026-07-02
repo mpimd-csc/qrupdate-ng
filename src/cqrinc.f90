@@ -113,14 +113,15 @@
 !>
 !> \ingroup qrdecomp
 subroutine cqrinc(m,n,k,Q,ldq,R,ldr,j,x,rw)
+  use iso_fortran_env
     integer, intent(in) :: m, n, k, ldq, ldr, j
-    complex, intent(inout) :: Q(ldq,*), R(ldr,*)
-    complex, intent(in) :: x(*)
-    real, intent(out) :: rw(*)
+    complex(real32), intent(inout) :: Q(ldq,*), R(ldr,*)
+    complex(real32), intent(in) :: x(*)
+    real(real32), intent(out) :: rw(*)
     external cgqvec, cqrtv1,cqrqh,cqrot
     external xerbla,ccopy,cdotc,caxpy,csscal,scnrm2
-    complex cdotc
-    real scnrm2,rx
+    complex(real32) cdotc
+    real(real32) scnrm2,rx
     integer info,i,k1
     logical full
     ! quick return if possible.

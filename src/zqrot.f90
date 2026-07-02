@@ -98,11 +98,12 @@
 !>
 !> \ingroup givens
 subroutine zqrot(dir,m,n,Q,ldq,c,s)
+  use iso_fortran_env
     character, intent(in) :: dir
     integer, intent(in) :: m, n, ldq
-    double complex, intent(inout) :: Q(ldq,*)
-    double precision, intent(in) :: c(*)
-    double complex, intent(in) :: s(*)
+    complex(real64), intent(inout) :: Q(ldq,*)
+    real(real64), intent(in) :: c(*)
+    complex(real64), intent(in) :: s(*)
     external zrot,lsame,xerbla
     logical lsame,fwd
     integer info,i

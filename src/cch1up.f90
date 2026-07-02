@@ -87,12 +87,13 @@
 !>
 !> \ingroup choldecomp
 subroutine cch1up(n,R,ldr,u,w)
+  use iso_fortran_env
     integer, intent(in) :: n, ldr
-    complex, intent(inout) :: R(ldr,*)
-    complex, intent(inout) :: u(*)
-    real, intent(out) :: w(*)
+    complex(real32), intent(inout) :: R(ldr,*)
+    complex(real32), intent(inout) :: u(*)
+    real(real32), intent(out) :: w(*)
     external clartg
-    complex rr,ui,t
+    complex(real32) rr,ui,t
     integer i,j
 
     do i = 1,n

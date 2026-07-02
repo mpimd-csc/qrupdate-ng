@@ -78,9 +78,10 @@
 !>
 !> \ingroup choldecomp
 subroutine schdex(n,R,ldr,j,w)
+  use iso_fortran_env
     integer, intent(in) :: n, ldr, j
-    real, intent(inout) :: R(ldr,*)
-    real, intent(out) :: w(*)
+    real(real32), intent(inout) :: R(ldr,*)
+    real(real32), intent(out) :: w(*)
     integer info,i
     external xerbla,scopy,sqhqr
 

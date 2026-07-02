@@ -86,11 +86,12 @@
 !>
 !> \ingroup choldecomp
 subroutine sch1up(n,R,ldr,u,w)
+  use iso_fortran_env
     integer, intent(in) :: n, ldr
-    real, intent(inout) :: R(ldr,*), u(*)
-    real, intent(out) :: w(*)
+    real(real32), intent(inout) :: R(ldr,*), u(*)
+    real(real32), intent(out) :: w(*)
     external slartg
-    real rr,ui,t
+    real(real32) rr,ui,t
     integer i,j
 
     do i = 1,n

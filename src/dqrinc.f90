@@ -113,14 +113,15 @@
 !>
 !> \ingroup qrdecomp
 subroutine dqrinc(m,n,k,Q,ldq,R,ldr,j,x,w)
+  use iso_fortran_env
     integer, intent(in) :: m, n, k, ldq, ldr, j
-    double precision, intent(inout) :: Q(ldq,*)
-    double precision, intent(inout) :: R(ldr,*)
-    double precision, intent(in) :: x(*)
-    double precision, intent(out) :: w(*)
+    real(real64), intent(inout) :: Q(ldq,*)
+    real(real64), intent(inout) :: R(ldr,*)
+    real(real64), intent(in) :: x(*)
+    real(real64), intent(out) :: w(*)
     external dqrtv1,dqrqh,dqrot,dgqvec
     external xerbla,dcopy,ddot,daxpy,dscal,dnrm2
-    double precision ddot,dnrm2,rx
+    real(real64) ddot,dnrm2,rx
     integer info,i,k1
     logical full
     ! quick return if possible.

@@ -105,9 +105,10 @@
 !>
 !> \ingroup qrdecomp
 subroutine zqrinr(m,n,Q,ldq,R,ldr,j,x,rw)
+  use iso_fortran_env
     integer, intent(in) :: m, n, j, ldq, ldr
-    double complex, intent(inout) :: Q(ldq,*), R(ldr,*), x(*)
-    double precision, intent(out) :: rw(*)
+    complex(real64), intent(inout) :: Q(ldq,*), R(ldr,*), x(*)
+    real(real64), intent(out) :: rw(*)
     external xerbla,zcopy,zqhqr,zqrot
     integer info,i,k
     ! check arguments

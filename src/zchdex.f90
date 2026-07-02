@@ -79,9 +79,10 @@
 !>
 !> \ingroup choldecomp
 subroutine zchdex(n,R,ldr,j,rw)
+  use iso_fortran_env
     integer, intent(in) :: n, ldr, j
-    double complex, intent(inout) :: R(ldr,*)
-    double precision, intent(out) :: rw(*)
+    complex(real64), intent(inout) :: R(ldr,*)
+    real(real64), intent(out) :: rw(*)
     integer info,i
     external xerbla,zcopy,zqhqr
 

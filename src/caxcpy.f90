@@ -93,9 +93,10 @@
 !> \endverbatim
 !> \ingroup aux
 subroutine caxcpy(n,a,x,incx,y,incy)
+  use iso_fortran_env
     integer, intent(in) :: n, incx, incy
-    complex, intent(in) :: a, x(*)
-    complex, intent(inout) :: y(*)
+    complex(real32), intent(in) :: a, x(*)
+    complex(real32), intent(inout) :: y(*)
     integer i,ix,iy
     ! quick return if possible.
     if (n <= 0) return

@@ -87,12 +87,13 @@
 !>
 !> \ingroup qrdecomp
 subroutine sqhqr(m,n,R,ldr,c,s)
+  use iso_fortran_env
     integer, intent(in) :: m, n, ldr
-    real, intent(inout) :: R(ldr,*)
-    real, intent(in) :: c(*)
-    real, intent(in) :: s(*)
+    real(real32), intent(inout) :: R(ldr,*)
+    real(real32), intent(in) :: c(*)
+    real(real32), intent(in) :: s(*)
     external xerbla,slartg
-    real t
+    real(real32) t
     integer info,i,ii,j
     ! quick return if possible.
     if (m == 0 .or. m == 1 .or. n == 0) return

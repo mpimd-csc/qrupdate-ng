@@ -71,11 +71,12 @@
 !>
 !> \ingroup givens
 subroutine sqrtv1(n,u,w)
+  use iso_fortran_env
     integer, intent(in) :: n
-    real, intent(inout) :: u(*)
-    real, intent(out) :: w(*)
+    real(real32), intent(inout) :: u(*)
+    real(real32), intent(out) :: w(*)
     external slartg
-    real rr,t
+    real(real32) rr,t
     integer i
     ! quick return if possible.
     if (n <= 0) return

@@ -97,10 +97,11 @@
 !>
 !> \ingroup qrdecomp
 subroutine dqrder(m,n,Q,ldq,R,ldr,j,w)
+  use iso_fortran_env
     integer, intent(in) :: m, n, j, ldq, ldr
-    double precision, intent(inout) :: Q(ldq,*)
-    double precision, intent(inout) :: R(ldr,*)
-    double precision, intent(out) :: w(*)
+    real(real64), intent(inout) :: Q(ldq,*)
+    real(real64), intent(inout) :: R(ldr,*)
+    real(real64), intent(out) :: w(*)
     external xerbla,dcopy,dqrtv1,dqrot,dqrqh
     integer info,i,k
     ! quick return if possible.

@@ -99,13 +99,14 @@
 !>
 !> \ingroup choldecomp
 subroutine schinx(n,R,ldr,j,u,w,info)
+  use iso_fortran_env
     integer, intent(in) :: n, j, ldr
-    real, intent(inout) :: R(ldr,*)
-    real, intent(inout) :: u(*)
-    real, intent(out) :: w(*)
+    real(real32), intent(inout) :: R(ldr,*)
+    real(real32), intent(inout) :: u(*)
+    real(real32), intent(out) :: w(*)
     integer, intent(out) :: info
     external xerbla,scopy,snrm2,strsv,sqrtv1,sqrqh
-    real snrm2,rho,t,rr
+    real(real32) snrm2,rho,t,rr
     integer i
 
     ! check arguments

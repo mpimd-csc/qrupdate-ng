@@ -80,11 +80,12 @@
 !>
 !> \ingroup qrdecomp
 subroutine sgqvec(m,n,Q,ldq,u)
+  use iso_fortran_env
     integer, intent(in) :: m, n, ldq
-    real, intent(in) :: Q(ldq,*)
-    real, intent(out) :: u(*)
+    real(real32), intent(in) :: Q(ldq,*)
+    real(real32), intent(out) :: u(*)
     external sdot,saxpy,snrm2,sscal, xerbla
-    real sdot,snrm2,r
+    real(real32) sdot,snrm2,r
     integer info,i,j
     ! quick return if possible.
     if (m == 0) return

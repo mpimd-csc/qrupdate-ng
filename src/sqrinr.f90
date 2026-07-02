@@ -104,10 +104,11 @@
 !>
 !> \ingroup qrdecomp
 subroutine sqrinr(m,n,Q,ldq,R,ldr,j,x,w)
+  use iso_fortran_env
     integer, intent(in) :: m, n, j, ldq, ldr
-    real, intent(inout) :: Q(ldq,*), R(ldr,*)
-    real, intent(inout) :: x(*)
-    real, intent(out) :: w(*)
+    real(real32), intent(inout) :: Q(ldq,*), R(ldr,*)
+    real(real32), intent(inout) :: x(*)
+    real(real32), intent(out) :: w(*)
     external xerbla,scopy,sqhqr,sqrot
     integer info,i,k
     ! check arguments

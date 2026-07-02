@@ -114,13 +114,14 @@
 !>
 !> \ingroup ludecomp
 subroutine zlup1up(m,n,L,ldl,R,ldr,p,u,v,w)
+  use iso_fortran_env
     integer, intent(in) :: m, n, ldl, ldr
     integer, intent(inout) :: p(*)
-    double complex, intent(inout) :: L(ldl,*), R(ldr,*)
-    double complex, intent(in) :: u(*), v(*)
-    double complex, intent(out) :: w(*)
-    double complex one,tmp
-    double precision tau
+    complex(real64), intent(inout) :: L(ldl,*), R(ldr,*)
+    complex(real64), intent(in) :: u(*), v(*)
+    complex(real64), intent(out) :: w(*)
+    complex(real64) one,tmp
+    real(real64) tau
     parameter (one = 1d0, tau = 1d-1)
     integer k,info,i,j,itmp
     external xerbla,zcopy,zaxpy,ztrsv,zgeru,zgemv,zswap

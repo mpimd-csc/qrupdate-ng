@@ -113,13 +113,14 @@
 !>
 !> \ingroup qrdecomp
 subroutine sqrinc(m,n,k,Q,ldq,R,ldr,j,x,w)
+  use iso_fortran_env
     integer, intent(in) :: m, n, k, ldq, ldr, j
-    real, intent(inout) :: Q(ldq,*), R(ldr,*)
-    real, intent(in) :: x(*)
-    real, intent(out) :: w(*)
+    real(real32), intent(inout) :: Q(ldq,*), R(ldr,*)
+    real(real32), intent(in) :: x(*)
+    real(real32), intent(out) :: w(*)
     external sqrtv1,sqrqh,sqrot
     external xerbla,scopy,sdot,saxpy,sscal,snrm2,sgqvec
-    real sdot,snrm2,rx
+    real(real32) sdot,snrm2,rx
     integer info,i,k1
     logical full
     ! quick return if possible.

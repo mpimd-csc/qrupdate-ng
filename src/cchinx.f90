@@ -101,14 +101,15 @@
 !>
 !> \ingroup choldecomp
 subroutine cchinx(n,R,ldr,j,u,rw,info)
+  use iso_fortran_env
     integer, intent(in) :: n, j, ldr
     integer, intent(out) :: info
-    complex, intent(inout) :: R(ldr,*)
-    complex, intent(inout) :: u(*)
-    real, intent(out) :: rw(*)
+    complex(real32), intent(inout) :: R(ldr,*)
+    complex(real32), intent(inout) :: u(*)
+    real(real32), intent(out) :: rw(*)
     external xerbla,ccopy,scnrm2,ctrsv,cqrtv1,cqrqh
-    complex t
-    real scnrm2,rho
+    complex(real32) t
+    real(real32) scnrm2,rho
     integer i
 
     ! check arguments
@@ -139,7 +140,7 @@ subroutine cchinx(n,R,ldr,j,u,rw,info)
     call ctrsv('U','C','N',n,R,ldr,u,1)
     rho = scnrm2(n,u,1)
     ! check positive definiteness.
-    rho = real(t) - rho**2
+    rho = real(real32)(t) - rho**2
     if (rho <= 0e0) goto 10
     ! shift columns
     do i = n,j,-1

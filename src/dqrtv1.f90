@@ -71,11 +71,12 @@
 !>
 !> \ingroup givens
 subroutine dqrtv1(n,u,w)
+  use iso_fortran_env
     integer, intent(in) :: n
-    double precision, intent(inout) :: u(*)
-    double precision, intent(out) :: w(*)
+    real(real64), intent(inout) :: u(*)
+    real(real64), intent(out) :: w(*)
     external dlartg
-    double precision rr,t
+    real(real64) rr,t
     integer i
     ! quick return if possible.
     if (n <= 0) return

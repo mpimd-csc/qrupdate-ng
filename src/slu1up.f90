@@ -104,10 +104,11 @@
 !>
 !> \ingroup ludecomp
 subroutine slu1up(m,n,L,ldl,R,ldr,u,v)
+  use iso_fortran_env
     integer, intent(in) :: m, n, ldl, ldr
-    real, intent(inout) :: L(ldl,*), R(ldr,*)
-    real, intent(inout) :: u(*), v(*)
-    real ui,vi
+    real(real32), intent(inout) :: L(ldl,*), R(ldr,*)
+    real(real32), intent(inout) :: u(*), v(*)
+    real(real32) ui,vi
     integer k,info,i,j
     external xerbla
     ! quick return if possible.

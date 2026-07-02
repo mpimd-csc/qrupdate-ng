@@ -88,12 +88,13 @@
 !>
 !> \ingroup qrdecomp
 subroutine cqhqr(m,n,R,ldr,c,s)
+  use iso_fortran_env
     integer, intent(in) :: m, n, ldr
-    complex, intent(inout) :: R(ldr,*)
-    real, intent(out) :: c(*)
-    complex, intent(out) :: s(*)
+    complex(real32), intent(inout) :: R(ldr,*)
+    real(real32), intent(out) :: c(*)
+    complex(real32), intent(out) :: s(*)
     external xerbla,clartg
-    complex t
+    complex(real32) t
     integer info,i,ii,j
     ! quick return if possible.
     if (m == 0 .or. m == 1 .or. n == 0) return

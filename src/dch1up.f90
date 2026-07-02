@@ -86,12 +86,13 @@
 !>
 !> \ingroup choldecomp
 subroutine dch1up(n,R,ldr,u,w)
+  use iso_fortran_env
     integer, intent(in) :: n, ldr
-    double precision, intent(inout) :: R(ldr,*)
-    double precision, intent(inout) :: u(*)
-    double precision, intent(out) :: w(*)
+    real(real64), intent(inout) :: R(ldr,*)
+    real(real64), intent(inout) :: u(*)
+    real(real64), intent(out) :: w(*)
     external dlartg
-    double precision rr,ui,t
+    real(real64) rr,ui,t
     integer i,j
 
     do i = 1,n

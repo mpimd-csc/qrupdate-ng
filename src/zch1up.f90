@@ -87,11 +87,12 @@
 !>
 !> \ingroup choldecomp
 subroutine zch1up(n,R,ldr,u,w)
+  use iso_fortran_env
     integer, intent(in) :: n, ldr
-    double complex, intent(inout) :: R(ldr,*), u(*)
-    double precision, intent(out) :: w(*)
+    complex(real64), intent(inout) :: R(ldr,*), u(*)
+    real(real64), intent(out) :: w(*)
     external zlartg
-    double complex rr,ui,t
+    complex(real64) rr,ui,t
     integer i,j
 
     do i = 1,n

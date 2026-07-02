@@ -80,13 +80,14 @@
 !>
 !> \ingroup qrdecomp
 subroutine cgqvec(m,n,Q,ldq,u)
+  use iso_fortran_env
     integer, intent(in) :: m, n, ldq
-    complex, intent(in) :: Q(ldq,*)
-    complex, intent(out) :: u(*)
+    complex(real32), intent(in) :: Q(ldq,*)
+    complex(real32), intent(out) :: u(*)
     external xerbla,cdotu,caxpy,scnrm2,csscal
-    complex cdotu
-    real scnrm2,r
-    complex rc
+    complex(real32) cdotu
+    real(real32) scnrm2,r
+    complex(real32) rc
     integer info,i,j
     ! quick return if possible.
     if (m == 0) return

@@ -72,11 +72,12 @@
 !>
 !> \ingroup givens
 subroutine cqrtv1(n,u,w)
+  use iso_fortran_env
     integer, intent(in) :: n
-    complex, intent(inout) :: u(*)
-    real, intent(out) :: w(*)
+    complex(real32), intent(inout) :: u(*)
+    real(real32), intent(out) :: w(*)
     external clartg
-    complex rr,t
+    complex(real32) rr,t
     integer i
     ! quick return if possible.
     if (n <= 0) return

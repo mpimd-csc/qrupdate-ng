@@ -121,17 +121,18 @@
 !>
 !> \ingroup qrdecomp
 subroutine cqr1up(m,n,k,Q,ldq,R,ldr,u,v,w,rw)
+  use iso_fortran_env
     integer, intent(in) :: m, n, k, ldq, ldr
-    complex, intent(inout) :: Q(ldq,*)
-    complex, intent(inout) :: R(ldr,*)
-    complex, intent(inout) :: u(*)
-    complex, intent(inout) :: v(*)
-    complex, intent(out) :: w(*)
-    real, intent(out) :: rw(*)
+    complex(real32), intent(inout) :: Q(ldq,*)
+    complex(real32), intent(inout) :: R(ldr,*)
+    complex(real32), intent(inout) :: u(*)
+    complex(real32), intent(inout) :: v(*)
+    complex(real32), intent(out) :: w(*)
+    real(real32), intent(out) :: rw(*)
     external xerbla, cch1up, cqrqh,cqhqr,cqrot,cqrtv1,caxcpy
     external caxpy,cdotc,scnrm2,slamch,csscal,crot
-    complex cdotc
-    real scnrm2,slamch,ru,ruu
+    complex(real32) cdotc
+    real(real32) scnrm2,slamch,ru,ruu
     integer info,i
     logical full
     ! quick return if possible.

@@ -80,13 +80,14 @@
 !>
 !> \ingroup qrdecomp
 subroutine zgqvec(m,n,Q,ldq,u)
+  use iso_fortran_env
     integer, intent(in) :: m, n, ldq
-    double complex, intent(in) :: Q(ldq,*)
-    double complex, intent(out) :: u(*)
+    complex(real64), intent(in) :: Q(ldq,*)
+    complex(real64), intent(out) :: u(*)
     external zdotu,zaxpy,dznrm2,zdscal,xerbla
-    double complex zdotu
-    double precision dznrm2,r
-    double complex rc
+    complex(real64) zdotu
+    real(real64) dznrm2,r
+    complex(real64) rc
     integer info,i,j
     ! quick return if possible.
     if (m == 0) return

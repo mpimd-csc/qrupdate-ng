@@ -106,10 +106,11 @@
 !>
 !> \ingroup qrdecomp
 subroutine cqrdec(m,n,k,Q,ldq,R,ldr,j,rw)
+  use iso_fortran_env
     integer, intent(in) :: m, n, k, ldq, ldr, j
-    complex, intent(inout) :: Q(ldq,*)
-    complex, intent(inout) :: R(ldr,*)
-    real, intent(out) :: rw(*)
+    complex(real32), intent(inout) :: Q(ldq,*)
+    complex(real32), intent(inout) :: R(ldr,*)
+    real(real32), intent(out) :: rw(*)
     external xerbla,ccopy,cqhqr,cqrot
     integer info,i
     ! quick return if possible.

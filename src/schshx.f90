@@ -88,9 +88,10 @@
 !>
 !> \ingroup choldecomp
 subroutine schshx(n,R,ldr,i,j,w)
+  use iso_fortran_env
     integer, intent(in) :: n, ldr, i, j
-    real, intent(inout) :: R(ldr,*)
-    real, intent(out) :: w(*)
+    real(real32), intent(inout) :: R(ldr,*)
+    real(real32), intent(out) :: w(*)
     external xerbla,scopy,sqrtv1,sqrqh,sqhqr
     integer info,l
     ! quick return if possible.

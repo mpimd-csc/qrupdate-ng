@@ -78,9 +78,10 @@
 !>
 !> \ingroup choldecomp
 subroutine dchdex(n,R,ldr,j,w)
+  use iso_fortran_env
     integer, intent(in) :: n, ldr, j
-    double precision, intent(inout) :: R(ldr,*)
-    double precision, intent(out) :: w(*)
+    real(real64), intent(inout) :: R(ldr,*)
+    real(real64), intent(out) :: w(*)
     integer info,i
     external xerbla,dcopy,dqhqr
 

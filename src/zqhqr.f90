@@ -88,12 +88,13 @@
 !>
 !> \ingroup qrdecomp
 subroutine zqhqr(m,n,R,ldr,c,s)
+  use iso_fortran_env
     integer, intent(in) :: m, n, ldr
-    double complex, intent(inout) :: R(ldr,*)
-    double precision, intent(out) :: c(*)
-    double complex, intent(out) :: s(*)
+    complex(real64), intent(inout) :: R(ldr,*)
+    real(real64), intent(out) :: c(*)
+    complex(real64), intent(out) :: s(*)
     external xerbla,zlartg
-    double complex t
+    complex(real64) t
     integer info,i,ii,j
     ! quick return if possible.
     if (m == 0 .or. m == 1 .or. n == 0) return

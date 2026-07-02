@@ -94,10 +94,11 @@
 !> \endverbatim
 !> \ingroup aux
 subroutine zaxcpy(n,a,x,incx,y,incy)
+  use iso_fortran_env
     integer, intent(in) :: n, incx, incy
-    double complex, intent(in) :: a
-    double complex, intent(in) :: x(*)
-    double complex, intent(inout) :: y(*)
+    complex(real64), intent(in) :: a
+    complex(real64), intent(in) :: x(*)
+    complex(real64), intent(inout) :: y(*)
     integer i,ix,iy
     ! quick return if possible.
     if (n <= 0) return

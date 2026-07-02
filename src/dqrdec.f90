@@ -106,10 +106,11 @@
 !>
 !> \ingroup qrdecomp
 subroutine dqrdec(m,n,k,Q,ldq,R,ldr,j,w)
+  use iso_fortran_env
     integer, intent(in) :: m, n, k, ldq, ldr, j
-    double precision, intent(inout) :: Q(ldq,*)
-    double precision, intent(inout) :: R(ldr,*)
-    double precision, intent(out) :: w(*)
+    real(real64), intent(inout) :: Q(ldq,*)
+    real(real64), intent(inout) :: R(ldr,*)
+    real(real64), intent(out) :: w(*)
     external xerbla,dcopy,dqhqr,dqrot
     integer info,i
     ! quick return if possible.

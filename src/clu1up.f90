@@ -105,12 +105,13 @@
 !>
 !> \ingroup ludecomp
 subroutine clu1up(m,n,L,ldl,R,ldr,u,v)
+  use iso_fortran_env
     integer, intent(in) :: m, n, ldl, ldr
-    complex, intent(inout) :: L(ldl,*)
-    complex, intent(inout) :: R(ldr,*)
-    complex, intent(inout) :: u(*)
-    complex, intent(inout) :: v(*)
-    complex ui,vi
+    complex(real32), intent(inout) :: L(ldl,*)
+    complex(real32), intent(inout) :: R(ldr,*)
+    complex(real32), intent(inout) :: u(*)
+    complex(real32), intent(inout) :: v(*)
+    complex(real32) ui,vi
     integer k,info,i,j
     external xerbla
     ! quick return if possible.

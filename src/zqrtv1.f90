@@ -72,11 +72,12 @@
 !>
 !> \ingroup givens
 subroutine zqrtv1(n,u,w)
+  use iso_fortran_env
     integer, intent(in) :: n
-    double complex, intent(inout) :: u(*)
-    double precision, intent(out) :: w(*)
+    complex(real64), intent(inout) :: u(*)
+    real(real64), intent(out) :: w(*)
     external zlartg
-    double complex rr,t
+    complex(real64) rr,t
     integer i
     ! quick return if possible.
     if (n <= 0) return

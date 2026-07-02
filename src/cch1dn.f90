@@ -95,14 +95,15 @@
 !>
 !> \ingroup choldecomp
 subroutine cch1dn(n,R,ldr,u,rw,info)
+  use iso_fortran_env
     integer, intent(in) :: n, ldr
-    complex, intent(inout) :: R(ldr,*)
-    complex, intent(inout) :: u(*)
-    real, intent(out) :: rw(*)
+    complex(real32), intent(inout) :: R(ldr,*)
+    complex(real32), intent(inout) :: u(*)
+    real(real32), intent(out) :: rw(*)
     integer, intent(out) :: info
     external ctrsv,clartg,scnrm2,xerbla
-    complex crho,rr,ui,t
-    real scnrm2,rho
+    complex(real32) crho,rr,ui,t
+    real(real32) scnrm2,rho
     integer i,j
 
     ! quick return if possible.

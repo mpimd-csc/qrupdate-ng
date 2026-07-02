@@ -121,14 +121,15 @@
 !>
 !> \ingroup qrdecomp
 subroutine zqr1up(m,n,k,Q,ldq,R,ldr,u,v,w,rw)
+  use iso_fortran_env
     integer, intent(in) :: m, n, k, ldq, ldr
-    double complex, intent(inout) :: Q(ldq,*), R(ldr,*), u(*), v(*)
-    double complex, intent(out) :: w(*)
-    double precision, intent(out) :: rw(*)
+    complex(real64), intent(inout) :: Q(ldq,*), R(ldr,*), u(*), v(*)
+    complex(real64), intent(out) :: w(*)
+    real(real64), intent(out) :: rw(*)
     external zqrqh,zqhqr,zqrot,zqrtv1,zaxpy,zaxcpy,xerbla,zch1up
     external zdotc,dznrm2,dlamch,zdscal,zrot
-    double complex zdotc
-    double precision dznrm2,dlamch,ru,ruu
+    complex(real64) zdotc
+    real(real64) dznrm2,dlamch,ru,ruu
     integer info,i
     logical full
     ! quick return if possible.

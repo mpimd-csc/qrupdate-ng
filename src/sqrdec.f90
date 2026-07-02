@@ -106,9 +106,10 @@
 !>
 !> \ingroup qrdecomp
 subroutine sqrdec(m,n,k,Q,ldq,R,ldr,j,w)
+  use iso_fortran_env
     integer, intent(in) :: m, n, k, ldq, ldr, j
-    real, intent(inout) :: Q(ldq,*), R(ldr,*)
-    real, intent(out) :: w(*)
+    real(real32), intent(inout) :: Q(ldq,*), R(ldr,*)
+    real(real32), intent(out) :: w(*)
     external xerbla,scopy,sqhqr,sqrot
     integer info,i
     ! quick return if possible.

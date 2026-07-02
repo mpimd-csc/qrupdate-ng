@@ -94,13 +94,14 @@
 !>
 !> \ingroup choldecomp
 subroutine dch1dn(n,R,ldr,u,w,info)
+  use iso_fortran_env
     integer, intent(in) :: n, ldr
-    double precision, intent(inout) :: R(ldr,*)
-    double precision, intent(inout) :: u(*)
-    double precision, intent(out) :: w(*)
+    real(real64), intent(inout) :: R(ldr,*)
+    real(real64), intent(inout) :: u(*)
+    real(real64), intent(out) :: w(*)
     integer, intent(out) :: info
     external xerbla,dtrsv,dlartg,dnrm2
-    double precision dnrm2,rho,rr,ui,t
+    real(real64) dnrm2,rho,rr,ui,t
     integer i,j
 
     ! quick return if possible.
