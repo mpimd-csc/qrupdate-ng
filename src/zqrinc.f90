@@ -119,8 +119,7 @@ subroutine zqrinc(m,n,k,Q,ldq,R,ldr,j,x,rw)
     complex(real64), intent(in) :: x(*)
     real(real64), intent(out) :: rw(*)
     external zqrtv1,zqrqh,zqrot,zgqvec
-    external xerbla,zcopy,zdotc,zaxpy,zdscal,dznrm2
-    complex(real64) zdotc
+    external xerbla,zcopy,qrupdate_zdotc,zaxpy,zdscal,dznrm2
     real(real64) dznrm2,rx
     integer info,i,k1
     logical full
@@ -155,7 +154,7 @@ subroutine zqrinc(m,n,k,Q,ldq,R,ldr,j,x,rw)
     if (full) then
         k1 = k
         do i = 1,k
-            R(i,j) = zdotc(m,Q(1,i),1,x,1)
+            call qrupdate_zdotc(R(i,j), m,Q(1,i),1,x,1)
         end do
     else
         k1 = k + 1
@@ -165,7 +164,7 @@ subroutine zqrinc(m,n,k,Q,ldq,R,ldr,j,x,rw)
         end do
         call zcopy(m,x,1,Q(1,k1),1)
         do i = 1,k
-            R(i,j) = zdotc(m,Q(1,i),1,Q(1,k1),1)
+            call qrupdate_zdotc(R(i,j), m,Q(1,i),1,Q(1,k1),1)
             call zaxpy(m,-R(i,j),Q(1,i),1,Q(1,k1),1)
         end do
         ! get norm of the inserted column

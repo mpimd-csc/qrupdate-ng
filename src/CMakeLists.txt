@@ -1,11 +1,14 @@
 SET(SRC
     qrupdate.f90
+
     caxcpy.f90
     cch1dn.f90
     cch1up.f90
     cchdex.f90
     cchinx.f90
     cchshx.f90
+    cdotc.f90
+    cdotu.f90
     cgqvec.f90
     clu1up.f90
     clup1up.f90
@@ -61,6 +64,8 @@ SET(SRC
     zchdex.f90
     zchinx.f90
     zchshx.f90
+    zdotc.f90
+    zdotu.f90
     zgqvec.f90
     zlu1up.f90
     zlup1up.f90

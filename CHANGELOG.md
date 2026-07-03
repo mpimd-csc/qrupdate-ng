@@ -7,7 +7,7 @@
 * Convert to free form Fortran
 * Add code coverage builds
 * Add fortran module `qrupdate`
-
+* Make zdotc, zdotu, cdotc, and cdotu compatibel with different ABI's
 
 ## Old Changelog
 
