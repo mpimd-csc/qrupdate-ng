@@ -119,8 +119,7 @@ subroutine cqrinc(m,n,k,Q,ldq,R,ldr,j,x,rw)
     complex(real32), intent(in) :: x(*)
     real(real32), intent(out) :: rw(*)
     external cgqvec, cqrtv1,cqrqh,cqrot
-    external xerbla,ccopy,cdotc,caxpy,csscal,scnrm2
-    complex(real32) cdotc
+    external xerbla,ccopy,qrupdate_cdotc,caxpy,csscal,scnrm2
     real(real32) scnrm2,rx
     integer info,i,k1
     logical full
@@ -155,7 +154,7 @@ subroutine cqrinc(m,n,k,Q,ldq,R,ldr,j,x,rw)
     if (full) then
         k1 = k
         do i = 1,k
-            R(i,j) = cdotc(m,Q(1,i),1,x,1)
+            call qrupdate_cdotc(R(i,j), m,Q(1,i),1,x,1)
         end do
     else
         k1 = k + 1
@@ -165,7 +164,7 @@ subroutine cqrinc(m,n,k,Q,ldq,R,ldr,j,x,rw)
         end do
         call ccopy(m,x,1,Q(1,k1),1)
         do i = 1,k
-            R(i,j) = cdotc(m,Q(1,i),1,Q(1,k1),1)
+            call qrupdate_cdotc(R(i,j), m,Q(1,i),1,Q(1,k1),1)
             call caxpy(m,-R(i,j),Q(1,i),1,Q(1,k1),1)
         end do
         ! get norm of the inserted column

@@ -84,8 +84,7 @@ subroutine zgqvec(m,n,Q,ldq,u)
     integer, intent(in) :: m, n, ldq
     complex(real64), intent(in) :: Q(ldq,*)
     complex(real64), intent(out) :: u(*)
-    external zdotu,zaxpy,dznrm2,zdscal,xerbla
-    complex(real64) zdotu
+    external qrupdate_zdotu,zaxpy,dznrm2,zdscal,xerbla
     real(real64) dznrm2,r
     complex(real64) rc
     integer info,i,j
@@ -122,7 +121,7 @@ subroutine zgqvec(m,n,Q,ldq,u)
         u(j) = 1d0
         ! form u - Q*Q'*u
         do i = 1,n
-            rc = zdotu(m,Q(1,i),1,u,1)
+            call qrupdate_zdotu(rc, m,Q(1,i),1,u,1)
             call zaxpy(m,-rc,Q(1,i),1,u,1)
         end do
         r = dznrm2(m,u,1)

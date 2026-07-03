@@ -140,7 +140,7 @@ subroutine cchinx(n,R,ldr,j,u,rw,info)
     call ctrsv('U','C','N',n,R,ldr,u,1)
     rho = scnrm2(n,u,1)
     ! check positive definiteness.
-    rho = real(real32)(t) - rho**2
+    rho = real(t, real32) - rho**2
     if (rho <= 0e0) goto 10
     ! shift columns
     do i = n,j,-1

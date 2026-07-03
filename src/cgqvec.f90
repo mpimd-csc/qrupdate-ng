@@ -84,8 +84,7 @@ subroutine cgqvec(m,n,Q,ldq,u)
     integer, intent(in) :: m, n, ldq
     complex(real32), intent(in) :: Q(ldq,*)
     complex(real32), intent(out) :: u(*)
-    external xerbla,cdotu,caxpy,scnrm2,csscal
-    complex(real32) cdotu
+    external xerbla,qrupdate_cdotu,caxpy,scnrm2,csscal
     real(real32) scnrm2,r
     complex(real32) rc
     integer info,i,j
@@ -122,7 +121,7 @@ subroutine cgqvec(m,n,Q,ldq,u)
         u(j) = 1e0
         ! form u - Q*Q'*u
         do i = 1,n
-            rc = cdotu(m,Q(1,i),1,u,1)
+            call qrupdate_cdotu(rc, m,Q(1,i),1,u,1)
             call caxpy(m,-rc,Q(1,i),1,u,1)
         end do
         r = scnrm2(m,u,1)

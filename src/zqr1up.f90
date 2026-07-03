@@ -127,8 +127,7 @@ subroutine zqr1up(m,n,k,Q,ldq,R,ldr,u,v,w,rw)
     complex(real64), intent(out) :: w(*)
     real(real64), intent(out) :: rw(*)
     external zqrqh,zqhqr,zqrot,zqrtv1,zaxpy,zaxcpy,xerbla,zch1up
-    external zdotc,dznrm2,dlamch,zdscal,zrot
-    complex(real64) zdotc
+    external qrupdate_zdotc,dznrm2,dlamch,zdscal,zrot
     real(real64) dznrm2,dlamch,ru,ruu
     integer info,i
     logical full
@@ -157,7 +156,7 @@ subroutine zqr1up(m,n,k,Q,ldq,R,ldr,u,v,w,rw)
     if (.not.full) ru = dznrm2(m,u,1)
     ! form Q'*u. In the non-full case, form also u - Q*Q'u.
     do i = 1,k
-        w(i) = zdotc(m,Q(1,i),1,u,1)
+        call qrupdate_zdotc(w(i), m,Q(1,i),1,u,1)
         if (.not.full) call zaxpy(m,-w(i),Q(1,i),1,u,1)
     end do
     ! generate rotations to eliminate Q'*u.

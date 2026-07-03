@@ -130,8 +130,7 @@ subroutine cqr1up(m,n,k,Q,ldq,R,ldr,u,v,w,rw)
     complex(real32), intent(out) :: w(*)
     real(real32), intent(out) :: rw(*)
     external xerbla, cch1up, cqrqh,cqhqr,cqrot,cqrtv1,caxcpy
-    external caxpy,cdotc,scnrm2,slamch,csscal,crot
-    complex(real32) cdotc
+    external caxpy,qrupdate_cdotc,scnrm2,slamch,csscal,crot
     real(real32) scnrm2,slamch,ru,ruu
     integer info,i
     logical full
@@ -160,7 +159,7 @@ subroutine cqr1up(m,n,k,Q,ldq,R,ldr,u,v,w,rw)
     if (.not.full) ru = scnrm2(m,u,1)
     ! form Q'*u. In the non-full case, form also u - Q*Q'u.
     do i = 1,k
-        w(i) = cdotc(m,Q(1,i),1,u,1)
+        call qrupdate_cdotc(w(i), m,Q(1,i),1,u,1)
         if (.not.full) call caxpy(m,-w(i),Q(1,i),1,u,1)
     end do
     ! generate rotations to eliminate Q'*u.
