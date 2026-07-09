@@ -52,8 +52,9 @@ program tqrinc
 end program
 
 subroutine stest(m,n,j,ec)
+    use iso_fortran_env
     integer m,n,j,ec
-    real A(m,max(m,n+1)),Q(m,m),R(m,n+1),u(m),wrk(m)
+    real(real32) A(m,max(m,n+1)),Q(m,m),R(m,n+1),u(m),wrk(m)
     external srandg,sqrgen,scopy,sqrinc,sqrchk
     integer k,i
     ! set up random matrix & vector
@@ -77,8 +78,9 @@ subroutine stest(m,n,j,ec)
 end subroutine
 
 subroutine dtest(m,n,j,ec)
+    use iso_fortran_env
     integer m,n,j,ec
-    double precision A(m,max(m,n+1)),Q(m,m),R(m,n+1),u(m),wrk(m)
+    real(real64) A(m,max(m,n+1)),Q(m,m),R(m,n+1),u(m),wrk(m)
     external drandg,dqrgen,dcopy,dqrinc,dqrchk
     integer k,i
     ! set up random matrix & vector
@@ -102,8 +104,9 @@ subroutine dtest(m,n,j,ec)
 end subroutine
 
 subroutine ctest(m,n,j,ec)
+    use iso_fortran_env
     integer m,n,j,ec
-    complex A(m,max(m,n+1)),Q(m,m),R(m,n+1),u(m),wrk(m)
+    complex(real32) A(m,max(m,n+1)),Q(m,m),R(m,n+1),u(m),wrk(m)
     external crandg,cqrgen,ccopy,cqrinc,cqrchk
     integer k,i
     ! set up random matrix & vector
@@ -127,8 +130,9 @@ subroutine ctest(m,n,j,ec)
 end subroutine
 
 subroutine ztest(m,n,j,ec)
+    use iso_fortran_env
     integer m,n,j,ec
-    double complex A(m,max(m,n+1)),Q(m,m),R(m,n+1),u(m),wrk(m)
+    complex(real64) A(m,max(m,n+1)),Q(m,m),R(m,n+1),u(m),wrk(m)
     external zrandg,zqrgen,zcopy,zqrinc,zqrchk
     integer k,i
     ! set up random matrix & vector

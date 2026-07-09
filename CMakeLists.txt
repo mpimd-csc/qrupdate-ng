@@ -36,8 +36,11 @@ LIST(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 # enable code coverage
 find_package(codecov)
 
+SET(Fortran_MODULE_NAME qrupdate)
 INCLUDE(FortranCompilerSettings)
 INCLUDE(GNUInstallDirs)
+INCLUDE(FortranModuleDir)
+
 
 # IBM XLF Compilation
 IF( CMAKE_Fortran_COMPILER_ID STREQUAL "XL")

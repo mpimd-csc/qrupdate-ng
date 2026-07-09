@@ -106,7 +106,7 @@ subroutine dchinx(n,R,ldr,j,u,w,info)
     real(real64), intent(inout) :: u(*)
     real(real64), intent(out) :: w(*)
     external xerbla,dcopy,dnrm2,dtrsv,dqrtv1,dqrqh
-    real(real64) dnrm2,rho,t,rr
+    real(real64) dnrm2,rho,t
     integer i
 
     ! check arguments

@@ -1,6 +1,7 @@
 SET(UTILS_SRC utils.f90)
 
 ADD_LIBRARY(utils STATIC ${UTILS_SRC})
+target_link_libraries(utils PUBLIC qrupdate)
 ADD_COVERAGE(utils)
 
 

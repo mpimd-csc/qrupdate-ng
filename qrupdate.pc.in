@@ -7,4 +7,5 @@ Name: qrupdate
 Description: The qrupdate library
 Version: @PROJECT_VERSION@
 Requires: blas, lapack
+Cflags: -I${includedir}/qrupdate
 Libs: -L${libdir} -lqrupdate

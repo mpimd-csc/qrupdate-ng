@@ -18,8 +18,9 @@
 ! <http://www.gnu.org/licenses/>.
 !
 subroutine srandg(m,n,x,ldx)
+    use iso_fortran_env
     integer m,n,ldx
-    real x(ldx,*)
+    real(real32) x(ldx,*)
     external slaruv
     integer seed(4),j,k
     common /xrand/ seed
@@ -38,8 +39,9 @@ subroutine srandg(m,n,x,ldx)
 end subroutine
 
 subroutine drandg(m,n,x,ldx)
+    use iso_fortran_env
     integer m,n,ldx
-    double precision x(ldx,*)
+    real(real64) x(ldx,*)
     external dlaruv
     integer seed(4),j,k
     common /xrand/ seed
@@ -58,11 +60,12 @@ subroutine drandg(m,n,x,ldx)
 end subroutine
 
 subroutine crandg(m,n,x,ldx)
+    use iso_fortran_env
     integer m,n,ldx
     integer k,l
-    complex x(ldx,*)
+    complex(real32) x(ldx,*)
     external srandg
-    real, allocatable :: xr(:,:)
+    real(real32), allocatable :: xr(:,:)
     allocate(xr(2*ldx,n))
     call srandg(2*m,n,xr,2*ldx)
     do l = 1, n
@@ -74,11 +77,12 @@ subroutine crandg(m,n,x,ldx)
 end subroutine
 
 subroutine zrandg(m,n,x,ldx)
+    use iso_fortran_env
     integer m,n,ldx
-    double complex x(ldx,*)
+    complex(real64) x(ldx,*)
     external drandg
     integer l,k
-    double precision, allocatable :: xr(:,:)
+    real(real64), allocatable :: xr(:,:)
     allocate(xr(2*ldx,n))
     call drandg(2*m,n,xr,2*ldx)
     do l = 1, n
@@ -96,9 +100,10 @@ block data xrandi
 end block data
 
 subroutine sqrgen(m,n,A,lda,Q,ldq,R,ldr)
+    use iso_fortran_env
     integer m,n,lda,ldq,ldr
-    real A(lda,n),Q(ldq,m),R(ldr,n)
-    real work(max(m,n)),tau(min(m,n))
+    real(real32) A(lda,n),Q(ldq,m),R(ldr,n)
+    real(real32) work(max(m,n)),tau(min(m,n))
     integer info,i,j
     external slacpy,sgeqrf,sorgqr
     if (m == 0) return
@@ -114,9 +119,10 @@ subroutine sqrgen(m,n,A,lda,Q,ldq,R,ldr)
 end subroutine
 
 subroutine dqrgen(m,n,A,lda,Q,ldq,R,ldr)
+    use iso_fortran_env
     integer m,n,lda,ldq,ldr
-    double precision A(lda,n),Q(ldq,m),R(ldr,n)
-    double precision work(max(m,n)),tau(min(m,n))
+    real(real64) A(lda,n),Q(ldq,m),R(ldr,n)
+    real(real64) work(max(m,n)),tau(min(m,n))
     integer info,i,j
     external dlacpy,dgeqrf,dorgqr
     if (m == 0) return
@@ -132,9 +138,10 @@ subroutine dqrgen(m,n,A,lda,Q,ldq,R,ldr)
 end subroutine
 
 subroutine cqrgen(m,n,A,lda,Q,ldq,R,ldr)
+    use iso_fortran_env
     integer m,n,lda,ldq,ldr
-    complex A(lda,n),Q(ldq,m),R(ldr,n)
-    complex work(max(m,n)),tau(min(m,n))
+    complex(real32) A(lda,n),Q(ldq,m),R(ldr,n)
+    complex(real32) work(max(m,n)),tau(min(m,n))
     integer info,i,j
     external clacpy,cgeqrf,cungqr
     if (m == 0) return
@@ -150,9 +157,10 @@ subroutine cqrgen(m,n,A,lda,Q,ldq,R,ldr)
 end subroutine
 
 subroutine zqrgen(m,n,A,lda,Q,ldq,R,ldr)
+    use iso_fortran_env
     integer m,n,lda,ldq,ldr
-    double complex A(lda,n),Q(ldq,m),R(ldr,n)
-    double complex work(max(m,n)),tau(min(m,n))
+    complex(real64) A(lda,n),Q(ldq,m),R(ldr,n)
+    complex(real64) work(max(m,n)),tau(min(m,n))
     integer info,i,j
     external zlacpy,zgeqrf,zungqr
     if (m == 0) return
@@ -168,9 +176,10 @@ subroutine zqrgen(m,n,A,lda,Q,ldq,R,ldr)
 end subroutine
 
 subroutine smdump(name,m,n,A,lda)
+    use iso_fortran_env
     character(*) name
     integer m,n,lda
-    real A(lda,n)
+    real(real32) A(lda,n)
     integer i,j
     write (*,1001) name
     do i = 1,m
@@ -185,9 +194,10 @@ subroutine smdump(name,m,n,A,lda)
 end subroutine
 
 subroutine dmdump(name,m,n,A,lda)
+    use iso_fortran_env
     character(*) name
     integer m,n,lda
-    double precision A(lda,n)
+    real(real64) A(lda,n)
     integer i,j
     write (*,1001) name
     do i = 1,m
@@ -202,9 +212,10 @@ subroutine dmdump(name,m,n,A,lda)
 end subroutine
 
 subroutine cmdump(name,m,n,A,lda)
+    use iso_fortran_env
     character(*) name
     integer m,n,lda
-    complex A(lda,n)
+    complex(real32) A(lda,n)
     integer i,j
     write (*,1001) name
     do i = 1,m
@@ -219,9 +230,10 @@ subroutine cmdump(name,m,n,A,lda)
 end subroutine
 
 subroutine zmdump(name,m,n,A,lda)
+    use iso_fortran_env
     character(*) name
     integer m,n,lda
-    double complex A(lda,n)
+    complex(real64) A(lda,n)
     integer i,j
     write (*,1001) name
     do i = 1,m
@@ -236,7 +248,8 @@ subroutine zmdump(name,m,n,A,lda)
 end subroutine
 
 character*4 function spftol(rnrm)
-    real rnrm,slamch
+    use iso_fortran_env
+    real(real32) rnrm,slamch
     external slamch
     common /stats/ passed,failed
     integer passed,failed
@@ -250,7 +263,8 @@ character*4 function spftol(rnrm)
 end function
 
 character*4 function dpftol(rnrm)
-    double precision rnrm,dlamch
+    use iso_fortran_env
+    real(real64) rnrm,dlamch
     external dlamch
     common /stats/ passed,failed
     integer passed,failed
@@ -278,12 +292,13 @@ subroutine pstats
 end subroutine
 
 subroutine sqrchk(m,n,k,A,lda,Q,ldq,R,ldr)
+    use iso_fortran_env
     integer m,n,k,lda,ldq,ldr
-    real A(lda,max(n,k)),Q(ldq,k),R(ldr,n)
-    real rnrm,slange,slansy
+    real(real32) A(lda,max(n,k)),Q(ldq,k),R(ldr,n)
+    real(real32) rnrm,slange,slansy
     external sgemm,ssyrk,slange,slansy,spftol
     character*4 spftol
-    real wrk(m)
+    real(real32) wrk(m)
     integer i
 
     ! get residual
@@ -306,12 +321,13 @@ subroutine sqrchk(m,n,k,A,lda,Q,ldq,R,ldr)
 end subroutine
 
 subroutine dqrchk(m,n,k,A,lda,Q,ldq,R,ldr)
+    use iso_fortran_env
     integer m,n,k,lda,ldq,ldr
-    double precision A(lda,max(n,k)),Q(ldq,k),R(ldr,n)
-    double precision rnrm,dlange,dlansy
+    real(real64) A(lda,max(n,k)),Q(ldq,k),R(ldr,n)
+    real(real64) rnrm,dlange,dlansy
     external dgemm,dsyrk,dlange,dlansy,dpftol
     character*4 dpftol
-    double precision wrk(m)
+    real(real64) wrk(m)
     integer i
 
     ! get residual
@@ -334,12 +350,13 @@ subroutine dqrchk(m,n,k,A,lda,Q,ldq,R,ldr)
 end subroutine
 
 subroutine cqrchk(m,n,k,A,lda,Q,ldq,R,ldr)
+    use iso_fortran_env
     integer m,n,k,lda,ldq,ldr
-    complex A(lda,max(n,k)),Q(ldq,k),R(ldr,n)
-    real rnrm,clange,clanhe
+    complex(real32) A(lda,max(n,k)),Q(ldq,k),R(ldr,n)
+    real(real32) rnrm,clange,clanhe
     external cgemm,cherk,clange,clanhe,spftol
     character*4 spftol
-    real wrk(m)
+    real(real32) wrk(m)
     integer i
 
     ! get residual
@@ -362,12 +379,13 @@ subroutine cqrchk(m,n,k,A,lda,Q,ldq,R,ldr)
 end subroutine
 
 subroutine zqrchk(m,n,k,A,lda,Q,ldq,R,ldr)
+    use iso_fortran_env
     integer m,n,k,lda,ldq,ldr
-    double complex A(lda,max(n,k)),Q(ldq,k),R(ldr,n)
-    double precision rnrm,zlange,zlanhe
+    complex(real64) A(lda,max(n,k)),Q(ldq,k),R(ldr,n)
+    real(real64) rnrm,zlange,zlanhe
     external zgemm,zherk,zlange,zlanhe,dpftol
     character*4 dpftol
-    double precision wrk(m)
+    real(real64) wrk(m)
     integer i
 
     ! get residual
@@ -390,8 +408,9 @@ subroutine zqrchk(m,n,k,A,lda,Q,ldq,R,ldr)
 end subroutine
 
 subroutine schgen(n,A,lda,R,ldr)
+    use iso_fortran_env
     integer n,lda,ldr
-    real A(lda,n),R(ldr,n)
+    real(real32) A(lda,n),R(ldr,n)
     external ssyrk,slacpy,spotrf
     integer i,j,info
     call ssyrk('U','T',n,n,1e0,A,lda,0e0,R,ldr)
@@ -415,8 +434,9 @@ subroutine schgen(n,A,lda,R,ldr)
 end subroutine
 
 subroutine dchgen(n,A,lda,R,ldr)
+    use iso_fortran_env
     integer n,lda,ldr
-    double precision A(lda,n),R(ldr,n)
+    real(real64) A(lda,n),R(ldr,n)
     external dsyrk,dlacpy,dpotrf
     integer i,j,info
     call dsyrk('U','T',n,n,1d0,A,lda,0d0,R,ldr)
@@ -440,17 +460,19 @@ subroutine dchgen(n,A,lda,R,ldr)
 end subroutine
 
 subroutine cchgen(n,A,lda,R,ldr)
+    use iso_fortran_env
+    use qrupdate_blas
     integer n,lda,ldr
-    complex A(lda,n),R(ldr,n)
-    external cherk,clacpy,cpotrf,cdotc
-    complex cdotc,Rii
+    complex(real32) A(lda,n),R(ldr,n)
+    external cherk,clacpy,cpotrf
+    complex(real32) Rii
     integer i,j,info
     call cherk('U','C',n,n,1e0,A,lda,0e0,R,ldr)
     ! augment to ensure strict positivity
     do i = 1,n
         ! CHERK is often buggy. We'll recompute the diagonal elements and
         ! possibly warn about the bug.
-        Rii = cdotc (n, A(1,i), 1, A(1,i), 1)
+        call qrupdate_cdotc (Rii, n, A(1,i), 1, A(1,i), 1)
         if (.not. abs (Rii - R(i,i)) < 1e-5 * abs(Rii)) then
             write (*,1001)
             write (*,1002) R(i,i), Rii
@@ -477,17 +499,19 @@ subroutine cchgen(n,A,lda,R,ldr)
 end subroutine
 
 subroutine zchgen(n,A,lda,R,ldr)
+    use iso_fortran_env
+    use qrupdate_blas
     integer n,lda,ldr
-    double complex A(lda,n),R(ldr,n)
-    external zherk,zlacpy,zpotrf,zdotc
-    double complex zdotc,Rii
+    complex(real64) A(lda,n),R(ldr,n)
+    external zherk,zlacpy,zpotrf
+    complex(real64) Rii
     integer i,j,info
     call zherk('U','C',n,n,1d0,A,lda,0d0,R,ldr)
     ! augment to ensure strict positivity
     do i = 1,n
         ! ZHERK is often buggy. We'll recompute the diagonal elements and
         ! possibly warn about the bug.
-        Rii = zdotc (n, A(1,i), 1, A(1,i), 1)
+        call qrupdate_zdotc (Rii, n, A(1,i), 1, A(1,i), 1)
         if (.not. abs (Rii - R(i,i)) < 1d-10 * abs(Rii)) then
             write (*,1001)
             write (*,1002) R(i,i), Rii
@@ -515,9 +539,10 @@ subroutine zchgen(n,A,lda,R,ldr)
 end subroutine
 
 subroutine schchk(n,A,lda,R,ldr)
+    use iso_fortran_env
     integer n,lda,ldr
-    real A(lda,n),R(ldr,n)
-    real rnrm,slansy
+    real(real32) A(lda,n),R(ldr,n)
+    real(real32) rnrm,slansy
     external ssyrk,slansy,spftol
     character*4 spftol
     real wrk(n)
@@ -540,9 +565,10 @@ subroutine schchk(n,A,lda,R,ldr)
 end subroutine
 
 subroutine dchchk(n,A,lda,R,ldr)
+    use iso_fortran_env
     integer n,lda,ldr
-    double precision A(lda,n),R(ldr,n)
-    double precision rnrm,dlansy
+    real(real64) A(lda,n),R(ldr,n)
+    real(real64) rnrm,dlansy
     external dsyrk,dlansy,dpftol
     character*4 dpftol
     double precision wrk(n)
@@ -565,9 +591,10 @@ subroutine dchchk(n,A,lda,R,ldr)
 end subroutine
 
 subroutine cchchk(n,A,lda,R,ldr)
+    use iso_fortran_env
     integer n,lda,ldr
-    complex A(lda,n),R(ldr,n)
-    real rnrm,clanhe
+    complex(real32) A(lda,n),R(ldr,n)
+    real(real32) rnrm,clanhe
     external cherk,clanhe,spftol
     character*4 spftol
     real wrk(n)
@@ -590,9 +617,10 @@ subroutine cchchk(n,A,lda,R,ldr)
 end subroutine
 
 subroutine zchchk(n,A,lda,R,ldr)
+    use iso_fortran_env
     integer n,lda,ldr
-    double complex A(lda,n),R(ldr,n)
-    double precision rnrm,zlanhe
+    complex(real64) A(lda,n),R(ldr,n)
+    real(real64) rnrm,zlanhe
     external zherk,zlanhe,dpftol
     character*4 dpftol
     double precision wrk(n)
@@ -615,8 +643,9 @@ subroutine zchchk(n,A,lda,R,ldr)
 end subroutine
 
 subroutine slugen(m,n,A,lda,L,ldl,R,ldr)
+    use iso_fortran_env
     integer m,n,lda,ldl,ldr
-    real A(lda,n),L(ldl,min(m,n)),R(ldr,n)
+    real(real32) A(lda,n),L(ldl,min(m,n)),R(ldr,n)
     integer ipiv(min(m,n)),info,i,j
     external sswap,slacpy,sgetrf
     if (m >= n) then
@@ -644,8 +673,9 @@ subroutine slugen(m,n,A,lda,L,ldl,R,ldr)
 end subroutine
 
 subroutine dlugen(m,n,A,lda,L,ldl,R,ldr)
+    use iso_fortran_env
     integer m,n,lda,ldl,ldr
-    double precision A(lda,n),L(ldl,min(m,n)),R(ldr,n)
+    real(real64) A(lda,n),L(ldl,min(m,n)),R(ldr,n)
     integer ipiv(min(m,n)),info,i,j
     external dswap,dlacpy,dgetrf
     if (m >= n) then
@@ -673,8 +703,9 @@ subroutine dlugen(m,n,A,lda,L,ldl,R,ldr)
 end subroutine
 
 subroutine clugen(m,n,A,lda,L,ldl,R,ldr)
+    use iso_fortran_env
     integer m,n,lda,ldl,ldr
-    complex A(lda,n),L(ldl,min(m,n)),R(ldr,n)
+    complex(real32) A(lda,n),L(ldl,min(m,n)),R(ldr,n)
     integer ipiv(min(m,n)),info,i,j
     external cswap,clacpy,cgetrf
     if (m >= n) then
@@ -702,8 +733,9 @@ subroutine clugen(m,n,A,lda,L,ldl,R,ldr)
 end subroutine
 
 subroutine zlugen(m,n,A,lda,L,ldl,R,ldr)
+    use iso_fortran_env
     integer m,n,lda,ldl,ldr
-    double complex A(lda,n),L(ldl,min(m,n)),R(ldr,n)
+    complex(real64) A(lda,n),L(ldl,min(m,n)),R(ldr,n)
     integer ipiv(min(m,n)),info,i,j
     external zswap,zlacpy,zgetrf
     if (m >= n) then
@@ -1011,9 +1043,10 @@ subroutine p2ipiv(n,p)
 end subroutine
 
 subroutine slupchk(m,n,A,lda,L,ldl,R,ldr,p)
+    use iso_fortran_env
     integer m,n,lda,ldl,ldr,p(m)
-    real A(lda,n),L(ldl,min(m,n)),R(ldr,n)
-    real rnrm,slange
+    real(real32) A(lda,n),L(ldl,min(m,n)),R(ldr,n)
+    real(real32) rnrm,slange
     external p2ipiv,sswap,sgemm,slange,spftol
     character*4 spftol
     real wrk(1)
@@ -1038,9 +1071,10 @@ subroutine slupchk(m,n,A,lda,L,ldl,R,ldr,p)
 end subroutine
 
 subroutine dlupchk(m,n,A,lda,L,ldl,R,ldr,p)
+    use iso_fortran_env
     integer m,n,lda,ldl,ldr,p(m)
-    double precision A(lda,n),L(ldl,min(m,n)),R(ldr,n)
-    double precision rnrm,dlange
+    real(real64) A(lda,n),L(ldl,min(m,n)),R(ldr,n)
+    real(real64) rnrm,dlange
     external p2ipiv,dswap,dgemm,dlange,dpftol
     character*4 dpftol
     double precision wrk(1)
@@ -1065,9 +1099,10 @@ subroutine dlupchk(m,n,A,lda,L,ldl,R,ldr,p)
 end subroutine
 
 subroutine clupchk(m,n,A,lda,L,ldl,R,ldr,p)
+    use iso_fortran_env
     integer m,n,lda,ldl,ldr,p(m)
-    complex A(lda,n),L(ldl,min(m,n)),R(ldr,n)
-    real rnrm,clange
+    complex(real32) A(lda,n),L(ldl,min(m,n)),R(ldr,n)
+    real(real32) rnrm,clange
     external p2ipiv,cswap,cgemm,clange,spftol
     character*4 spftol
     real wrk(1)
@@ -1093,9 +1128,10 @@ subroutine clupchk(m,n,A,lda,L,ldl,R,ldr,p)
 end subroutine
 
 subroutine zlupchk(m,n,A,lda,L,ldl,R,ldr,p)
+    use iso_fortran_env
     integer m,n,lda,ldl,ldr,p(m)
-    double complex A(lda,n),L(ldl,min(m,n)),R(ldr,n)
-    double precision rnrm,zlange
+    complex(real64) A(lda,n),L(ldl,min(m,n)),R(ldr,n)
+    real(real64) rnrm,zlange
     external p2ipiv,zswap,zgemm,zlange,dpftol
     character*4 dpftol
     double precision wrk(1)

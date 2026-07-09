@@ -113,13 +113,14 @@
 !>
 !> \ingroup qrdecomp
 subroutine zqrinc(m,n,k,Q,ldq,R,ldr,j,x,rw)
-  use iso_fortran_env
+    use iso_fortran_env
+    use qrupdate_blas
     integer, intent(in) :: m, n, k, ldq, ldr, j
     complex(real64), intent(inout) :: Q(ldq,*), R(ldr,*)
     complex(real64), intent(in) :: x(*)
     real(real64), intent(out) :: rw(*)
     external zqrtv1,zqrqh,zqrot,zgqvec
-    external xerbla,zcopy,qrupdate_zdotc,zaxpy,zdscal,dznrm2
+    external xerbla,zcopy,zaxpy,zdscal,dznrm2
     real(real64) dznrm2,rx
     integer info,i,k1
     logical full

@@ -40,8 +40,9 @@ program tch1dn
 end program
 
 subroutine stest(n)
+    use iso_fortran_env
     integer n
-    real A(n,n),R(n,n),u(n),wrk(2*n)
+    real(real32) A(n,n),R(n,n),u(n),wrk(2*n)
     external srandg,scopy,schgen,sch1up,schchk,sch1dn
     integer info
     ! set up random matrix & vectors
@@ -60,8 +61,9 @@ subroutine stest(n)
 end subroutine
 
 subroutine dtest(n)
+    use iso_fortran_env
     integer n
-    double precision A(n,n),R(n,n),u(n),wrk(2*n)
+    real(real64) A(n,n),R(n,n),u(n),wrk(2*n)
     external drandg,dcopy,dchgen,dch1up,dchchk,dch1dn
     integer info
     ! set up random matrix & vectors
@@ -80,9 +82,10 @@ subroutine dtest(n)
 end subroutine
 
 subroutine ctest(n)
+    use iso_fortran_env
     integer n
-    complex A(n,n),R(n,n),u(n),wrk(n)
-    real rwrk(n)
+    complex(real32) A(n,n),R(n,n),u(n),wrk(n)
+    real(real32) rwrk(n)
     external crandg,ccopy,cchgen,cch1up,cchchk,cch1dn
     integer info
     ! set up random matrix & vectors
@@ -101,9 +104,10 @@ subroutine ctest(n)
 end subroutine
 
 subroutine ztest(n)
+    use iso_fortran_env
     integer n
-    double complex A(n,n),R(n,n),u(n),wrk(n)
-    double precision rwrk(n)
+    complex(real64) A(n,n),R(n,n),u(n),wrk(n)
+    real(real64) rwrk(n)
     external zrandg,zcopy,zchgen,zch1up,zchchk,zch1dn
     integer info
     ! set up random matrix & vectors
