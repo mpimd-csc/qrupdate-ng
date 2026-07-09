@@ -81,10 +81,11 @@
 !> \ingroup qrdecomp
 subroutine dgqvec(m,n,Q,ldq,u)
   use iso_fortran_env
+  use qrupdate_error
     integer, intent(in) :: m, n, ldq
     real(real64), intent(in) :: Q(ldq,*)
     real(real64), intent(out) :: u(*)
-    external ddot,daxpy,dnrm2,dscal,xerbla
+    external ddot,daxpy,dnrm2,dscal
     real(real64) ddot,dnrm2,r
     integer info,i,j
     ! quick return if possible.
@@ -106,10 +107,9 @@ subroutine dgqvec(m,n,Q,ldq,u)
         info = 4
     end if
     if (info /= 0) then
-        call xerbla('DGQVEC',info)
+        call qrupdate_xerror('DGQVEC',info)
         return
     end if
-
     j = 1
     r = 0d0
     do while ( r .eq. 0d0 )

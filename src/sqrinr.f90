@@ -105,11 +105,12 @@
 !> \ingroup qrdecomp
 subroutine sqrinr(m,n,Q,ldq,R,ldr,j,x,w)
   use iso_fortran_env
+  use qrupdate_error
     integer, intent(in) :: m, n, j, ldq, ldr
     real(real32), intent(inout) :: Q(ldq,*), R(ldr,*)
     real(real32), intent(inout) :: x(*)
     real(real32), intent(out) :: w(*)
-    external xerbla,scopy,sqhqr,sqrot
+    external scopy,sqhqr,sqrot
     integer info,i,k
     ! check arguments
     info = 0
@@ -119,7 +120,7 @@ subroutine sqrinr(m,n,Q,ldq,R,ldr,j,x,w)
         info = 7
     end if
     if (info /= 0) then
-        call xerbla('SQRINR',info)
+        call qrupdate_xerror('SQRINR',info)
         return
     end if
     ! permute the columns of Q1 and rows of R1 so that c the new row ends

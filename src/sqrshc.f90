@@ -113,10 +113,11 @@
 !> \ingroup qrdecomp
 subroutine sqrshc(m,n,k,Q,ldq,R,ldr,i,j,w)
   use iso_fortran_env
+  use qrupdate_error
     integer, intent(in) :: m, n, k, ldq, ldr, i, j
     real(real32), intent(inout) :: Q(ldq,*), R(ldr,*)
     real(real32), intent(out) :: w(*)
-    external xerbla,scopy,sqrtv1,sqrqh,sqhqr,sqrot
+    external scopy,sqrtv1,sqrqh,sqhqr,sqrot
     integer info,jj,kk,l
     ! quick return if possible.
     if (m == 0 .or. n == 1) return
@@ -134,10 +135,9 @@ subroutine sqrshc(m,n,k,Q,ldq,R,ldr,i,j,w)
         info = 7
     end if
     if (info /= 0) then
-        call xerbla('SQRSHC',info)
+        call qrupdate_xerror('SQRSHC',info)
         return
     end if
-
     if (i < j) then
         ! shift columns
         call scopy(k,R(1,i),1,w,1)

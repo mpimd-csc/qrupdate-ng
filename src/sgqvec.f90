@@ -81,10 +81,11 @@
 !> \ingroup qrdecomp
 subroutine sgqvec(m,n,Q,ldq,u)
   use iso_fortran_env
+  use qrupdate_error
     integer, intent(in) :: m, n, ldq
     real(real32), intent(in) :: Q(ldq,*)
     real(real32), intent(out) :: u(*)
-    external sdot,saxpy,snrm2,sscal, xerbla
+    external sdot,saxpy,snrm2,sscal
     real(real32) sdot,snrm2,r
     integer info,i,j
     ! quick return if possible.
@@ -106,10 +107,9 @@ subroutine sgqvec(m,n,Q,ldq,u)
         info = 4
     end if
     if (info /= 0) then
-        call xerbla('SGQVEC',info)
+        call qrupdate_xerror('SGQVEC',info)
         return
     end if
-
     j = 1
     r = 0e0
     do while ( r .eq. 0e0 )

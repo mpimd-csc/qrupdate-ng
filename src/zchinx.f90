@@ -102,15 +102,15 @@
 !> \ingroup choldecomp
 subroutine zchinx(n,R,ldr,j,u,rw,info)
   use iso_fortran_env
+  use qrupdate_error
     integer, intent(in) :: n, j, ldr
     complex(real64), intent(inout) :: R(ldr,*), u(*)
     real(real64), intent(out) :: rw(*)
     integer, intent(out) :: info
-    external xerbla,zcopy,dznrm2,ztrsv,zqrtv1,zqrqh
+    external zcopy,dznrm2,ztrsv,zqrtv1,zqrqh
     complex(real64) t
     real(real64) dznrm2,rho
     integer i
-
     ! check arguments
     info = 0
     if (n < 0) then
@@ -119,10 +119,9 @@ subroutine zchinx(n,R,ldr,j,u,rw,info)
         info = -4
     end if
     if (info /= 0) then
-        call xerbla('ZCHINX',info)
+        call qrupdate_xerror('ZCHINX',info)
         return
     end if
-
     ! shift vector.
     t = u(j)
     do i = j,n
@@ -130,7 +129,6 @@ subroutine zchinx(n,R,ldr,j,u,rw,info)
     end do
     ! the diagonal element must be real.
     if (imag(t) /= 0d0) goto 30
-
     ! check for singularity of R.
     do i = 1,n
         if (R(i,i) == 0d0) goto 20

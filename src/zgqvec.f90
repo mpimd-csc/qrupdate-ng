@@ -82,10 +82,11 @@
 subroutine zgqvec(m,n,Q,ldq,u)
     use iso_fortran_env
     use qrupdate_blas
+    use qrupdate_error
     integer, intent(in) :: m, n, ldq
     complex(real64), intent(in) :: Q(ldq,*)
     complex(real64), intent(out) :: u(*)
-    external zaxpy,dznrm2,zdscal,xerbla
+    external zaxpy,dznrm2,zdscal
     real(real64) dznrm2,r
     complex(real64) rc
     integer info,i,j
@@ -108,10 +109,9 @@ subroutine zgqvec(m,n,Q,ldq,u)
         info = 4
     end if
     if (info /= 0) then
-        call xerbla('ZGQVEC',info)
+        call qrupdate_xerror('ZGQVEC',info)
         return
     end if
-
     j = 1
     r = 0d0
     do while ( r .eq. 0d0)

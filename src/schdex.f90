@@ -79,15 +79,14 @@
 !> \ingroup choldecomp
 subroutine schdex(n,R,ldr,j,w)
   use iso_fortran_env
+  use qrupdate_error
     integer, intent(in) :: n, ldr, j
     real(real32), intent(inout) :: R(ldr,*)
     real(real32), intent(out) :: w(*)
     integer info,i
-    external xerbla,scopy,sqhqr
-
+    external scopy,sqhqr
     ! quick return if possible.
     if (n == 1) return
-
     ! check arguments
     info = 0
     if (n < 0) then
@@ -96,10 +95,9 @@ subroutine schdex(n,R,ldr,j,w)
         info = 4
     end if
     if (info /= 0) then
-        call xerbla('SCHDEX',info)
+        call qrupdate_xerror('SCHDEX',info)
         return
     end if
-
     ! delete the j-th column.
     do i = j,n-1
         call scopy(n,R(1,i+1),1,R(1,i),1)

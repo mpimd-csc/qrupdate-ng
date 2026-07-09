@@ -106,10 +106,11 @@
 !> \ingroup qrdecomp
 subroutine zqrinr(m,n,Q,ldq,R,ldr,j,x,rw)
   use iso_fortran_env
+  use qrupdate_error
     integer, intent(in) :: m, n, j, ldq, ldr
     complex(real64), intent(inout) :: Q(ldq,*), R(ldr,*), x(*)
     real(real64), intent(out) :: rw(*)
-    external xerbla,zcopy,zqhqr,zqrot
+    external zcopy,zqhqr,zqrot
     integer info,i,k
     ! check arguments
     info = 0
@@ -119,7 +120,7 @@ subroutine zqrinr(m,n,Q,ldq,R,ldr,j,x,rw)
         info = 7
     end if
     if (info /= 0) then
-        call xerbla('ZQRINR',info)
+        call qrupdate_xerror('ZQRINR',info)
         return
     end if
     ! permute the columns of Q1 and rows of R1 so that c the new row ends

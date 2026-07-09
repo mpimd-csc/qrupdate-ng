@@ -107,10 +107,11 @@
 !> \ingroup qrdecomp
 subroutine zqrdec(m,n,k,Q,ldq,R,ldr,j,rw)
   use iso_fortran_env
+  use qrupdate_error
     integer, intent(in) :: m, n, k, ldq, ldr, j
     complex(real64), intent(inout) :: Q(ldq,*), R(ldr,*)
     real(real64), intent(out) :: rw(*)
-    external xerbla,zcopy,zqhqr,zqrot
+    external zcopy,zqhqr,zqrot
     integer info,i
     ! quick return if possible.
     if (m == 0 .or. n == 0 .or. j == n) return
@@ -130,10 +131,9 @@ subroutine zqrdec(m,n,k,Q,ldq,R,ldr,j,rw)
         info = 8
     end if
     if (info /= 0) then
-        call xerbla('ZQRDEC',info)
+        call qrupdate_xerror('ZQRDEC',info)
         return
     end if
-
     ! delete the j-th column.
     do i = j,n-1
         call zcopy(k,R(1,i+1),1,R(1,i),1)

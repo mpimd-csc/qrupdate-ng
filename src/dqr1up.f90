@@ -115,13 +115,14 @@
 !> \ingroup qrdecomp
 subroutine dqr1up(m,n,k,Q,ldq,R,ldr,u,v,w)
   use iso_fortran_env
+  use qrupdate_error
     integer, intent(in) :: m, n, k, ldq, ldr
     real(real64), intent(inout) :: Q(ldq,*)
     real(real64), intent(inout) :: R(ldr,*)
     real(real64), intent(inout) :: u(*)
     real(real64), intent(inout) :: v(*)
     real(real64), intent(out) :: w(*)
-    external xerbla, dch1up, dqrqh,dqhqr,dqrot,dqrtv1
+    external  dch1up, dqrqh,dqhqr,dqrot,dqrtv1
     external daxpy,ddot,dnrm2,dlamch,dscal,drot
     real(real64) ddot,dnrm2,dlamch,ru,ruu
     integer info,i
@@ -142,10 +143,9 @@ subroutine dqr1up(m,n,k,Q,ldq,R,ldr,u,v,w)
         info = 7
     endif
     if (info /= 0) then
-        call xerbla('DQR1UP',info)
+        call qrupdate_xerror('DQR1UP',info)
         return
     end if
-
     full = k == m
     ru = 1.0D0
     ! in the non-full case, we shall need the norm of u.

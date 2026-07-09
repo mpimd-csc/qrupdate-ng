@@ -96,16 +96,16 @@
 !> \ingroup choldecomp
 subroutine cch1dn(n,R,ldr,u,rw,info)
   use iso_fortran_env
+  use qrupdate_error
     integer, intent(in) :: n, ldr
     complex(real32), intent(inout) :: R(ldr,*)
     complex(real32), intent(inout) :: u(*)
     real(real32), intent(out) :: rw(*)
     integer, intent(out) :: info
-    external ctrsv,clartg,scnrm2,xerbla
+    external ctrsv,clartg,scnrm2
     complex(real32) crho,rr,ui,t
     real(real32) scnrm2,rho
     integer i,j
-
     ! quick return if possible.
     if (n == 0) return
     ! check arguments.
@@ -116,10 +116,9 @@ subroutine cch1dn(n,R,ldr,u,rw,info)
         info = -3
     end if
     if (info /= 0) then
-        call xerbla('CCH1DN',-info)
+        call qrupdate_xerror('CCH1DN',-info)
         return
     end if
-
     ! check for singularity of R.
     do i = 1,n
         if (R(i,i) == 0e0) goto 20
@@ -147,7 +146,6 @@ subroutine cch1dn(n,R,ldr,u,rw,info)
             ui = t
         end do
     end do
-
     ! normal return
     return
     ! error returns

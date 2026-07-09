@@ -120,12 +120,13 @@
 !> \ingroup qrdecomp
 subroutine cqrshc(m,n,k,Q,ldq,R,ldr,i,j,w,rw)
   use iso_fortran_env
+  use qrupdate_error
     integer, intent(in) :: m, n, k, ldq, ldr, i, j
     complex(real32), intent(inout) :: Q(ldq,*)
     complex(real32), intent(inout) :: R(ldr,*)
     complex(real32), intent(out) :: w(*)
     real(real32), intent(out) :: rw(*)
-    external xerbla,ccopy,cqrtv1,cqrqh,cqhqr,cqrot
+    external ccopy,cqrtv1,cqrqh,cqhqr,cqrot
     integer info,jj,kk,l
     ! quick return if possible.
     if (m == 0 .or. n == 1) return
@@ -143,10 +144,9 @@ subroutine cqrshc(m,n,k,Q,ldq,R,ldr,i,j,w,rw)
         info = 7
     end if
     if (info /= 0) then
-        call xerbla('CQRSHC',info)
+        call qrupdate_xerror('CQRSHC',info)
         return
     end if
-
     if (i < j) then
         ! shift columns
         call ccopy(k,R(1,i),1,w,1)

@@ -120,11 +120,12 @@
 !> \ingroup qrdecomp
 subroutine zqrshc(m,n,k,Q,ldq,R,ldr,i,j,w,rw)
   use iso_fortran_env
+  use qrupdate_error
     integer, intent(in) :: m, n, k, ldq, ldr, i, j
     complex(real64), intent(inout) :: Q(ldq,*), R(ldr,*)
     complex(real64), intent(out) :: w(*)
     real(real64), intent(out) :: rw(*)
-    external xerbla,zcopy,zqrtv1,zqrqh,zqhqr,zqrot
+    external zcopy,zqrtv1,zqrqh,zqhqr,zqrot
     integer info,jj,kk,l
     ! quick return if possible.
     if (m == 0 .or. n == 1) return
@@ -142,10 +143,9 @@ subroutine zqrshc(m,n,k,Q,ldq,R,ldr,i,j,w,rw)
         info = 7
     end if
     if (info /= 0) then
-        call xerbla('ZQRSHC',info)
+        call qrupdate_xerror('ZQRSHC',info)
         return
     end if
-
     if (i < j) then
         ! shift columns
         call zcopy(k,R(1,i),1,w,1)

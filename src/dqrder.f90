@@ -98,11 +98,12 @@
 !> \ingroup qrdecomp
 subroutine dqrder(m,n,Q,ldq,R,ldr,j,w)
   use iso_fortran_env
+  use qrupdate_error
     integer, intent(in) :: m, n, j, ldq, ldr
     real(real64), intent(inout) :: Q(ldq,*)
     real(real64), intent(inout) :: R(ldr,*)
     real(real64), intent(out) :: w(*)
-    external xerbla,dcopy,dqrtv1,dqrot,dqrqh
+    external dcopy,dqrtv1,dqrot,dqrqh
     integer info,i,k
     ! quick return if possible.
     if (m == 1) return
@@ -114,7 +115,7 @@ subroutine dqrder(m,n,Q,ldq,R,ldr,j,w)
         info = 7
     end if
     if (info /= 0) then
-        call xerbla('DQRDER',info)
+        call qrupdate_xerror('DQRDER',info)
         return
     end if
     ! eliminate Q(j,2:m).

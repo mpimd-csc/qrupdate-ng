@@ -102,16 +102,16 @@
 !> \ingroup choldecomp
 subroutine cchinx(n,R,ldr,j,u,rw,info)
   use iso_fortran_env
+  use qrupdate_error
     integer, intent(in) :: n, j, ldr
     integer, intent(out) :: info
     complex(real32), intent(inout) :: R(ldr,*)
     complex(real32), intent(inout) :: u(*)
     real(real32), intent(out) :: rw(*)
-    external xerbla,ccopy,scnrm2,ctrsv,cqrtv1,cqrqh
+    external ccopy,scnrm2,ctrsv,cqrtv1,cqrqh
     complex(real32) t
     real(real32) scnrm2,rho
     integer i
-
     ! check arguments
     info = 0
     if (n < 0) then
@@ -120,10 +120,9 @@ subroutine cchinx(n,R,ldr,j,u,rw,info)
         info = -4
     end if
     if (info /= 0) then
-        call xerbla('CCHINX',info)
+        call qrupdate_xerror('CCHINX',info)
         return
     end if
-
     ! shift vector.
     t = u(j)
     do i = j,n
@@ -131,7 +130,6 @@ subroutine cchinx(n,R,ldr,j,u,rw,info)
     end do
     ! the diagonal element must be real.
     if (imag(t) /= 0e0) goto 30
-
     ! check for singularity of R.
     do i = 1,n
         if (R(i,i) == 0e0) goto 20
