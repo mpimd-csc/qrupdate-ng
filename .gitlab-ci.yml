@@ -4,7 +4,7 @@ stages:
 build-ubuntu:
   parallel:
     matrix:
-      - UBUNTU_VERSION: [ "focal", "jammy", "noble", "resolute" ]
+      - UBUNTU_VERSION: [ "jammy", "noble", "resolute" ]
   stage: build
   image: ${CI_REGISTRY_IMAGE}/ubuntu:${UBUNTU_VERSION}
   script:
@@ -17,7 +17,7 @@ build-ubuntu:
 build-ubuntu-fpm:
   parallel:
     matrix:
-      - UBUNTU_VERSION: [ "focal", "jammy", "noble", "resolute" ]
+      - UBUNTU_VERSION: [ "jammy", "noble", "resolute" ]
   stage: build
   image: ${CI_REGISTRY_IMAGE}/ubuntu:${UBUNTU_VERSION}
   script:

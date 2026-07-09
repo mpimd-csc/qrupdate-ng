@@ -2,7 +2,7 @@
 
 ## Upcoming Version
 
-* Require at least CMake 3.15
+* Require at least CMake 3.18
 * Documentation rewrite. Now, we use proper doxygen.
 * Convert to free form Fortran
 * Add code coverage builds

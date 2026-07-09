@@ -10,7 +10,7 @@ The library requires a Fortran 90/95 compiler, BLAS, and LAPACK. The following
 compilers and BLAS/LAPACK implementations are tested under Linux. Other
 operating systems, which are supported by CMAKE, should work as well.
 
-**Required CMake Version:** 3.16
+**Required CMake Version:** 3.18
 
 Tested Fortran compilers:
 
