@@ -20,6 +20,7 @@
 !
 ! This module contains the (c/z)dot(u/c) replacements to obtain a
 ! Fortran (gfortran/flang) ABI invariant implementation.
+! Furthermore, I provides the interface to LAPACK's xerbla.
 !
 module qrupdate_blas
     use iso_fortran_env
@@ -61,4 +62,10 @@ module qrupdate_blas
         end subroutine qrupdate_zdotu
     end interface
 
+    interface
+        subroutine xerbla( srname, info )
+            character*(*), intent(in) :: srname
+            integer, intent(in) ::  info
+        end subroutine
+    end interface
 end module qrupdate_blas
