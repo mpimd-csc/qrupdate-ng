@@ -147,6 +147,7 @@ subroutine dqr1up(m,n,k,Q,ldq,R,ldr,u,v,w)
     end if
 
     full = k == m
+    ru = 1.0D0
     ! in the non-full case, we shall need the norm of u.
     if (.not.full) ru = dnrm2(m,u,1)
     ! form Q'*u. In the non-full case, form also u - Q*Q'u.

@@ -114,12 +114,13 @@
 !> \ingroup qrdecomp
 subroutine cqrinc(m,n,k,Q,ldq,R,ldr,j,x,rw)
   use iso_fortran_env
+  use qrupdate_blas
     integer, intent(in) :: m, n, k, ldq, ldr, j
     complex(real32), intent(inout) :: Q(ldq,*), R(ldr,*)
     complex(real32), intent(in) :: x(*)
     real(real32), intent(out) :: rw(*)
     external cgqvec, cqrtv1,cqrqh,cqrot
-    external xerbla,ccopy,qrupdate_cdotc,caxpy,csscal,scnrm2
+    external xerbla,ccopy,caxpy,csscal,scnrm2
     real(real32) scnrm2,rx
     integer info,i,k1
     logical full

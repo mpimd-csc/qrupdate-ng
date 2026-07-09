@@ -80,11 +80,12 @@
 !>
 !> \ingroup qrdecomp
 subroutine cgqvec(m,n,Q,ldq,u)
-  use iso_fortran_env
+    use iso_fortran_env
+    use qrupdate_blas
     integer, intent(in) :: m, n, ldq
     complex(real32), intent(in) :: Q(ldq,*)
     complex(real32), intent(out) :: u(*)
-    external xerbla,qrupdate_cdotu,caxpy,scnrm2,csscal
+    external xerbla, caxpy,scnrm2,csscal
     real(real32) scnrm2,r
     complex(real32) rc
     integer info,i,j

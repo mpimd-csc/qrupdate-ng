@@ -106,7 +106,7 @@ subroutine schinx(n,R,ldr,j,u,w,info)
     real(real32), intent(out) :: w(*)
     integer, intent(out) :: info
     external xerbla,scopy,snrm2,strsv,sqrtv1,sqrqh
-    real(real32) snrm2,rho,t,rr
+    real(real32) snrm2,rho,t
     integer i
 
     ! check arguments

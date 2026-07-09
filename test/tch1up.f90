@@ -40,8 +40,9 @@ program tch1up
 end program
 
 subroutine stest(n)
+    use iso_fortran_env
     integer n
-    real A(n,n),R(n,n),u(n),wrk(n)
+    real(real32) A(n,n),R(n,n),u(n),wrk(n)
     external srandg,schgen,ssyr,sch1up,schchk
     ! set up random matrix & vectors
     call srandg(n,n,A,n)
@@ -58,8 +59,9 @@ subroutine stest(n)
 end subroutine
 
 subroutine dtest(n)
+    use iso_fortran_env
     integer n
-    double precision A(n,n),R(n,n),u(n),wrk(n)
+    real(real64) A(n,n),R(n,n),u(n),wrk(n)
     external drandg,dchgen,dsyr,dch1up,dchchk
     ! set up random matrix & vectors
     call drandg(n,n,A,n)
@@ -76,9 +78,10 @@ subroutine dtest(n)
 end subroutine
 
 subroutine ctest(n)
+    use iso_fortran_env
     integer n
-    complex A(n,n),R(n,n),u(n)
-    real rwrk(n)
+    complex(real32) A(n,n),R(n,n),u(n)
+    real(real32) rwrk(n)
     external crandg,cchgen,cher,cch1up,cchchk
     ! set up random matrix & vectors
     call crandg(n,n,A,n)
@@ -95,9 +98,10 @@ subroutine ctest(n)
 end subroutine
 
 subroutine ztest(n)
+    use iso_fortran_env
     integer n
-    double complex A(n,n),R(n,n),u(n)
-    double precision rwrk(n)
+    complex(real64) A(n,n),R(n,n),u(n)
+    real(real64) rwrk(n)
     external zrandg,zchgen,zher,zch1up,zchchk
     ! set up random matrix & vectors
     call zrandg(n,n,A,n)

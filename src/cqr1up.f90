@@ -121,7 +121,8 @@
 !>
 !> \ingroup qrdecomp
 subroutine cqr1up(m,n,k,Q,ldq,R,ldr,u,v,w,rw)
-  use iso_fortran_env
+    use iso_fortran_env
+    use qrupdate_blas
     integer, intent(in) :: m, n, k, ldq, ldr
     complex(real32), intent(inout) :: Q(ldq,*)
     complex(real32), intent(inout) :: R(ldr,*)
@@ -130,7 +131,7 @@ subroutine cqr1up(m,n,k,Q,ldq,R,ldr,u,v,w,rw)
     complex(real32), intent(out) :: w(*)
     real(real32), intent(out) :: rw(*)
     external xerbla, cch1up, cqrqh,cqhqr,cqrot,cqrtv1,caxcpy
-    external caxpy,qrupdate_cdotc,scnrm2,slamch,csscal,crot
+    external caxpy,scnrm2,slamch,csscal,crot
     real(real32) scnrm2,slamch,ru,ruu
     integer info,i
     logical full
@@ -155,6 +156,7 @@ subroutine cqr1up(m,n,k,Q,ldq,R,ldr,u,v,w,rw)
     end if
 
     full = k == m
+    ru = 1.0
     ! in the non-full case, we shall need the norm of u.
     if (.not.full) ru = scnrm2(m,u,1)
     ! form Q'*u. In the non-full case, form also u - Q*Q'u.

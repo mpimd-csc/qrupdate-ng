@@ -53,8 +53,9 @@ program tlu1up
 end program
 
 subroutine stest(m,n)
+    use iso_fortran_env
     integer m,n
-    real A(m,n),L(m,min(m,n)),R(min(m,n),n),u(m),v(n)
+    real(real32) A(m,n),L(m,min(m,n)),R(min(m,n),n),u(m),v(n)
     external srandg,slugen,sger,slu1up,sluchk
     integer k
     ! set up random matrix & vectors
@@ -74,8 +75,9 @@ subroutine stest(m,n)
 end subroutine
 
 subroutine dtest(m,n)
+    use iso_fortran_env
     integer m,n
-    double precision A(m,n),L(m,min(m,n)),R(min(m,n),n),u(m),v(n)
+    real(real64) A(m,n),L(m,min(m,n)),R(min(m,n),n),u(m),v(n)
     external drandg,dlugen,dger,dlu1up,dluchk
     integer k
     ! set up random matrix & vectors
@@ -95,8 +97,9 @@ subroutine dtest(m,n)
 end subroutine
 
 subroutine ctest(m,n)
+    use iso_fortran_env
     integer m,n
-    complex A(m,n),L(m,min(m,n)),R(min(m,n),n),u(m),v(n)
+    complex(real32) A(m,n),L(m,min(m,n)),R(min(m,n),n),u(m),v(n)
     external crandg,clugen,cgeru,clu1up,cluchk
     integer k
     ! set up random matrix & vectors
@@ -116,8 +119,9 @@ subroutine ctest(m,n)
 end subroutine
 
 subroutine ztest(m,n)
+    use iso_fortran_env
     integer m,n
-    double complex A(m,n),L(m,min(m,n)),R(min(m,n),n),u(m),v(n)
+    complex(real64) A(m,n),L(m,min(m,n)),R(min(m,n),n),u(m),v(n)
     external zrandg,zlugen,zgeru,zlu1up,zluchk
     integer k
     ! set up random matrix & vectors

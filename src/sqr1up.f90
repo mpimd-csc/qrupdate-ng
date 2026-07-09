@@ -146,6 +146,7 @@ subroutine sqr1up(m,n,k,Q,ldq,R,ldr,u,v,w)
 
     full = k == m
     ! in the non-full case, we shall need the norm of u.
+    ru = 1.0
     if (.not.full) ru = snrm2(m,u,1)
     ! form Q'*u. In the non-full case, form also u - Q*Q'u.
     do i = 1,k
