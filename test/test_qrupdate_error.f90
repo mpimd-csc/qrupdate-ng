@@ -17,23 +17,6 @@
 ! <http://www.gnu.org/licenses/>.
 !
 
-module test_state
-    implicit none
-    logical :: xerbla_called = .false.
-    logical :: custom_handler_called = .false.
-    character(len=64) :: last_srname = ''
-    integer :: last_info = 0
-    integer :: call_count = 0
-contains
-    subroutine reset()
-        xerbla_called = .false.
-        custom_handler_called = .false.
-        last_srname = ''
-        last_info = 0
-        call_count = 0
-    end subroutine reset
-end module test_state
-
 module test_aux
     implicit none
     type :: aux_data

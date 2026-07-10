@@ -1,4 +1,4 @@
-SET(UTILS_SRC utils.f90)
+SET(UTILS_SRC utils.f90 test_state.f90)
 
 ADD_LIBRARY(utils STATIC ${UTILS_SRC})
 target_link_libraries(utils PUBLIC qrupdate)
@@ -20,6 +20,7 @@ SET(TEST_PRGM
     tqrshc
 
     test_qrupdate_error
+    test_qrupdate_validation
     )
 
 
