@@ -31,7 +31,7 @@ module qrupdate_error
         subroutine error_handler_if(srname, info, aux)
             character(len=*), intent(in) :: srname
             integer, intent(in) :: info
-            class(*), intent(in) :: aux
+            class(*), optional, intent(in) :: aux
         end subroutine error_handler_if
     end interface
 
