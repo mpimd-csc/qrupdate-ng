@@ -68,4 +68,40 @@ module qrupdate_blas
             integer, intent(in) ::  info
         end subroutine
     end interface
+
+contains
+
+    function lsame( ca, cb )
+        character, intent(in) :: ca, cb
+        logical :: lsame
+        integer :: inta, intb, zcode
+
+        lsame = ca == cb
+        if ( lsame ) return
+
+        zcode = ichar( 'Z' )
+        inta = ichar( ca )
+        intb = ichar( cb )
+
+        if ( zcode == 90 .or. zcode == 122 ) then
+            ! ASCII
+            if ( inta >= 97 .and. inta <= 122 ) inta = inta - 32
+            if ( intb >= 97 .and. intb <= 122 ) intb = intb - 32
+        else if ( zcode == 233 .or. zcode == 169 ) then
+            ! EBCDIC
+            if ( ( inta >= 129 .and. inta <= 137 ) .or. &
+                 ( inta >= 145 .and. inta <= 153 ) .or. &
+                 ( inta >= 162 .and. inta <= 169 ) ) inta = inta + 64
+            if ( ( intb >= 129 .and. intb <= 137 ) .or. &
+                 ( intb >= 145 .and. intb <= 153 ) .or. &
+                 ( intb >= 162 .and. intb <= 169 ) ) intb = intb + 64
+        else if ( zcode == 218 .or. zcode == 250 ) then
+            ! ASCII on Prime machines
+            if ( inta >= 225 .and. inta <= 250 ) inta = inta - 32
+            if ( intb >= 225 .and. intb <= 250 ) intb = intb - 32
+        end if
+
+        lsame = inta == intb
+    end function lsame
+
 end module qrupdate_blas

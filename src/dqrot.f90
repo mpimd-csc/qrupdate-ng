@@ -100,13 +100,14 @@
 subroutine dqrot(dir,m,n,Q,ldq,c,s)
     use iso_fortran_env
     use qrupdate_error
+    use qrupdate_blas
     character, intent(in) :: dir
     integer, intent(in) :: m, n, ldq
     real(real64), intent(inout) :: Q(ldq,*)
     real(real64), intent(in) :: c(*)
     real(real64), intent(in) :: s(*)
-    external  drot,lsame
-    logical lsame,fwd
+    external  drot
+    logical fwd
     integer info,i
     ! quick return if possible.
     if (m == 0 .or. n == 0 .or. n == 1) return

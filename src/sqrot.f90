@@ -100,13 +100,14 @@
 subroutine sqrot(dir,m,n,Q,ldq,c,s)
     use iso_fortran_env
     use qrupdate_error
+    use qrupdate_blas
     character, intent(in) :: dir
     integer, intent(in) :: m, n, ldq
     real(real32), intent(inout) :: Q(ldq,*)
     real(real32), intent(in) :: c(*)
     real(real32), intent(in) :: s(*)
-    external  srot,lsame
-    logical lsame,fwd
+    external  srot
+    logical fwd
     integer info,i
     ! quick return if possible.
     if (m == 0 .or. n == 0 .or. n == 1) return
