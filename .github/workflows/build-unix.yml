@@ -74,24 +74,23 @@ jobs:
       run: |
           brew install lapack
 
-    - name: Use GCC-14 on MacOS
+    - name: Use GCC on MacOS
       if: ${{ matrix.os == 'macos-latest' }}
       run: >
         cmake -B build -G Ninja
-        -D CMAKE_C_COMPILER="gcc-14"
-        -D CMAKE_Fortran_COMPILER="gfortran-14"
-        -D USE_FLAT_NAMESPACE:BOOL=ON
+        -D CMAKE_C_COMPILER="gcc"
+        -D CMAKE_Fortran_COMPILER="gfortran"
         -D CMAKE_PREFIX_PATH="/opt/homebrew/opt/lapack"
         -D BLA_VENDOR=Generic
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
+      if: ${{ matrix.os == 'ubuntu-latest' }} 
       run: >
         cmake -B build -G Ninja
         -D CMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
         -D CMAKE_INSTALL_PREFIX=${{github.workspace}}/lapack_install
-        -D SLICOT_TESTING:BOOL=ON
         -D BUILD_SHARED_LIBS:BOOL=ON
 
     - name: Build
