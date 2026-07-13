@@ -122,7 +122,7 @@ subroutine cgqvec(m,n,Q,ldq,u)
         u(j) = 1e0
         ! form u - Q*Q'*u
         do i = 1,n
-            call qrupdate_cdotu(rc, m,Q(1,i),1,u,1)
+            call qrupdate_cdotc(rc, m,Q(1,i),1,u,1)
             call caxpy(m,-rc,Q(1,i),1,u,1)
         end do
         r = scnrm2(m,u,1)

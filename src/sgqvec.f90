@@ -128,7 +128,7 @@ subroutine sgqvec(m,n,Q,ldq,u)
             j = j + 1
             if (j > n) then
                 ! this is fatal, and in theory, it can't happen.
-                stop 'fatal: impossible condition in DGQVEC'
+                stop 'fatal: impossible condition in SGQVEC'
             end if
         end if
     end do

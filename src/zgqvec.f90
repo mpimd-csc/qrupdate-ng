@@ -122,7 +122,7 @@ subroutine zgqvec(m,n,Q,ldq,u)
         u(j) = 1d0
         ! form u - Q*Q'*u
         do i = 1,n
-            call qrupdate_zdotu(rc, m,Q(1,i),1,u,1)
+            call qrupdate_zdotc(rc, m,Q(1,i),1,u,1)
             call zaxpy(m,-rc,Q(1,i),1,u,1)
         end do
         r = dznrm2(m,u,1)

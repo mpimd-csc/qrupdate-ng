@@ -21,6 +21,7 @@ SET(TEST_PRGM
 
     test_qrupdate_error
     test_qrupdate_validation
+    tgqvec
     )
 
 
