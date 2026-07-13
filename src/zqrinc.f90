@@ -115,12 +115,13 @@
 subroutine zqrinc(m,n,k,Q,ldq,R,ldr,j,x,rw)
     use iso_fortran_env
     use qrupdate_blas
+    use qrupdate_error
     integer, intent(in) :: m, n, k, ldq, ldr, j
     complex(real64), intent(inout) :: Q(ldq,*), R(ldr,*)
     complex(real64), intent(in) :: x(*)
     real(real64), intent(out) :: rw(*)
     external zqrtv1,zqrqh,zqrot,zgqvec
-    external xerbla,zcopy,zaxpy,zdscal,dznrm2
+    external zcopy,zaxpy,zdscal,dznrm2
     real(real64) dznrm2,rx
     integer info,i,k1
     logical full
@@ -142,10 +143,9 @@ subroutine zqrinc(m,n,k,Q,ldq,R,ldr,j,x,rw)
         info = 8
     end if
     if (info /= 0) then
-        call xerbla('ZQRINC',info)
+        call qrupdate_xerror('ZQRINC',info)
         return
     end if
-
     full = k == m
     ! insert empty column at j-th position
     do i = n,j,-1

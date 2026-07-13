@@ -105,11 +105,12 @@
 !> \ingroup qrdecomp
 subroutine zqrder(m,n,Q,ldq,R,ldr,j,w,rw)
   use iso_fortran_env
+  use qrupdate_error
     integer, intent(in) :: m, n, ldq, ldr, j
     complex(real64), intent(inout) :: Q(ldq,*), R(ldr,*)
     complex(real64), intent(out) :: w(*)
     real(real64), intent(out) :: rw(*)
-    external xerbla,zcopy,zqrtv1,zqrot,zqrqh
+    external zcopy,zqrtv1,zqrot,zqrqh
     integer info,i,k
     ! quick return if possible.
     if (m == 1) return
@@ -121,7 +122,7 @@ subroutine zqrder(m,n,Q,ldq,R,ldr,j,w,rw)
         info = 7
     end if
     if (info /= 0) then
-        call xerbla('ZQRDER',info)
+        call qrupdate_xerror('ZQRDER',info)
         return
     end if
     ! eliminate Q(j,2:m).

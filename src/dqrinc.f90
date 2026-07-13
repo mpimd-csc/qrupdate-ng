@@ -114,13 +114,14 @@
 !> \ingroup qrdecomp
 subroutine dqrinc(m,n,k,Q,ldq,R,ldr,j,x,w)
   use iso_fortran_env
+  use qrupdate_error
     integer, intent(in) :: m, n, k, ldq, ldr, j
     real(real64), intent(inout) :: Q(ldq,*)
     real(real64), intent(inout) :: R(ldr,*)
     real(real64), intent(in) :: x(*)
     real(real64), intent(out) :: w(*)
     external dqrtv1,dqrqh,dqrot,dgqvec
-    external xerbla,dcopy,ddot,daxpy,dscal,dnrm2
+    external dcopy,ddot,daxpy,dscal,dnrm2
     real(real64) ddot,dnrm2,rx
     integer info,i,k1
     logical full
@@ -142,10 +143,9 @@ subroutine dqrinc(m,n,k,Q,ldq,R,ldr,j,x,w)
         info = 8
     end if
     if (info /= 0) then
-        call xerbla('DQRINC',info)
+        call qrupdate_xerror('DQRINC',info)
         return
     end if
-
     full = k == m
     ! insert empty column at j-th position.
     do i = n,j,-1

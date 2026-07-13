@@ -89,10 +89,11 @@
 !> \ingroup choldecomp
 subroutine schshx(n,R,ldr,i,j,w)
   use iso_fortran_env
+  use qrupdate_error
     integer, intent(in) :: n, ldr, i, j
     real(real32), intent(inout) :: R(ldr,*)
     real(real32), intent(out) :: w(*)
-    external xerbla,scopy,sqrtv1,sqrqh,sqhqr
+    external scopy,sqrtv1,sqrqh,sqhqr
     integer info,l
     ! quick return if possible.
     if (n == 0 .or. n == 1) return
@@ -106,10 +107,9 @@ subroutine schshx(n,R,ldr,i,j,w)
         info = 5
     end if
     if (info /= 0) then
-        call xerbla('SCHSHX',info)
+        call qrupdate_xerror('SCHSHX',info)
         return
     end if
-
     if (i < j) then
         ! shift columns
         call scopy(n,R(1,i),1,w,1)

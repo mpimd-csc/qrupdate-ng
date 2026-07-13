@@ -98,10 +98,11 @@
 !> \ingroup qrdecomp
 subroutine sqrder(m,n,Q,ldq,R,ldr,j,w)
   use iso_fortran_env
+  use qrupdate_error
     integer, intent(in) :: m, n, j, ldq, ldr
     real(real32), intent(inout) :: Q(ldq,*), R(ldr,*)
     real(real32), intent(out) :: w(*)
-    external xerbla,scopy,sqrtv1,sqrot,sqrqh
+    external scopy,sqrtv1,sqrot,sqrqh
     integer info,i,k
     ! quick return if possible.
     if (m == 1) return
@@ -113,7 +114,7 @@ subroutine sqrder(m,n,Q,ldq,R,ldr,j,w)
         info = 7
     end if
     if (info /= 0) then
-        call xerbla('SQRDER',info)
+        call qrupdate_xerror('SQRDER',info)
         return
     end if
     ! eliminate Q(j,2:m).

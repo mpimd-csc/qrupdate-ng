@@ -80,15 +80,14 @@
 !> \ingroup choldecomp
 subroutine cchdex(n,R,ldr,j,rw)
   use iso_fortran_env
+  use qrupdate_error
     integer, intent(in) :: n, ldr, j
     complex(real32), intent(inout) :: R(ldr,*)
     real(real32), intent(out) :: rw(*)
     integer info,i
-    external xerbla,ccopy,cqhqr
-
+    external ccopy,cqhqr
     ! quick return if possible.
     if (n == 1) return
-
     ! check arguments
     info = 0
     if (n < 0) then
@@ -97,10 +96,9 @@ subroutine cchdex(n,R,ldr,j,rw)
         info = 4
     end if
     if (info /= 0) then
-        call xerbla('CCHDEX',info)
+        call qrupdate_xerror('CCHDEX',info)
         return
     end if
-
     ! delete the j-th column.
     do i = j,n-1
         call ccopy(n,R(1,i+1),1,R(1,i),1)

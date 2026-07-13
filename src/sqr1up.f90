@@ -115,11 +115,12 @@
 !> \ingroup qrdecomp
 subroutine sqr1up(m,n,k,Q,ldq,R,ldr,u,v,w)
   use iso_fortran_env
+  use qrupdate_error
     integer, intent(in) :: m, n, k, ldq, ldr
     real(real32), intent(inout) :: Q(ldq,*), R(ldr,*)
     real(real32), intent(inout) :: u(*), v(*)
     real(real32), intent(out) :: w(*)
-    external sqrqh,sqhqr,sqrot,sqrtv1, xerbla, sch1up
+    external sqrqh,sqhqr,sqrot,sqrtv1,sch1up
     external saxpy,sdot,snrm2,slamch,sscal,srot
     real(real32) sdot,snrm2,slamch,ru,ruu
     integer info,i
@@ -140,10 +141,9 @@ subroutine sqr1up(m,n,k,Q,ldq,R,ldr,u,v,w)
         info = 7
     endif
     if (info /= 0) then
-        call xerbla('SQR1UP',info)
+        call qrupdate_xerror('SQR1UP',info)
         return
     end if
-
     full = k == m
     ! in the non-full case, we shall need the norm of u.
     ru = 1.0

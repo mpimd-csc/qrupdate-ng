@@ -100,15 +100,15 @@
 !> \ingroup choldecomp
 subroutine dchinx(n,R,ldr,j,u,w,info)
   use iso_fortran_env
+  use qrupdate_error
     integer, intent(in) :: n, j, ldr
     integer, intent(out) :: info
     real(real64), intent(inout) :: R(ldr,*)
     real(real64), intent(inout) :: u(*)
     real(real64), intent(out) :: w(*)
-    external xerbla,dcopy,dnrm2,dtrsv,dqrtv1,dqrqh
+    external dcopy,dnrm2,dtrsv,dqrtv1,dqrqh
     real(real64) dnrm2,rho,t
     integer i
-
     ! check arguments
     info = 0
     if (n < 0) then
@@ -117,16 +117,14 @@ subroutine dchinx(n,R,ldr,j,u,w,info)
         info = -4
     end if
     if (info /= 0) then
-        call xerbla('DCHINX',-info)
+        call qrupdate_xerror('DCHINX',-info)
         return
     end if
-
     ! shift vector.
     t = u(j)
     do i = j,n
         u(i) = u(i+1)
     end do
-
     ! check for singularity of R.
     do i = 1,n
         if (R(i,i) == 0d0) goto 20

@@ -107,10 +107,11 @@
 !> \ingroup qrdecomp
 subroutine sqrdec(m,n,k,Q,ldq,R,ldr,j,w)
   use iso_fortran_env
+  use qrupdate_error
     integer, intent(in) :: m, n, k, ldq, ldr, j
     real(real32), intent(inout) :: Q(ldq,*), R(ldr,*)
     real(real32), intent(out) :: w(*)
-    external xerbla,scopy,sqhqr,sqrot
+    external scopy,sqhqr,sqrot
     integer info,i
     ! quick return if possible.
     if (m == 0 .or. n == 0 .or. j == n) return
@@ -130,10 +131,9 @@ subroutine sqrdec(m,n,k,Q,ldq,R,ldr,j,w)
         info = 8
     end if
     if (info /= 0) then
-        call xerbla('SQRDEC',info)
+        call qrupdate_xerror('SQRDEC',info)
         return
     end if
-
     ! delete the j-th column.
     do i = j,n-1
         call scopy(k,R(1,i+1),1,R(1,i),1)

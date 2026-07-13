@@ -98,11 +98,12 @@
 !> \ingroup choldecomp
 subroutine zchshx(n,R,ldr,i,j,w,rw)
   use iso_fortran_env
+  use qrupdate_error
     integer, intent(in) :: n, ldr, i, j
     complex(real64), intent(inout) :: R(ldr,*)
     complex(real64), intent(out) :: w(*)
     real(real64), intent(out) :: rw(*)
-    external xerbla,zcopy,zqrtv1,zqrqh,zqhqr
+    external zcopy,zqrtv1,zqrqh,zqhqr
     integer info,l
     ! quick return if possible.
     if (n == 0 .or. n == 1) return
@@ -116,10 +117,9 @@ subroutine zchshx(n,R,ldr,i,j,w,rw)
         info = 5
     end if
     if (info /= 0) then
-        call xerbla('ZCHSHX',info)
+        call qrupdate_xerror('ZCHSHX',info)
         return
     end if
-
     if (i < j) then
         ! shift columns
         call zcopy(n,R(1,i),1,w,1)

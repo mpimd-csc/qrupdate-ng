@@ -1,24 +1,38 @@
 /**
 
 \defgroup qrdecomp QR Decomposition
-Routines for the computation and efficient updating of the QR factorization of a matrix.
+\brief Routines for the computation and efficient updating of the QR factorization of a matrix.
+
 This group provides routines for modifying the original matrix via rank-1 updates, row/column insertions, deletions, or shifts, and updating the corresponding orthogonal matrix Q and upper trapezoidal matrix R without recomputing the entire decomposition from scratch. It supports both full and economized QR factorizations and relies on Givens rotations for maintaining the triangular structure of the R matrix.
 
 \defgroup choldecomp Cholesky Decomposition
-Routines for the Cholesky factorization of symmetric positive definite matrices and their updates.
+\brief Routines for the Cholesky factorization of symmetric positive definite matrices and their updates.
+
 This group implements methods to update the Cholesky factorization after matrix modifications, including rank-1 updates, downdates, and symmetric updates for column/row insertion, deletion, and circular shifts. The updates use Givens rotations to restore the upper triangular form of the factor.
 
 \defgroup ludecomp LU Decomposition
-Routines for updating the LU factorization of a matrix after a rank-1 modification.
+\brief Routines for updating the LU factorization of a matrix after a rank-1 modification.
+
 This group provides both standard LU updates and pivoted LU updates (handling row permutations for stability). The updates are implemented using the Bennett algorithm, which is significantly more efficient than full re-decomposition.
 
 \defgroup aux Auxilliary Subroutines
-Collection of helper routines for basic linear algebra and specialized vector operations.
+\brief Collection of helper routines for basic linear algebra and specialized vector operations.
+
 This group provides utilities that fill gaps in standard BLAS implementations or provide specialized operations required by the library, such as scaled conjugate vector addition (axcpy), which are used across the various decomposition update routines.
 
 \defgroup givens Givens Rotations
-Routines for the generation and application of Givens rotations.
+\brief Routines for the generation and application of Givens rotations.
+
 As a foundational component, this group implements the primary mechanism for maintaining triangular structures in the QR and Cholesky decompositions. It includes routines for generating rotation coefficients and applying rotations to matrices in both forward and backward orders.
+\ingroup aux
+
+\defgroup error Error Handling
+\brief Routines for error handling.
+
+Since qrupdate 1.2.0, the way of handling errors changed a bit. Instead of
+calling xerbla from LAPACK/BLAS, a user defined handler can registered. If this
+is not done, xerbla is called as before. See \ref qrupdate_set_error for
+details.
 \ingroup aux
 
 */

@@ -89,10 +89,11 @@
 !> \ingroup choldecomp
 subroutine dchshx(n,R,ldr,i,j,w)
   use iso_fortran_env
+  use qrupdate_error
     integer, intent(in) :: n, ldr, i, j
     real(real64), intent(inout) :: R(ldr,*)
     real(real64), intent(out) :: w(*)
-    external xerbla,dcopy,dqrtv1,dqrqh,dqhqr
+    external dcopy,dqrtv1,dqrqh,dqhqr
     integer info,l
     ! quick return if possible.
     if (n == 0 .or. n == 1) return
@@ -106,10 +107,9 @@ subroutine dchshx(n,R,ldr,i,j,w)
         info = 5
     end if
     if (info /= 0) then
-        call xerbla('DCHSHX',info)
+        call qrupdate_xerror('DCHSHX',info)
         return
     end if
-
     if (i < j) then
         ! shift columns
         call dcopy(n,R(1,i),1,w,1)

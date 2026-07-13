@@ -99,12 +99,13 @@
 !> \ingroup givens
 subroutine cqrot(dir,m,n,Q,ldq,c,s)
   use iso_fortran_env
+  use qrupdate_error
     character, intent(in) :: dir
     integer, intent(in) :: m, n, ldq
     complex(real32), intent(inout) :: Q(ldq,*)
     complex(real32), intent(in) :: s(*)
     real(real32), intent(in) :: c(*)
-    external xerbla,crot,lsame
+    external crot,lsame
     logical lsame,fwd
     integer info,i
     ! quick return if possible.
@@ -122,10 +123,9 @@ subroutine cqrot(dir,m,n,Q,ldq,c,s)
         info = 5
     end if
     if (info /= 0) then
-        call xerbla('CQROT',info)
+        call qrupdate_xerror('CQROT',info)
         return
     end if
-
     if (fwd) then
         do i = 1,n-1
             call crot(m,Q(1,i),1,Q(1,i+1),1,c(i),conjg(s(i)))

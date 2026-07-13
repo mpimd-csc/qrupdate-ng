@@ -115,6 +115,7 @@
 !> \ingroup ludecomp
 subroutine zlup1up(m,n,L,ldl,R,ldr,p,u,v,w)
   use iso_fortran_env
+  use qrupdate_error
     integer, intent(in) :: m, n, ldl, ldr
     integer, intent(inout) :: p(*)
     complex(real64), intent(inout) :: L(ldl,*), R(ldr,*)
@@ -124,8 +125,7 @@ subroutine zlup1up(m,n,L,ldl,R,ldr,p,u,v,w)
     real(real64) tau
     parameter (one = 1d0, tau = 1d-1)
     integer k,info,i,j,itmp
-    external xerbla,zcopy,zaxpy,ztrsv,zgeru,zgemv,zswap
-
+    external zcopy,zaxpy,ztrsv,zgeru,zgemv,zswap
     ! quick return if possible.
     k = min(m,n)
     if (k == 0) return
@@ -141,10 +141,9 @@ subroutine zlup1up(m,n,L,ldl,R,ldr,p,u,v,w)
         info = 6
     endif
     if (info /= 0) then
-        call xerbla('ZLUP1UP',info)
+        call qrupdate_xerror('ZLUP1UP',info)
         return
     end if
-
     ! form L \ P*u.
     do i = 1,m
         w(i) = u(p(i))
@@ -154,7 +153,6 @@ subroutine zlup1up(m,n,L,ldl,R,ldr,p,u,v,w)
     if (m > k) then
         call zgemv('N',m-k,k,-one,L(k+1,1),ldl,w,1,one,w(k+1),1)
     end if
-
     ! work from bottom to top
     do j = k-1,1,-1
         if (abs(w(j)) < tau * abs(L(j+1,j)*w(j) + w(j+1))) then
@@ -187,10 +185,8 @@ subroutine zlup1up(m,n,L,ldl,R,ldr,p,u,v,w)
         ! update L.
         call zaxpy(m-j,tmp,L(j+1,j+1),1,L(j+1,j),1)
     end do
-
     ! add a multiple of v to R
     call zaxpy(n,w(1),v,1,R(1,1),ldr)
-
     ! forward sweep
     do j = 1,k-1
         if (abs(R(j,j)) < tau * abs(L(j+1,j)*R(j,j) + R(j+1,j))) then
@@ -218,7 +214,6 @@ subroutine zlup1up(m,n,L,ldl,R,ldr,p,u,v,w)
         ! update L.
         call zaxpy(m-j,tmp,L(j+1,j+1),1,L(j+1,j),1)
     end do
-
     ! if m > k = n, complete the update by updating the lower part of L.
     if (m > k) then
         call zcopy(k,v,1,w,1)

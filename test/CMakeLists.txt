@@ -1,9 +1,8 @@
-SET(UTILS_SRC utils.f90)
+SET(UTILS_SRC utils.f90 test_state.f90)
 
 ADD_LIBRARY(utils STATIC ${UTILS_SRC})
 target_link_libraries(utils PUBLIC qrupdate)
 ADD_COVERAGE(utils)
-
 
 SET(TEST_PRGM
     tch1dn
@@ -19,6 +18,9 @@ SET(TEST_PRGM
     tqrinc
     tqrinr
     tqrshc
+
+    test_qrupdate_error
+    test_qrupdate_validation
     )
 
 
@@ -101,5 +103,6 @@ FOREACH(TEST_CODE ${TEST_PRGM})
             SET_TESTS_PROPERTIES(test_${TEST_CODE} PROPERTIES ENVIRONMENT "PATH=${ADDPATH}:$ENV{PATH}")
         ENDIF()
     ENDIF()
+
 ENDFOREACH()
 

@@ -82,10 +82,11 @@
 subroutine cgqvec(m,n,Q,ldq,u)
     use iso_fortran_env
     use qrupdate_blas
+    use qrupdate_error
     integer, intent(in) :: m, n, ldq
     complex(real32), intent(in) :: Q(ldq,*)
     complex(real32), intent(out) :: u(*)
-    external xerbla, caxpy,scnrm2,csscal
+    external caxpy,scnrm2,csscal
     real(real32) scnrm2,r
     complex(real32) rc
     integer info,i,j
@@ -108,10 +109,9 @@ subroutine cgqvec(m,n,Q,ldq,u)
         info = 4
     end if
     if (info /= 0) then
-        call xerbla('CGQVEC',info)
+        call qrupdate_xerror('CGQVEC',info)
         return
     end if
-
     j = 1
     r = 0e0
     do while( r .eq. 0e0 )

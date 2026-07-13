@@ -100,15 +100,15 @@
 !> \ingroup choldecomp
 subroutine schinx(n,R,ldr,j,u,w,info)
   use iso_fortran_env
+  use qrupdate_error
     integer, intent(in) :: n, j, ldr
     real(real32), intent(inout) :: R(ldr,*)
     real(real32), intent(inout) :: u(*)
     real(real32), intent(out) :: w(*)
     integer, intent(out) :: info
-    external xerbla,scopy,snrm2,strsv,sqrtv1,sqrqh
+    external scopy,snrm2,strsv,sqrtv1,sqrqh
     real(real32) snrm2,rho,t
     integer i
-
     ! check arguments
     info = 0
     if (n < 0) then
@@ -117,16 +117,14 @@ subroutine schinx(n,R,ldr,j,u,w,info)
         info = -4
     end if
     if (info /= 0) then
-        call xerbla('SCHINX',info)
+        call qrupdate_xerror('SCHINX',info)
         return
     end if
-
     ! shift vector.
     t = u(j)
     do i = j,n
         u(i) = u(i+1)
     end do
-
     ! check for singularity of R.
     do i = 1,n
         if (R(i,i) == 0e0) goto 20

@@ -123,11 +123,12 @@
 subroutine zqr1up(m,n,k,Q,ldq,R,ldr,u,v,w,rw)
     use iso_fortran_env
     use qrupdate_blas
+    use qrupdate_error
     integer, intent(in) :: m, n, k, ldq, ldr
     complex(real64), intent(inout) :: Q(ldq,*), R(ldr,*), u(*), v(*)
     complex(real64), intent(out) :: w(*)
     real(real64), intent(out) :: rw(*)
-    external zqrqh,zqhqr,zqrot,zqrtv1,zaxpy,zaxcpy,xerbla,zch1up
+    external zqrqh,zqhqr,zqrot,zqrtv1,zaxpy,zaxcpy, zch1up
     external dznrm2,dlamch,zdscal,zrot
     real(real64) dznrm2,dlamch,ru,ruu
     integer info,i
@@ -148,10 +149,9 @@ subroutine zqr1up(m,n,k,Q,ldq,R,ldr,u,v,w,rw)
         info = 7
     endif
     if (info /= 0) then
-        call xerbla('ZQR1UP',info)
+        call qrupdate_xerror('ZQR1UP',info)
         return
     end if
-
     full = k == m
     ru = 1.0d0
     ! in the non-full case, we shall need the norm of u.

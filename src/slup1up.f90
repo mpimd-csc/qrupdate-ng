@@ -115,6 +115,7 @@
 !> \ingroup ludecomp
 subroutine slup1up(m,n,L,ldl,R,ldr,p,u,v,w)
   use iso_fortran_env
+  use qrupdate_error
     integer, intent(in) :: m, n, ldl, ldr
     integer, intent(inout) :: p(*)
     real(real32), intent(inout) :: L(ldl,*), R(ldr,*)
@@ -123,8 +124,7 @@ subroutine slup1up(m,n,L,ldl,R,ldr,p,u,v,w)
     real(real32) one,tau,tmp
     parameter (one = 1e0, tau = 1e-1)
     integer k,info,i,j,itmp
-    external xerbla,scopy,saxpy,strsv,sger,sgemv,sswap
-
+    external scopy,saxpy,strsv,sger,sgemv,sswap
     ! quick return if possible.
     k = min(m,n)
     if (k == 0) return
@@ -140,10 +140,9 @@ subroutine slup1up(m,n,L,ldl,R,ldr,p,u,v,w)
         info = 6
     endif
     if (info /= 0) then
-        call xerbla('SLUP1UP',info)
+        call qrupdate_xerror('SLUP1UP',info)
         return
     end if
-
     ! form L \ P*u.
     do i = 1,m
         w(i) = u(p(i))
@@ -153,7 +152,6 @@ subroutine slup1up(m,n,L,ldl,R,ldr,p,u,v,w)
     if (m > k) then
         call sgemv('N',m-k,k,-one,L(k+1,1),ldl,w,1,one,w(k+1),1)
     end if
-
     ! work from bottom to top
     do j = k-1,1,-1
         if (abs(w(j)) < tau * abs(L(j+1,j)*w(j) + w(j+1))) then
@@ -186,10 +184,8 @@ subroutine slup1up(m,n,L,ldl,R,ldr,p,u,v,w)
         ! update L.
         call saxpy(m-j,tmp,L(j+1,j+1),1,L(j+1,j),1)
     end do
-
     ! add a multiple of v to R
     call saxpy(n,w(1),v,1,R(1,1),ldr)
-
     ! forward sweep
     do j = 1,k-1
         if (abs(R(j,j)) < tau * abs(L(j+1,j)*R(j,j) + R(j+1,j))) then
@@ -217,7 +213,6 @@ subroutine slup1up(m,n,L,ldl,R,ldr,p,u,v,w)
         ! update L.
         call saxpy(m-j,tmp,L(j+1,j+1),1,L(j+1,j),1)
     end do
-
     ! if m > k = n, complete the update by updating the lower part of L.
     if (m > k) then
         call scopy(k,v,1,w,1)

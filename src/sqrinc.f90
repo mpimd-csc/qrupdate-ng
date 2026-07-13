@@ -114,12 +114,13 @@
 !> \ingroup qrdecomp
 subroutine sqrinc(m,n,k,Q,ldq,R,ldr,j,x,w)
   use iso_fortran_env
+  use qrupdate_error
     integer, intent(in) :: m, n, k, ldq, ldr, j
     real(real32), intent(inout) :: Q(ldq,*), R(ldr,*)
     real(real32), intent(in) :: x(*)
     real(real32), intent(out) :: w(*)
     external sqrtv1,sqrqh,sqrot
-    external xerbla,scopy,sdot,saxpy,sscal,snrm2,sgqvec
+    external scopy,sdot,saxpy,sscal,snrm2,sgqvec
     real(real32) sdot,snrm2,rx
     integer info,i,k1
     logical full
@@ -141,10 +142,9 @@ subroutine sqrinc(m,n,k,Q,ldq,R,ldr,j,x,w)
         info = 8
     end if
     if (info /= 0) then
-        call xerbla('SQRINC',info)
+        call qrupdate_xerror('SQRINC',info)
         return
     end if
-
     full = k == m
     ! insert empty column at j-th position.
     do i = n,j,-1

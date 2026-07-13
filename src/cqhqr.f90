@@ -89,11 +89,12 @@
 !> \ingroup qrdecomp
 subroutine cqhqr(m,n,R,ldr,c,s)
   use iso_fortran_env
+  use qrupdate_error
     integer, intent(in) :: m, n, ldr
     complex(real32), intent(inout) :: R(ldr,*)
     real(real32), intent(out) :: c(*)
     complex(real32), intent(out) :: s(*)
-    external xerbla,clartg
+    external clartg
     complex(real32) t
     integer info,i,ii,j
     ! quick return if possible.
@@ -108,7 +109,7 @@ subroutine cqhqr(m,n,R,ldr,c,s)
         info = 4
     end if
     if (info /= 0) then
-        call xerbla('CQHQR',info)
+        call qrupdate_xerror('CQHQR',info)
         return
     end if
     do i = 1,n

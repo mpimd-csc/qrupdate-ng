@@ -105,12 +105,12 @@
 !> \ingroup ludecomp
 subroutine slu1up(m,n,L,ldl,R,ldr,u,v)
   use iso_fortran_env
+  use qrupdate_error
     integer, intent(in) :: m, n, ldl, ldr
     real(real32), intent(inout) :: L(ldl,*), R(ldr,*)
     real(real32), intent(inout) :: u(*), v(*)
     real(real32) ui,vi
     integer k,info,i,j
-    external xerbla
     ! quick return if possible.
     k = min(m,n)
     if (k == 0) return
@@ -126,10 +126,9 @@ subroutine slu1up(m,n,L,ldl,R,ldr,u,v)
         info = 6
     endif
     if (info /= 0) then
-        call xerbla('SLU1UP',info)
+        call qrupdate_xerror('SLU1UP',info)
         return
     end if
-
     ! The Bennett algorithm, modified for column-major access.
     ! The leading part.
     do i = 1,k
@@ -152,7 +151,6 @@ subroutine slu1up(m,n,L,ldl,R,ldr,u,v)
         u(i) = ui
         v(i) = vi
     end do
-
     ! Finish the trailing part of R if needed.
     do i = k+1,n
         vi = v(i)
