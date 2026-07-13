@@ -97,8 +97,8 @@
 !>
 !> \ingroup qrdecomp
 subroutine dqrder(m,n,Q,ldq,R,ldr,j,w)
-  use iso_fortran_env
-  use qrupdate_error
+    use iso_fortran_env
+    use qrupdate_error
     integer, intent(in) :: m, n, j, ldq, ldr
     real(real64), intent(inout) :: Q(ldq,*)
     real(real64), intent(inout) :: R(ldr,*)

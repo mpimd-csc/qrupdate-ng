@@ -78,8 +78,8 @@
 !>
 !> \ingroup choldecomp
 subroutine schdex(n,R,ldr,j,w)
-  use iso_fortran_env
-  use qrupdate_error
+    use iso_fortran_env
+    use qrupdate_error
     integer, intent(in) :: n, ldr, j
     real(real32), intent(inout) :: R(ldr,*)
     real(real32), intent(out) :: w(*)

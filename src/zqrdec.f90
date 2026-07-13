@@ -106,8 +106,8 @@
 !>
 !> \ingroup qrdecomp
 subroutine zqrdec(m,n,k,Q,ldq,R,ldr,j,rw)
-  use iso_fortran_env
-  use qrupdate_error
+    use iso_fortran_env
+    use qrupdate_error
     integer, intent(in) :: m, n, k, ldq, ldr, j
     complex(real64), intent(inout) :: Q(ldq,*), R(ldr,*)
     real(real64), intent(out) :: rw(*)

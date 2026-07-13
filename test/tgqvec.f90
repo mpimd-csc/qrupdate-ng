@@ -1,4 +1,4 @@
-! Copyright (C) 2026 Martin K&ouml;hler <koehlerm(AT)mpi-magdeburg.mpg.de>
+! Copyright (C) 2026 Martin Köhler <koehlerm(AT)mpi-magdeburg.mpg.de>
 !
 ! This file is part of qrupdate-ng.
 !

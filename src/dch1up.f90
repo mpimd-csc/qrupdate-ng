@@ -86,7 +86,7 @@
 !>
 !> \ingroup choldecomp
 subroutine dch1up(n,R,ldr,u,w)
-  use iso_fortran_env
+    use iso_fortran_env
     integer, intent(in) :: n, ldr
     real(real64), intent(inout) :: R(ldr,*)
     real(real64), intent(inout) :: u(*)

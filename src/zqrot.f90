@@ -98,8 +98,8 @@
 !>
 !> \ingroup givens
 subroutine zqrot(dir,m,n,Q,ldq,c,s)
-  use iso_fortran_env
-  use qrupdate_error
+    use iso_fortran_env
+    use qrupdate_error
     character, intent(in) :: dir
     integer, intent(in) :: m, n, ldq
     complex(real64), intent(inout) :: Q(ldq,*)

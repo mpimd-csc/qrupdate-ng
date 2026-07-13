@@ -87,8 +87,8 @@
 !>
 !> \ingroup qrdecomp
 subroutine sqhqr(m,n,R,ldr,c,s)
-  use iso_fortran_env
-  use qrupdate_error
+    use iso_fortran_env
+    use qrupdate_error
     integer, intent(in) :: m, n, ldr
     real(real32), intent(inout) :: R(ldr,*)
     real(real32), intent(in) :: c(*)

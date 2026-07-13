@@ -78,8 +78,8 @@
 !>
 !> \ingroup choldecomp
 subroutine dchdex(n,R,ldr,j,w)
-  use iso_fortran_env
-  use qrupdate_error
+    use iso_fortran_env
+    use qrupdate_error
     integer, intent(in) :: n, ldr, j
     real(real64), intent(inout) :: R(ldr,*)
     real(real64), intent(out) :: w(*)

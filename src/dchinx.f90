@@ -99,8 +99,8 @@
 !>
 !> \ingroup choldecomp
 subroutine dchinx(n,R,ldr,j,u,w,info)
-  use iso_fortran_env
-  use qrupdate_error
+    use iso_fortran_env
+    use qrupdate_error
     integer, intent(in) :: n, j, ldr
     integer, intent(out) :: info
     real(real64), intent(inout) :: R(ldr,*)

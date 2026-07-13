@@ -80,8 +80,8 @@
 !>
 !> \ingroup qrdecomp
 subroutine dgqvec(m,n,Q,ldq,u)
-  use iso_fortran_env
-  use qrupdate_error
+    use iso_fortran_env
+    use qrupdate_error
     integer, intent(in) :: m, n, ldq
     real(real64), intent(in) :: Q(ldq,*)
     real(real64), intent(out) :: u(*)

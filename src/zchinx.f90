@@ -101,8 +101,8 @@
 !>
 !> \ingroup choldecomp
 subroutine zchinx(n,R,ldr,j,u,rw,info)
-  use iso_fortran_env
-  use qrupdate_error
+    use iso_fortran_env
+    use qrupdate_error
     integer, intent(in) :: n, j, ldr
     complex(real64), intent(inout) :: R(ldr,*), u(*)
     real(real64), intent(out) :: rw(*)

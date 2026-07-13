@@ -95,8 +95,8 @@
 !>
 !> \ingroup choldecomp
 subroutine cch1dn(n,R,ldr,u,rw,info)
-  use iso_fortran_env
-  use qrupdate_error
+    use iso_fortran_env
+    use qrupdate_error
     integer, intent(in) :: n, ldr
     complex(real32), intent(inout) :: R(ldr,*)
     complex(real32), intent(inout) :: u(*)

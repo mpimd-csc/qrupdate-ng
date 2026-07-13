@@ -28,17 +28,17 @@ module qrupdate_error
     !> \brief Abstract interface for custom error handlers.
     !> \ingroup error
     abstract interface
-        subroutine error_handler_if(srname, info, aux)
-            character(len=*), intent(in) :: srname
-            integer, intent(in) :: info
-            class(*), optional, intent(in) :: aux
-        end subroutine error_handler_if
+    subroutine error_handler_if(srname, info, aux)
+        character(len=*), intent(in) :: srname
+        integer, intent(in) :: info
+    class(*), optional, intent(in) :: aux
+end subroutine error_handler_if
     end interface
 
     procedure(error_handler_if), pointer :: global_error_handler => null()
-    class(*), pointer :: global_error_aux => null()
+class(*), pointer :: global_error_aux => null()
 
-    private :: global_error_handler, global_error_aux
+private :: global_error_handler, global_error_aux
 contains
 
     !> \brief Sets the custom error handler.
@@ -63,36 +63,36 @@ contains
     !> \endverbatim
     !> \ingroup error
     subroutine qrupdate_set_error_data(p_aux)
-        class(*), pointer :: p_aux
-        global_error_aux => p_aux
-    end subroutine qrupdate_set_error_data
+    class(*), pointer :: p_aux
+    global_error_aux => p_aux
+end subroutine qrupdate_set_error_data
 
-    !> \brief Dispatches error reporting to the handler.
-    !>
-    !> This subroutine checks if a custom error handler has been set via
-    !> qrupdate_set_error. If so, it calls that handler with the provided
-    !> routine name, error code, and any set auxiliary data. Otherwise, it
-    !> falls back to the standard LAPACK xerbla routine.
-    !>
-    !> \param[in] srname
-    !> \verbatim
-    !>          srname is CHARACTER(LEN=*)
-    !>          The name of the routine that encountered the error.
-    !> \endverbatim
-    !> \param[in] info
-    !> \verbatim
-    !>          info is INTEGER
-    !>          The error code.
-    !> \endverbatim
-    !> \ingroup error
-    subroutine qrupdate_xerror(srname, info)
-        character(len=*), intent(in) :: srname
-        integer, intent(in) :: info
-        if (associated(global_error_handler)) then
-            call global_error_handler(srname, info, global_error_aux)
-        else
-            call xerbla(srname, info)
-        end if
-    end subroutine qrupdate_xerror
+!> \brief Dispatches error reporting to the handler.
+!>
+!> This subroutine checks if a custom error handler has been set via
+!> qrupdate_set_error. If so, it calls that handler with the provided
+!> routine name, error code, and any set auxiliary data. Otherwise, it
+!> falls back to the standard LAPACK xerbla routine.
+!>
+!> \param[in] srname
+!> \verbatim
+!>          srname is CHARACTER(LEN=*)
+!>          The name of the routine that encountered the error.
+!> \endverbatim
+!> \param[in] info
+!> \verbatim
+!>          info is INTEGER
+!>          The error code.
+!> \endverbatim
+!> \ingroup error
+subroutine qrupdate_xerror(srname, info)
+    character(len=*), intent(in) :: srname
+    integer, intent(in) :: info
+    if (associated(global_error_handler)) then
+        call global_error_handler(srname, info, global_error_aux)
+    else
+        call xerbla(srname, info)
+    end if
+end subroutine qrupdate_xerror
 
 end module qrupdate_error

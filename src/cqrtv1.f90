@@ -72,7 +72,7 @@
 !>
 !> \ingroup givens
 subroutine cqrtv1(n,u,w)
-  use iso_fortran_env
+    use iso_fortran_env
     integer, intent(in) :: n
     complex(real32), intent(inout) :: u(*)
     real(real32), intent(out) :: w(*)

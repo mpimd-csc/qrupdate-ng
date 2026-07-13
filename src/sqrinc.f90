@@ -113,8 +113,8 @@
 !>
 !> \ingroup qrdecomp
 subroutine sqrinc(m,n,k,Q,ldq,R,ldr,j,x,w)
-  use iso_fortran_env
-  use qrupdate_error
+    use iso_fortran_env
+    use qrupdate_error
     integer, intent(in) :: m, n, k, ldq, ldr, j
     real(real32), intent(inout) :: Q(ldq,*), R(ldr,*)
     real(real32), intent(in) :: x(*)

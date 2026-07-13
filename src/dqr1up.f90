@@ -114,8 +114,8 @@
 !>
 !> \ingroup qrdecomp
 subroutine dqr1up(m,n,k,Q,ldq,R,ldr,u,v,w)
-  use iso_fortran_env
-  use qrupdate_error
+    use iso_fortran_env
+    use qrupdate_error
     integer, intent(in) :: m, n, k, ldq, ldr
     real(real64), intent(inout) :: Q(ldq,*)
     real(real64), intent(inout) :: R(ldr,*)
