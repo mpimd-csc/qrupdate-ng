@@ -105,6 +105,31 @@ you can add `qrupdate-ng` as dependency by including the following in your
 qrupdate-ng = { git = "https://github.com/mpimd-csc/qrupdate-ng.git", branch = "main" }
 ```
 
+### CMake's FetchContent
+
+`qrupdate-ng` can be used with CMake's [FetchContent](https://cmake.org/cmake/help/latest/module/FetchContent.html)
+mechanism. Therefore just include
+```cmake
+FetchContent_Declare(
+        qrupdate
+        GIT_REPOSITORY https://github.com/mpimd-csc/qrupdate-ng.git
+        GIT_TAG        master # Or the tag of the desired version
+)
+
+FetchContent_MakeAvailable(qrupdate)
+```
+and link your targets agains `qrupdate::qrupdate`.
+
+### CPM Support
+
+[CPM](https://github.com/cpm-cmake/cpm.cmake) is a package manager on top of
+CMake's FetchContent mechnism. It simiplies the usage of `FetchContent`.
+Just include `CPM` and add `qrupdate-ng` using
+```cmake
+CPMAddPackage("gh:mpimd-csc/qrupdate-ng#master")
+```
+and link your targets agains `qrupdate::qrupdate`.
+
 
 ## Based on
 
