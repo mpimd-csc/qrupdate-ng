@@ -82,34 +82,68 @@ SET(SRC
     zqrtv1.f90
 )
 
+SET(ITARGETS)
+
 IF (TARGET lapack_missing)
-	ADD_LIBRARY(qrupdate ${SRC} $<TARGET_OBJECTS:lapack_missing>)
+    if (BUILD_SHARED_LIBS)
+        ADD_LIBRARY(qrupdate SHARED ${SRC} $<TARGET_OBJECTS:lapack_missing>)
+    endif()
+    if (BUILD_STATIC_LIBS)
+        ADD_LIBRARY(qrupdate_static STATIC ${SRC} $<TARGET_OBJECTS:lapack_missing>)
+    endif()
 ELSE()
-	ADD_LIBRARY(qrupdate ${SRC})
+    if (BUILD_SHARED_LIBS)
+        ADD_LIBRARY(qrupdate SHARED ${SRC})
+    endif()
+    if (BUILD_STATIC_LIBS)
+        ADD_LIBRARY(qrupdate_static STATIC ${SRC})
+    endif()
 ENDIF()
-TARGET_LINK_LIBRARIES(qrupdate LAPACK::LAPACK BLAS::BLAS)
-add_library(qrupdate::qrupdate ALIAS qrupdate)
-SET_PROPERTY(TARGET qrupdate PROPERTY VERSION ${PROJECT_VERSION})
-SET_PROPERTY(TARGET qrupdate PROPERTY SOVERSION ${PROJECT_VERSION_MAJOR})
 
-SET_TARGET_PROPERTIES(qrupdate PROPERTIES Fortran_MODULE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/fortran-modules")
+if (BUILD_SHARED_LIBS)
+    TARGET_LINK_LIBRARIES(qrupdate PRIVATE LAPACK::LAPACK BLAS::BLAS)
+    add_library(qrupdate::qrupdate ALIAS qrupdate)
+    SET_PROPERTY(TARGET qrupdate PROPERTY VERSION ${PROJECT_VERSION})
+    SET_PROPERTY(TARGET qrupdate PROPERTY SOVERSION ${PROJECT_VERSION_MAJOR})
 
-TARGET_INCLUDE_DIRECTORIES(qrupdate
-    PUBLIC
+    SET_TARGET_PROPERTIES(qrupdate PROPERTIES Fortran_MODULE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/fortran-modules")
+
+    TARGET_INCLUDE_DIRECTORIES(qrupdate
+        PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/fortran-modules>
         $<INSTALL_INTERFACE:include/qrupdate>
-)
+    )
 
+    ADD_COVERAGE(qrupdate)
+    list(APPEND ITARGETS qrupdate)
+endif()
 
+if (BUILD_STATIC_LIBS)
+    TARGET_LINK_LIBRARIES(qrupdate_static PRIVATE LAPACK::LAPACK BLAS::BLAS)
+    add_library(qrupdate::qrupdate_static ALIAS qrupdate_static)
 
+    SET_TARGET_PROPERTIES(qrupdate_static PROPERTIES Fortran_MODULE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/fortran-modules-static")
+    SET_TARGET_PROPERTIES(qrupdate_static PROPERTIES OUTPUT_NAME qrupdate)
+    TARGET_INCLUDE_DIRECTORIES(qrupdate_static
+        PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/fortran-modules-static>
+        $<INSTALL_INTERFACE:include/qrupdate>
+    )
+
+    list(APPEND ITARGETS qrupdate_static )
+    ADD_COVERAGE(qrupdate_static)
+endif()
+
+if (BUILD_SHARED_LIBS)
 INSTALL(DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/fortran-modules/" DESTINATION ${CMAKE_INSTALL_FULL_MODULEDIR} )
+else()
+INSTALL(DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/fortran-modules-static/" DESTINATION ${CMAKE_INSTALL_FULL_MODULEDIR} )
+endif()
 
-
-ADD_COVERAGE(qrupdate)
-
-INSTALL(TARGETS qrupdate
+INSTALL(TARGETS ${ITARGETS}
         EXPORT  qrupdatetargets
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
         )
+

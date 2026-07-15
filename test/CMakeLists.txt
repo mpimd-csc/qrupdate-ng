@@ -1,7 +1,13 @@
 SET(UTILS_SRC utils.f90 test_state.f90)
 
+IF (NOT BUILD_SHARED_LIBS)
+    SET(QRUPDATE_TARGET qrupdate::qrupdate_static)
+else()
+    SET(QRUPDATE_TARGET qrupdate::qrupdate)
+ENDIF()
+
 ADD_LIBRARY(utils STATIC ${UTILS_SRC})
-target_link_libraries(utils PUBLIC qrupdate::qrupdate)
+target_link_libraries(utils PUBLIC ${QRUPDATE_TARGET})
 ADD_COVERAGE(utils)
 
 SET(TEST_PRGM
@@ -88,7 +94,7 @@ ENDIF()
 FOREACH(TEST_CODE ${TEST_PRGM})
     ADD_EXECUTABLE(${TEST_CODE} ${TEST_CODE}.f90)
     ADD_COVERAGE(${TEST_CODE})
-    TARGET_LINK_LIBRARIES(${TEST_CODE} utils qrupdate::qrupdate )
+    TARGET_LINK_LIBRARIES(${TEST_CODE} utils ${QRUPDATE_TARGET} LAPACK::LAPACK BLAS::BLAS )
     # set_target_properties(${TEST_CODE} PROPERTIES CROSSCOMPILING_EMULATOR "/usr/bin/wine")
     IF ( CMAKE_CROSSCOMPILING )
         IF ( CMAKE_SYSTEM_NAME MATCHES Windows)
