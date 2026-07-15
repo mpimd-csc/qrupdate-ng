@@ -53,6 +53,7 @@ standard options of CMAKE, the following ones are supported:
 | `-DFORTRAN_BOUND_CHECK=OFF/ON` | Enable the runtime bound checker.           |
 | `-DFORTRAN_SANITIZE=OFF/ON`    | Enable the runtime sanitizer.               |
 | `-DBUILD_SHARED_LIBS=ON/OFF`   | Enable building of shared libraries.        |
+| `-DBUILD_STATIC_LIBS=ON/OFF`   | Enable building of static libraries.        |
 
 The `FORTRAN_BOUND_CHECK` option is only supported for gfortran and ifort
 compilers. The `FORTRAN_SANITIZE` option can only be used with the gfortran
