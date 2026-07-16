@@ -44,7 +44,7 @@ build-almalinux:
 build-fedora:
   parallel:
     matrix:
-      - FEDORA_VERSION: ["40", "41", "42" ]
+      - FEDORA_VERSION: ["42", "43", "44" ]
   stage: build
   image: gitlab.mpi-magdeburg.mpg.de/ci-images/minimal/fedora:${FEDORA_VERSION}
   script:
