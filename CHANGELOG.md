@@ -1,6 +1,6 @@
 # Changelog
 
-## Upcoming Version
+## Version 1.2.0 (2026-07-16)
 
 * Require at least CMake 3.18
 * Documentation rewrite. Now, we use proper doxygen.
@@ -10,7 +10,7 @@
 * Make zdotc, zdotu, cdotc, and cdotu compatibel with different ABI's
 * add tests for parameter validation
 * add tests for (s|c|d|z)gqvec
-
+* Adjusted tolerance in tests, fix GH #4
 
 ## Old Changelog
 
