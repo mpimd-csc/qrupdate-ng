@@ -62,6 +62,21 @@ to other computers.
 
 The qrupdate-ng code includes a testsuite which can be executed by `make test`.
 
+## ILP64 Binaries
+
+If you need qrupdate-ng with 64 bit integers, i.e. the ILP64 integer model, you
+can add
+```
+-DINTEGER8=ON
+```
+to the cmake command line. Since this enables the `-fdefault-integer-8` flag
+(in case of the GNU compilers), this leads to warning during the compilation,
+since these types of flags are not compatible with the `iso_fortran_env` module.
+In future versions of qrupdate, the ILP64 build with be refactored to be
+portable and compatible with the `iso_fortran_env` module.
+
+**Attention**: Enabling the ILP64 build requires at least CMake 3.22
+
 ### Selecting individual BLAS and LAPACK libraries
 
 By default CMAKE uses the first BLAS and LAPACK library it finds on the system.
