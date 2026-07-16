@@ -79,6 +79,8 @@ program test_qrupdate_validation
     p_c = 0; p2_c = 0; p_z = 0; p2_z = 0
     x_s = 0; x_d = 0; x_c = 0; x_z = 0
 
+    call qrupdate_set_error(pxerbla)
+ 
     ! ====== Cholesky downdate ======
     ! sch1dn(n,R,ldr,u,w,info): validates n>=0, ldr>=n (negates info before xerror)
     call reset()
@@ -830,14 +832,16 @@ contains
         print '(A,A,A,I0)', 'PASS: ', trim(expected_name), ' info=', last_info
     end subroutine check_error
 
+    subroutine pxerbla(srname, info, aux)
+        use test_state
+        implicit none
+        character(len=*), intent(in) :: srname
+        integer, intent(in) :: info
+        class(*), intent(in), optional :: aux 
+        xerbla_called = .true.
+        last_srname = trim(srname)
+        last_info = info
+    end subroutine pxerbla
 end program test_qrupdate_validation
 
-subroutine xerbla(srname, info)
-    use test_state
-    implicit none
-    character(len=*), intent(in) :: srname
-    integer, intent(in) :: info
-    xerbla_called = .true.
-    last_srname = trim(srname)
-    last_info = info
-end subroutine xerbla
+

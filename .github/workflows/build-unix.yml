@@ -72,7 +72,7 @@ jobs:
     - name: Install basics (MacOS)
       if: ${{ matrix.os == 'macos-latest' }}
       run: |
-          brew install lapack
+          brew install openblas
 
     - name: Use GCC on MacOS
       if: ${{ matrix.os == 'macos-latest' }}
@@ -80,8 +80,8 @@ jobs:
         cmake -B build -G Ninja
         -D CMAKE_C_COMPILER="gcc"
         -D CMAKE_Fortran_COMPILER="gfortran"
-        -D CMAKE_PREFIX_PATH="/opt/homebrew/opt/lapack"
-        -D BLA_VENDOR=Generic
+        -D CMAKE_PREFIX_PATH="/opt/homebrew/opt/openblas"
+        -D BLA_VENDOR=OpenBLAS
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
