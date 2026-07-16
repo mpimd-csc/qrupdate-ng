@@ -59,6 +59,7 @@ program test_qrupdate_validation
     complex(real32) :: p_c(n), p2_c(n), p_z(n), p2_z(n)
     real(real32) :: x_s(n), x_d(n), x_c(n), x_z(n)
     character(len=1) :: dir
+    procedure(error_handler_if), pointer :: p_handler
 
     print *, 'Testing input validation for all qrupdate functions...'
 
@@ -79,8 +80,9 @@ program test_qrupdate_validation
     p_c = 0; p2_c = 0; p_z = 0; p2_z = 0
     x_s = 0; x_d = 0; x_c = 0; x_z = 0
 
-    call qrupdate_set_error(pxerbla)
- 
+    p_handler => pxerbla
+    call qrupdate_set_error(p_handler)
+
     ! ====== Cholesky downdate ======
     ! sch1dn(n,R,ldr,u,w,info): validates n>=0, ldr>=n (negates info before xerror)
     call reset()
@@ -837,7 +839,7 @@ contains
         implicit none
         character(len=*), intent(in) :: srname
         integer, intent(in) :: info
-        class(*), intent(in), optional :: aux 
+        class(*), intent(in), optional :: aux
         xerbla_called = .true.
         last_srname = trim(srname)
         last_info = info
