@@ -1,8 +1,8 @@
 # code.ini
 name: qrupdate-ng
 shortname: qrupdate-ng
-version: 1.1.90
-release-date: 2026-05-28
+version: 1.2.0
+release-date: 2026-07-16
 id: https://github.com/mpimd-csc/qrupdate-ng
 id-type: url
 author: Martin Koehler, Christian Himpe

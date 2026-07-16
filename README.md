@@ -3,7 +3,7 @@ qrupdate-ng
 
 A Library for Fast Updating of QR, Cholesky, and LU  Decompositions
 
-Version: 1.1.90 (2026-05-28)
+Version: 1.2.0 (2026-07-16)
 
 * Authors: M. Koehler (0000-0003-2338-9904), C. Himpe (0000-0003-2194-6754)
 * Original Author: Jaroslav Hajek (VZLU Prague)
