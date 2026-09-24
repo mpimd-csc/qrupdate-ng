@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 1.3.0 (TBA, in development)
+
+* Fix: Documentation bug in chinx, see GH #8
+
+
 ## Version 1.2.0 (2026-07-16)
 
 * Require at least CMake 3.18

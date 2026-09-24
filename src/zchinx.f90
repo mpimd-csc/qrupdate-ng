@@ -85,7 +85,7 @@
 !>
 !> \param[out] rw
 !> \verbatim
-!>          rw is DOUBLE PRECISION array, dimension (n+1)
+!>          rw is DOUBLE PRECISION array, dimension (n)
 !>          Workspace vector used to store rotation cosines during
 !>          the retriangularization.
 !> \endverbatim

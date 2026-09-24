@@ -85,7 +85,7 @@
 !>
 !> \param[out] w
 !> \verbatim
-!>          w is DOUBLE PRECISION array, dimension (n+1)
+!>          w is DOUBLE PRECISION array, dimension (n)
 !>          Workspace vector used during the retriangularization.
 !> \endverbatim
 !>
