@@ -2,6 +2,9 @@
 
 ## Version 1.3.0 (TBA, in development)
 
+* New: Native C interface
+* Fix: Compilation issues with LLVM Flang >= 23
+* Add: Error handling interface can now be used from C.
 * Fix: Documentation bug in chinx, see GH #8
 
 

@@ -1,3 +1,5 @@
 build*
 *.swp
 *.tar.*
+__pycache__
+.cache

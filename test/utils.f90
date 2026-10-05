@@ -277,7 +277,7 @@ character*4 function dpftol(rnrm)
     end if
 end function
 
-subroutine pstats
+subroutine pstats()
     common /stats/ passed,failed
     integer passed,failed
 

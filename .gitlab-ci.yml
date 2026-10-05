@@ -44,7 +44,7 @@ build-almalinux:
 build-fedora:
   parallel:
     matrix:
-      - FEDORA_VERSION: ["42", "43", "44" ]
+      - FEDORA_VERSION: ["42", "43", "44", "rawhide" ]
   stage: build
   image: gitlab.mpi-magdeburg.mpg.de/ci-images/minimal/fedora:${FEDORA_VERSION}
   script:
@@ -85,7 +85,36 @@ build-intel:
     - make
     - ctest -V
 
+build-llvm:
+  parallel:
+    matrix:
+      - LLVM_VERSION: [ "21", "22", "23" ]
+  stage: build
+  needs: []
+  image: gitlab.mpi-magdeburg.mpg.de/ci-images/llvm-compiler/resolute:${LLVM_VERSION}
+  script:
+    - apt update && apt install --yes libopenblas-dev libblas-dev liblapack-dev
+    - mkdir -p build
+    - cd build
+    - cmake ../ -DDEBUG=ON
+    - make
+    - ctest -V
 
+build-nvhpc:
+  parallel:
+    matrix:
+      - NVHPC_VERSION: [ "26.1", "26.9" ]
+  tags:
+    - haswell
+  stage: build
+  needs: []
+  image: gitlab.mpi-magdeburg.mpg.de/ci-images/nvidia-compiler/noble:${NVHPC_VERSION}
+  script:
+    - mkdir -p build
+    - cd build
+    - cmake ../ -DDEBUG=ON -DBLA_VENDOR=NVHPC
+    - make
+    - ctest -V
 
 coverage:
   image: gitlab.mpi-magdeburg.mpg.de/ci-images/minimal/ubuntu:noble
@@ -104,27 +133,22 @@ coverage:
 
 
 cross-win32:
+  parallel:
+    matrix:
+      - UBUNTU_VERSION: [ "noble" ]
   stage: build
-  image: gitlab.mpi-magdeburg.mpg.de/ci-images/minimal/mingw:focal
+  image: gitlab.mpi-magdeburg.mpg.de/ci-images/minimal/mingw:${UBUNTU_VERSION}
   script:
     - bash ./tools/ci/cross-win32.sh
 
 cross-win64:
+  parallel:
+    matrix:
+      - UBUNTU_VERSION: [ "noble", "resolute" ]
   stage: build
-  image: gitlab.mpi-magdeburg.mpg.de/ci-images/minimal/mingw:focal
+  image: gitlab.mpi-magdeburg.mpg.de/ci-images/minimal/mingw:${UBUNTU_VERSION}
   script:
     - bash ./tools/ci/cross-win64.sh
 
-cross-win32-jammy:
-  stage: build
-  image: gitlab.mpi-magdeburg.mpg.de/ci-images/minimal/mingw:jammy
-  script:
-    - bash ./tools/ci/cross-win32.sh
-
-cross-win64-jammy:
-  stage: build
-  image: gitlab.mpi-magdeburg.mpg.de/ci-images/minimal/mingw:jammy
-  script:
-    - bash ./tools/ci/cross-win64.sh
 
 

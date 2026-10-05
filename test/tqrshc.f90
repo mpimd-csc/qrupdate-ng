@@ -18,6 +18,8 @@
 ! <http://www.gnu.org/licenses/>.
 !
 program tqrshc
+    use iso_fortran_env
+    implicit none
     integer m,n,i,j
     external stest, dtest, ctest, ztest, pstats
 

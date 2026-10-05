@@ -45,7 +45,6 @@ IF(CMAKE_Fortran_COMPILER_ID STREQUAL "GNU")
 
     # Standard Flags
     ADD_FORTRAN_COMPILER_FLAG(CMAKE_Fortran_FLAGS "-frecursive")
-    ADD_FORTRAN_COMPILER_FLAG(CMAKE_Fortran_FLAGS "-fPIC")
     ADD_FORTRAN_COMPILER_FLAG(CMAKE_Fortran_FLAGS "-fimplicit-none")
     # Debug Flags
     ADD_FORTRAN_COMPILER_FLAG(CMAKE_Fortran_FLAGS_DEBUG "-Wimplicit-procedure")
@@ -89,7 +88,7 @@ ELSEIF(CMAKE_Fortran_COMPILER_ID STREQUAL "Intel")
     ENDIF()
 
     SET(CMAKE_Fortran_FLAGS_DEBUG "${CMAKE_Fortran_FLAGS_DEBUG} -warn -g -warn nointerfaces  ${_BC} -traceback -debug all")
-    SET(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -recursive -fpic -fPIC -heap-arrays 64 ")
+    SET(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -recursive -heap-arrays 64 ")
     SET(CMAKE_Fortran_FLAGS_RELEASE "${CMAKE_Fortran_FLAGS_RELEASE} -O3 -funroll-loops")
 
     IF(HOSTOPT STREQUAL ON)
@@ -107,7 +106,7 @@ ELSEIF(CMAKE_Fortran_COMPILER_ID STREQUAL "PGI")
     # PGI
     SET(CMAKE_Fortran_FLAGS_RELEASE "${CMAKE_Fortran_FLAGS_RELEASE} -O4 ")
     SET(CMAKE_Fortran_FLAGS_DEBUG "${CMAKE_Fortran_FLAGS_DEBUG} -g -Minfo=all")
-    SET(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -fPIC -fpic -Mnoipa")
+    SET(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -Mnoipa")
     IF(INTEGER8 STREQUAL ON)
         SET(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -i8")
     ENDIF()

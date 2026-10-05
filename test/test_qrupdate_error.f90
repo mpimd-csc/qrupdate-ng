@@ -34,7 +34,6 @@ program test_qrupdate_error
 
     type(aux_data), target :: my_data
     class(*), pointer :: p_aux_data
-    procedure(error_handler_if), pointer :: p_handler
 
     print *, 'Running qrupdate_error tests...'
 
@@ -49,8 +48,7 @@ program test_qrupdate_error
 
     ! Test 2: Custom handler without auxiliary data
     call reset()
-    p_handler => my_custom_handler
-    call qrupdate_set_error(p_handler)
+    call qrupdate_set_error(my_custom_handler)
     call qrupdate_xerror('CUSTOM_ROUTINE', 123)
     if (.not. custom_handler_called) then
         print *, 'Test 2 Failed: Custom handler was not called'
@@ -77,8 +75,7 @@ program test_qrupdate_error
 
     ! Test 4: Overwriting handler
     call reset()
-    p_handler => my_other_handler
-    call qrupdate_set_error(p_handler)
+    call qrupdate_set_error(my_other_handler)
     call qrupdate_xerror('OTHER_ROUTINE', 1)
     if (call_count /= 1) then
         print *, 'Test 4 Failed: Incorrect call count for other handler'
@@ -96,11 +93,11 @@ contains
         integer, intent(in) :: info
         class(*), optional, intent(in) :: aux
 
- 
-        if (present(aux)) then 
+
+        if (present(aux)) then
             call_count = call_count
-        endif        
-        print *, 'my_custom_handler called from ', srname, ' with ', info 
+        endif
+        print *, 'my_custom_handler called from ', srname, ' with ', info
 
         custom_handler_called = .true.
         last_srname = srname
@@ -114,10 +111,10 @@ contains
         integer, intent(in) :: info
         class(*), optional, intent(in) :: aux
 
-        if (present(aux)) then 
+        if (present(aux)) then
             call_count = call_count
-        endif 
-        print *, 'my_other_handler called from ', srname, ' with ', info 
+        endif
+        print *, 'my_other_handler called from ', srname, ' with ', info
         custom_handler_called = .true.
         call_count = call_count + 1
     end subroutine my_other_handler

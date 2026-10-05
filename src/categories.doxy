@@ -5,15 +5,27 @@
 
 This group provides routines for modifying the original matrix via rank-1 updates, row/column insertions, deletions, or shifts, and updating the corresponding orthogonal matrix Q and upper trapezoidal matrix R without recomputing the entire decomposition from scratch. It supports both full and economized QR factorizations and relies on Givens rotations for maintaining the triangular structure of the R matrix.
 
+\defgroup c_qrdecomp C Interface for QR Decompositions
+\brief C Interface for the QR Decomposition updates.
+\ingroup qrdecomp
+
 \defgroup choldecomp Cholesky Decomposition
 \brief Routines for the Cholesky factorization of symmetric positive definite matrices and their updates.
 
 This group implements methods to update the Cholesky factorization after matrix modifications, including rank-1 updates, downdates, and symmetric updates for column/row insertion, deletion, and circular shifts. The updates use Givens rotations to restore the upper triangular form of the factor.
 
+\defgroup c_choldecomp C Interface for the Cholesky Decomposition
+\brief C Inteface for the Cholesky decomposition updates.
+\ingroup choldecomp
+
 \defgroup ludecomp LU Decomposition
 \brief Routines for updating the LU factorization of a matrix after a rank-1 modification.
 
 This group provides both standard LU updates and pivoted LU updates (handling row permutations for stability). The updates are implemented using the Bennett algorithm, which is significantly more efficient than full re-decomposition.
+
+\defgroup c_ludecomp C Interface for LU Decomposition
+\brief C Interface for the LU factorization updates.
+\ingroup ludecomp
 
 \defgroup aux Auxilliary Subroutines
 \brief Collection of helper routines for basic linear algebra and specialized vector operations.
@@ -27,12 +39,9 @@ As a foundational component, this group implements the primary mechanism for mai
 \ingroup aux
 
 \defgroup error Error Handling
-\brief Routines for error handling.
 
-Since qrupdate 1.2.0, the way of handling errors changed a bit. Instead of
-calling xerbla from LAPACK/BLAS, a user defined handler can registered. If this
-is not done, xerbla is called as before. See \ref qrupdate_set_error for
-details.
+\copydoc qrupdate_error
+
 \ingroup aux
 
 */

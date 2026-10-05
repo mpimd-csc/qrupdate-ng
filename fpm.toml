@@ -14,12 +14,14 @@ implicit-external = true
 
 [build]
 auto-executables = false
-auto-tests = true
 auto-examples = false
+auto-tests = false
 module-naming    = "qrupdate"
 
 [library]
 source-dir = "src"
+include-dir = ["src", "src/fpm_include" ]
+
 
 [install]
 library = true

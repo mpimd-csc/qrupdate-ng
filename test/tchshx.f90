@@ -1,4 +1,6 @@
 program tchshx
+    use iso_fortran_env
+    implicit none
     integer n,i,j
     external stest, dtest, ctest, ztest, pstats
 
