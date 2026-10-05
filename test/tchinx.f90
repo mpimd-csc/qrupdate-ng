@@ -18,6 +18,8 @@
 ! <http://www.gnu.org/licenses/>.
 !
 program tchinx
+    use iso_fortran_env
+    implicit none
     integer n,j
     external stest, dtest, ctest, ztest, pstats
 

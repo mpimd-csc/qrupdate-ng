@@ -18,6 +18,8 @@
 ! <http://www.gnu.org/licenses/>.
 !
 program tch1dn
+    use iso_fortran_env
+    implicit none
     integer n
     external stest, dtest, ctest, ztest, pstats
 

@@ -1,0 +1,8 @@
+CompileFlags:
+  CompilationDatabase: build/
+  Add:
+    - -I./src
+    - -I./build/src
+Diagnostics:
+  Suppress:
+    - unused-includes

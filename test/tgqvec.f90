@@ -1,3 +1,4 @@
+! Copyright (C) 2008, 2009  VZLU Prague, a.s., Czech Republic, Jaroslav Hajek <highegg@gmail.com>
 ! Copyright (C) 2026 Martin Köhler <koehlerm(AT)mpi-magdeburg.mpg.de>
 !
 ! This file is part of qrupdate-ng.
@@ -21,9 +22,6 @@ program tgqvec
     implicit none
     integer :: m, n, passed, failed
     integer :: i
-    real(real32) :: slamch
-    real(real64) :: dlamch
-    external :: slamch, dlamch
 
     common /stats/ passed, failed
     passed = 0
@@ -78,9 +76,9 @@ program tgqvec
 
     1000 format(70('-'))
     1001 format('total:', 1x, 'PASSED', 1x, I6, 1x, 'FAILED', 1x, I6)
-end program tgqvec
 
-! Convert integer to string
+contains
+
 subroutine int2str(n, s)
     integer, intent(in) :: n
     character(len=*), intent(out) :: s
@@ -99,8 +97,7 @@ subroutine stest(m, n)
     integer :: passed, failed
     common /stats/ passed, failed
 
-    external :: sgqvec, srandg, sqrgen, slamch
-    real(real32) :: sdot, snrm2
+    external :: sgqvec, srandg, sqrgen, slamch, sdot, snrm2
 
     allocate(A(m, m), Q(m, m), R(m, m), u(m), Qcheck(m+3, m))
 
@@ -150,8 +147,7 @@ subroutine dtest(m, n)
     integer :: passed, failed
     common /stats/ passed, failed
 
-    external :: dgqvec, drandg, dqrgen, dlamch
-    real(real64) :: ddot, dnrm2
+    external :: dgqvec, drandg, dqrgen, dlamch, ddot, dnrm2
 
     allocate(A(m, m), Q(m, m), R(m, m), u(m), Qcheck(m+3, m))
 
@@ -770,3 +766,5 @@ subroutine check_unit_norm_z(m, u, tol, label)
     return
     1001 format('   ', A, 1x, A10, E12.4, 1x, A4)
 end subroutine check_unit_norm_z
+
+end program tgqvec

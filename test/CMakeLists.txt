@@ -1,4 +1,4 @@
-SET(UTILS_SRC utils.f90 test_state.f90)
+SET(UTILS_SRC utils.f90 test_state.f90 c_interface/ctest_error_handler.f90)
 
 IF (NOT BUILD_SHARED_LIBS)
     SET(QRUPDATE_TARGET qrupdate::qrupdate_static)
@@ -95,7 +95,7 @@ FOREACH(TEST_CODE ${TEST_PRGM})
     ADD_EXECUTABLE(${TEST_CODE} ${TEST_CODE}.f90)
     ADD_COVERAGE(${TEST_CODE})
     TARGET_LINK_LIBRARIES(${TEST_CODE} utils ${QRUPDATE_TARGET} LAPACK::LAPACK BLAS::BLAS )
-    if (APPLE) 
+    if (APPLE)
 	SET_TARGET_PROPERTIES(${TEST_CODE} PROPERTIES LINK_FLAGS "-flat_namespace")
     endif()
     # set_target_properties(${TEST_CODE} PROPERTIES CROSSCOMPILING_EMULATOR "/usr/bin/wine")
@@ -115,4 +115,47 @@ FOREACH(TEST_CODE ${TEST_PRGM})
     ENDIF()
 
 ENDFOREACH()
+
+# C interface tests
+IF (QRUPDATE_C_INTERFACE)
+    SET(TEST_C_PRGM
+        tch1dn_c
+        tch1up_c
+        tchdex_c
+        tchinx_c
+        tchshx_c
+        tlu1up_c
+        tlup1up_c
+        tqr1up_c
+        tqrdec_c
+        tqrder_c
+        tqrinc_c
+        tqrinr_c
+        tqrshc_c
+        tgqvec_c
+        test_validation_c
+    )
+
+    FOREACH(TEST_CODE ${TEST_C_PRGM})
+        ADD_EXECUTABLE(${TEST_CODE} c_interface/${TEST_CODE}.c)
+        ADD_COVERAGE(${TEST_CODE})
+        TARGET_LINK_LIBRARIES(${TEST_CODE} utils ${QRUPDATE_TARGET} LAPACK::LAPACK BLAS::BLAS m)
+        if (APPLE)
+            SET_TARGET_PROPERTIES(${TEST_CODE} PROPERTIES LINK_FLAGS "-flat_namespace")
+        endif()
+        IF ( CMAKE_CROSSCOMPILING )
+            IF ( CMAKE_SYSTEM_NAME MATCHES Windows)
+                ADD_TEST(NAME test_${TEST_CODE} COMMAND ${TEST_CODE})
+                SET_TESTS_PROPERTIES(test_${TEST_CODE} PROPERTIES ENVIRONMENT "WINEPATH=${WINEPATH}")
+            ELSE()
+                MESSAGE(WARNING "Cross-Compile checks are only possible from Linux to Windows.")
+            ENDIF()
+        ELSE ()
+            ADD_TEST(NAME test_${TEST_CODE} COMMAND ${TEST_CODE})
+            IF ( ADDPATH )
+                SET_TESTS_PROPERTIES(test_${TEST_CODE} PROPERTIES ENVIRONMENT "PATH=${ADDPATH}:$ENV{PATH}")
+            ENDIF()
+        ENDIF()
+    ENDFOREACH()
+ENDIF()
 

@@ -18,6 +18,8 @@
 ! <http://www.gnu.org/licenses/>.
 !
 program tlu1up
+    use iso_fortran_env
+    implicit none
     integer m,n
     external stest, dtest, ctest, ztest, pstats
 

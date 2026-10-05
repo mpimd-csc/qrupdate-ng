@@ -1,0 +1,11 @@
+prefix=@CMAKE_INSTALL_PREFIX@
+exec_prefix=@CMAKE_INSTALL_PREFIX@
+includedir=@CMAKE_INSTALL_FULL_INCLUDEDIR@
+libdir=@CMAKE_INSTALL_FULL_LIBDIR@
+
+Name: qrupdate
+Description: The qrupdate library
+Version: @PROJECT_VERSION@
+Requires: blas, lapack
+Cflags: -I${includedir}/qrupdate -DQRUPDATE_STATIC
+Libs: -L${libdir} -l:libqrupdate.a

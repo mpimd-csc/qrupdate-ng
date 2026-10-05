@@ -45,15 +45,17 @@ The default installation of qrupdate-ng is done by
 The installation can adjusted with the help of the CMAKE options. Beside the
 standard options of CMAKE, the following ones are supported:
 
-| **Option**                     | **Description**                             |
-|--------------------------------|---------------------------------------------|
-| `-DDEBUG=OFF/ON`               | Enable the debug build.                     |
-| `-DHOSTOPT=OFF/ON`             | Enable host specific compiler flags.        |
-| `-DENABLE_COVERAGE=OFF/ON`     | Enable code coverage.                       |
-| `-DFORTRAN_BOUND_CHECK=OFF/ON` | Enable the runtime bound checker.           |
-| `-DFORTRAN_SANITIZE=OFF/ON`    | Enable the runtime sanitizer.               |
-| `-DBUILD_SHARED_LIBS=ON/OFF`   | Enable building of shared libraries.        |
-| `-DBUILD_STATIC_LIBS=ON/OFF`   | Enable building of static libraries.        |
+| **Option**                         | **Description**                                |
+|------------------------------------|------------------------------------------------|
+| `-DDEBUG=OFF/ON`                   | Enable the debug build.                        |
+| `-DHOSTOPT=OFF/ON`                 | Enable host specific compiler flags.           |
+| `-DENABLE_COVERAGE=OFF/ON`         | Enable code coverage.                          |
+| `-DFORTRAN_BOUND_CHECK=OFF/ON`     | Enable the runtime bound checker.              |
+| `-DFORTRAN_SANITIZE=OFF/ON`        | Enable the runtime sanitizer.                  |
+| `-DBUILD_SHARED_LIBS=ON/OFF`       | Enable building of shared libraries.           |
+| `-DBUILD_STATIC_LIBS=ON/OFF`       | Enable building of static libraries.           |
+| `-DQRUPDATE_C_INTERFACE=ON/OFF`    | Enable the native C interface                  |
+| `-DQRUPDATE_STATIC_WITH_PIC=ON/OFF | Enable building of static libraries with -fPIC |
 
 The `FORTRAN_BOUND_CHECK` option is only supported for gfortran and ifort
 compilers. The `FORTRAN_SANITIZE` option can only be used with the gfortran
