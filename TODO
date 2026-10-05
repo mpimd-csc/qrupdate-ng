@@ -1,7 +1,7 @@
 # TODO
 
-* Fix Code smells
+* Fix Code smells (almost done)
 * Profile and improve performance?
-* Add minimal "getting started" examples?
+* Add minimal "getting started" examples? (some examples for the error handler added)
 * 64-Bit integer support
 * ...

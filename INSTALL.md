@@ -1,12 +1,12 @@
 Installation Notes
 ==================
 
-The library is written in Fortran. It is Fortran-90/95-compliant. Fortran 77
+The library is written in Fortran. It is Fortran-2003/2008. Fortran 77/90/95
 compilers are no longer supported. This includes the f2c translator as well.
 
 ## Requirements
 
-The library requires a Fortran 90/95 compiler, BLAS, and LAPACK. The following
+The library requires a Fortran 2003/2008 compiler, BLAS, and LAPACK. The following
 compilers and BLAS/LAPACK implementations are tested under Linux. Other
 operating systems, which are supported by CMAKE, should work as well.
 
@@ -14,9 +14,12 @@ operating systems, which are supported by CMAKE, should work as well.
 
 Tested Fortran compilers:
 
- * GNU gfortran >= 9.3
+ * GNU gfortran >= 11
  * Intel ifort >= 18.0.1
  * Intel oneAPI ifx >= 2024
+ * LLVM/Clang/FLang >= 20
+ * AMD AOCC => 5.1
+ * NVidia HPC >= 24.x
 
 The AMD AOCC 5.x compiler compiles the code, but the generated code may contain
 invalid memory accesses. Please check carefully if the required routines work
