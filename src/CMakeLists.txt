@@ -254,8 +254,8 @@ if (BUILD_SHARED_LIBS)
             "${CMAKE_CURRENT_SOURCE_DIR}/qrupdate.h")
     endif()
 
-    if (CMAKE_SYSTEM_NAME MATCHES "Windows")
-        set_target_properties(qrupdate PROPERTIES LINK_FLAGS "-Wl,--export-all-symbols")
+    if (CMAKE_SYSTEM_NAME MATCHES "Windows" OR CYGWIN)
+	set_target_properties(qrupdate PROPERTIES LINK_FLAGS "-Wl,--export-all-symbols")
     endif()
 endif()
 
