@@ -1,0 +1,74 @@
+name: Build on Windows with MSYS2
+
+on:
+  push:
+    branches:
+    - master
+    - cygwintest
+    paths:
+    - .github/workflows/*.yml
+    - '**CMakeLists.txt'
+    - 'cmake/**'
+    - 'test/**'
+    - 'src/**'
+    - '!**Makefile'
+    - '!**md'
+  pull_request:
+    paths:
+    - .github/workflows/*.yml
+    - '**CMakeLists.txt'
+    - 'cmake/**'
+    - 'test/**'
+    - 'src/**'
+    - '!**Makefile'
+    - '!**md'
+
+permissions:
+  contents: read
+
+jobs:
+
+  test-install-release:
+    runs-on: windows-latest
+    env:
+      BUILD_TYPE: Release
+
+    name: Build on Cygwin
+    steps:
+    - run: git config --global core.autocrlf input
+    - name: '🧰 Checkout QR Update'
+      uses: actions/checkout@v7
+      with:
+        fetch-depth: 0
+        persist-credentials: false
+    - name: Install Cygwin
+      uses: cygwin/cygwin-install-action@v6
+      with:
+        packages: |
+          gcc
+          gcc-fortran
+          cmake
+          make
+          ninja
+          liblapack-devel
+          liblapack0
+    - name: Configure CMake
+      # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
+      # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
+      run: >
+        cmake -B build -G Ninja
+        -D CMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+        -D CMAKE_INSTALL_PREFIX=${{github.workspace}}/install
+        -D QRUPDATE_DOCS=OFF
+
+    - name: '🚧 Build'
+      run: |
+        cmake --build build --config ${{env.BUILD_TYPE}}
+    - name: Test
+      working-directory: ${{github.workspace}}/build
+      run: ctest -C ${{env.BUILD_TYPE}} --schedule-random -j2 --output-on-failure --timeout 100
+
+    - name: Install
+      run: cmake --build build --target install -j2
+
+#

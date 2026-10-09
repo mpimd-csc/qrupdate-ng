@@ -59,6 +59,7 @@ standard options of CMAKE, the following ones are supported:
 | `-DBUILD_STATIC_LIBS=ON/OFF`       | Enable building of static libraries.           |
 | `-DQRUPDATE_C_INTERFACE=ON/OFF`    | Enable the native C interface                  |
 | `-DQRUPDATE_STATIC_WITH_PIC=ON/OFF | Enable building of static libraries with -fPIC |
+| `-DQRUPDATE_DOCS=ON/OFF`           | Build the documentation of Doxygen is found    |
 
 The `FORTRAN_BOUND_CHECK` option is only supported for gfortran and ifort
 compilers. The `FORTRAN_SANITIZE` option can only be used with the gfortran

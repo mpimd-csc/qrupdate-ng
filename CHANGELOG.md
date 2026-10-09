@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 1.3.1 (TBA)
+
+* Fix: Dynamic linkage under Cygwin, see GH #9
+
 ## Version 1.3.0 (2026-10-05)
 
 * New: Native C interface
