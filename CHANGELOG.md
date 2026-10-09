@@ -1,6 +1,6 @@
 # Changelog
 
-## Version 1.3.1 (TBA)
+## Version 1.3.1 (2026-10-09)
 
 * Fix: Dynamic linkage under Cygwin, see GH #9
 * Fix: Correct passing of the optional argument in the error handler.
