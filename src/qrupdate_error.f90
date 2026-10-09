@@ -433,7 +433,11 @@ contains
         end interface
 
         if (.not. set_from_c .and.associated(global_error_handler)) then
-            call global_error_handler(trim(srname), info, global_error_aux)
+            if (.not. associated(global_error_aux)) then
+                call global_error_handler(trim(srname), info)
+            else
+                call global_error_handler(trim(srname), info, global_error_aux)
+            end if
             return
         end if
         if (set_from_c .and.associated(global_error_handler_c)) then
