@@ -17,6 +17,7 @@ OPTION(BUILD_STATIC_LIBS "Build static libraries" ON)
 OPTION(DEBUG "Enable Debug Symbol generation" OFF)
 OPTION(QRUPDATE_C_INTERFACE "Build the C inteface" ON)
 OPTION(QRUPDATE_STATIC_WITH_PIC "Build static library with -fPIC" ON)
+OPTION(QRUPDATE_DOCS "Build documentation if doxygen is available" ON)
 
 if (NOT ( BUILD_SHARED_LIBS OR BUILD_STATIC_LIBS  ) )
     MESSAGE(FATAL_ERROR "Either BUILD_SHARED_LIBS or BUILD_STATIC_LIBS must be set to ON.")
@@ -66,7 +67,9 @@ IF( CMAKE_Fortran_COMPILER_ID STREQUAL "XL")
 ENDIF()
 
 # Find Doxygen
-find_package(Doxygen OPTIONAL_COMPONENTS dot)
+if (QRUPDATE_DOCS)
+    find_package(Doxygen OPTIONAL_COMPONENTS dot)
+endif()
 
 if (INTEGER8 STREQUAL ON)
     cmake_minimum_required(VERSION 3.22)
