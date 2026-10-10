@@ -423,7 +423,7 @@ contains
     subroutine qrupdate_xerror(srname, info)
         character(len=*), intent(in) :: srname
         integer, intent(in) :: info
-        integer :: c_info
+        integer(c_int) :: c_info
 
         interface
             subroutine xerbla(name, code)
