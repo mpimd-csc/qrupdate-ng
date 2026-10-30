@@ -42,7 +42,7 @@ jobs:
         fetch-depth: 0
         persist-credentials: false
     - name: Install Cygwin
-      uses: cygwin/cygwin-install-action@v6
+      uses: cygwin/cygwin-install-action@v7
       with:
         packages: |
           gcc
